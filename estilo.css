@@ -23,6 +23,7 @@ body {
   height: 100%;
   pointer-events: none;
   opacity: 0.82;
+  
 }
 
 /* Estructura principal */
@@ -48,6 +49,7 @@ body {
   justify-items: center;
   gap: clamp(1rem, 2vw, 2rem);
   text-align: center;
+  transform: translateY(-6vh);
 }
 
 /* Imágenes de la portada */
@@ -65,7 +67,45 @@ body {
 
 .imagen-oreja {
   align-self: end;
-  max-height: 55vh;
+  justify-self: end;
+  width: 125%;
+  max-height: 68vh;
+  transform: translate(23%, 18%);
+  z-index: 2;
+}
+
+.sonido-portada {
+  position: absolute;
+  right: 8%;
+  bottom: -12%;
+  z-index: 1;
+  width: min(52vw, 680px);
+  height: min(34vh, 300px);
+  pointer-events: none;
+}
+
+.sonido-portada img {
+  position: absolute;
+  display: block;
+  object-fit: contain;
+}
+
+.onda-horizontal {
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.linea-angular {
+  left: 0;
+  bottom: 0;
+  width: 78%;
+}
+
+.onda-secundaria {
+  left: 20%;
+  bottom: 3%;
+  width: 60%;
 }
 
 /* Texto central */
@@ -128,6 +168,7 @@ body {
 
   .texto-portada {
     grid-row: 1;
+    transform: none;
   }
 
   .imagen-chica {
@@ -140,10 +181,22 @@ body {
 
   .imagen-oreja {
     position: absolute;
-    right: -3rem;
-    bottom: 0;
-    width: 35vw;
-    max-height: 25vh;
+    right: -5rem;
+    bottom: -2rem;
+    width: 43vw;
+    max-height: 32vh;
+    transform: none;
+  }
+
+  .sonido-portada {
+    right: 4%;
+    bottom: -5%;
+    width: 65vw;
+    height: 24vh;
+  }
+
+  .onda-secundaria {
+    left: 18%;
   }
 
   .titulo {
