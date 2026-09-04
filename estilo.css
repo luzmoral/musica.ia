@@ -28,18 +28,23 @@ body {
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
   color: white;
   font-family: "Montserrat", sans-serif;
 }
 
 .contenido p {
   margin: 0;
+}
+
+.titulo {
   max-width: min(92vw, 780px);
   padding: 1rem;
   text-align: center;
-  font-family: "Montserrat", sans-serif;
   font-size: clamp(2.25rem, 6vw, 5.25rem);
   font-weight: 700;
   line-height: 0.98;
@@ -48,7 +53,20 @@ body {
   text-shadow: 0.08em 0.08em 0 #a63f2f;
 }
 
-.frase-ia{
+.subtitulo {
+  width: min(88vw, 820px);
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(0.95rem, 1.5vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
+  text-wrap: balance;
+  color: #ffffff;
+  text-shadow: 0.04em 0.04em 0 #a63f2f;
+}
+
+.frase-ia {
   color: #e86f3d;
 }
 
