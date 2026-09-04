@@ -14,6 +14,7 @@ body {
   background: #08070c url("imagenes/fondo.png") center / cover no-repeat fixed;
 }
 
+/* Fondo animado */
 #aurora {
   position: fixed;
   inset: 0;
@@ -24,21 +25,54 @@ body {
   opacity: 0.82;
 }
 
+/* Estructura principal */
 .contenido {
   position: relative;
   z-index: 1;
   min-height: 100vh;
   display: grid;
-  place-items: center;
+  grid-template-columns: minmax(190px, 30vw) minmax(320px, 1fr) minmax(190px, 29vw);
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 2rem);
+  padding: 2rem clamp(1rem, 3vw, 4rem) 0;
   color: white;
   font-family: "Montserrat", sans-serif;
 }
 
-.contenido p { 
+.contenido p {
   margin: 0;
-  max-width: min(92vw, 780px);
-  padding: 1rem;
+}
+
+.texto-portada {
+  display: grid;
+  justify-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
   text-align: center;
+}
+
+/* Imágenes de la portada */
+.imagen-portada {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.imagen-chica {
+  align-self: end;
+  max-height: 88vh;
+}
+
+.imagen-oreja {
+  align-self: end;
+  max-height: 55vh;
+}
+
+/* Texto central */
+.titulo {
+  max-width: 780px;
+  padding: 1rem;
+  text-align: left;
   font-family: "Montserrat", sans-serif;
   font-size: clamp(2.25rem, 6vw, 5.25rem);
   font-weight: 700;
@@ -46,33 +80,93 @@ body {
   letter-spacing: -0.04em;
   text-wrap: balance;
   text-shadow: 0.08em 0.08em 0 #a63f2f;
+  transform: translateX(clamp(-10rem, -10vw, -3rem));
 }
 
-.frase-ia{
+.titulo-linea {
+  display: block;
+  white-space: nowrap;
+}
+
+.titulo-linea:nth-child(2) {
+  margin-left: 12%;
+}
+
+.titulo-linea:nth-child(3) {
+  margin-left: 25%;
+}
+
+.titulo-linea:nth-child(4) {
+  margin-left: 38%;
+}
+
+.subtitulo {
+  max-width: 560px;
+  padding: 0 1rem;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-shadow: none;
+  transform: translateX(clamp(-6rem, -6vw, -2rem));
+}
+
+.frase-ia {
   color: #e86f3d;
 }
 
-.jersey-10-regular {
-  font-family: "Jersey 10", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 760px) {
+  .contenido {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 0.5rem;
+    padding-top: 1rem;
+  }
 
-.mina-regular {
-  font-family: "Mina", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
+  .texto-portada {
+    grid-row: 1;
+  }
 
-.mina-bold {
-  font-family: "Mina", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
+  .imagen-chica {
+    position: absolute;
+    left: -5rem;
+    bottom: -2rem;
+    width: 52vw;
+    max-height: 48vh;
+  }
 
-.montserrat {
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
+  .imagen-oreja {
+    position: absolute;
+    right: -3rem;
+    bottom: 0;
+    width: 35vw;
+    max-height: 25vh;
+  }
+
+  .titulo {
+    max-width: 94vw;
+    font-size: clamp(2rem, 10vw, 4rem);
+    transform: none;
+  }
+
+  .titulo-linea:nth-child(2) {
+    margin-left: 7%;
+  }
+
+  .titulo-linea:nth-child(3) {
+    margin-left: 14%;
+  }
+
+  .titulo-linea:nth-child(4) {
+    margin-left: 21%;
+  }
+
+  .subtitulo {
+    max-width: 88vw;
+    font-size: clamp(0.9rem, 3.5vw, 1.15rem);
+    transform: none;
+  }
 }
