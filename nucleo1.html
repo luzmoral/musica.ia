@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>¿Cómo se crea una canción con IA?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="imagenes/estilonu.css">
+
+</head>
+<body>
+
+<canvas id="aurora" aria-hidden="true"></canvas>
+
+<main class="escena">
+
+  <!-- CD + caja de fondo: decorativo, no se toca entre estados -->
+  <div class="cd-wrap">
+    <img class="caja" src="imagenes/cajacd.png" alt="">
+    <img class="disco" src="imagenes/cd.png" alt="">
+  </div>
+
+
+  <!-- Cables decorativos -->
+  <img class="cable cable-top" src="imagenes/cable2.png" alt="">
+  <img class="cable cable-bottom" src="imagenes/cable2.png" alt="">
+
+  <!-- Decoración musical fija -->
+  <img class="nota-musical nota-musical-top" src="imagenes/notamsucial.png" alt="">
+  <img class="nota-musical nota-musical-left nota-musical-left-one" src="imagenes/notamusical2.png" alt="">
+  <img class="nota-musical nota-musical-left nota-musical-left-two" src="imagenes/notamsucial.png" alt="">
+  <img class="onda-musical" src="imagenes/lineasonidoinicio.png" alt="">
+
+  <div class="icono-wrap">
+    <div class="icono" id="icono">🎙️</div>
+  </div>
+
+  <h1>¿Cómo se crea<br>una canción<br>con IA?</h1>
+
+  <!-- ====== ÚNICO BLOQUE QUE CAMBIA ENTRE ESTADOS ====== -->
+  <div class="content">
+    <div class="row">
+      <div class="numero" id="numero">1</div>
+      <div class="titulo" id="titulo">Captura de voz</div>
+    </div>
+    <div class="frase" id="frase">Se registra la entrada de una muestra de voz en el software</div>
+  </div>
+  
+  <div class="controls">
+    <div class="bar" id="bar">
+      <div class="bar-dot" id="barDot"></div>
+    </div>
+    <div class="buttons">
+      <button id="prev" aria-label="Anterior"><img src="imagenes/atras.png" alt="Anterior"></button>
+      <button class="play" id="play" aria-label="Reproducir"><img src="imagenes/play.png" alt="Reproducir"></button>
+      <button id="next" aria-label="Siguiente"><img src="imagenes/adelatne.png" alt="Siguiente"></button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // Para agregar/editar pasos: solo tocá numero, titulo, frase (e icono si querés
+  // que el círculo de arriba cambie de ícono en ese paso). El resto del diseño
+  // (CD, título, cables, controles) es fijo y no se toca.
+  const estados = [
+    { numero: 1, titulo: "Captura de voz",        frase: "Se registra la entrada de una muestra de voz en el software", icono: "🎙️" },
+    { numero: 2, titulo: "Análisis de audio",      frase: "La IA analiza tono, ritmo, timbre y afinación de la muestra", icono: "📊" },
+    { numero: 3, titulo: "Generación de melodía",  frase: "El modelo propone una línea melódica a partir del análisis", icono: "🎵" },
+    { numero: 4, titulo: "Composición de letra",   frase: "Se genera texto acorde al estilo y tema elegidos", icono: "📝" },
+    { numero: 5, titulo: "Mezcla y producción",    frase: "Se combinan voz, instrumentos y efectos en una pista final", icono: "🎚️" },
+    { numero: 6, titulo: "Exportación",            frase: "La canción se renderiza y queda lista para escuchar", icono: "💾" }
+  ];
+
+  let indice = 0;
+
+  const numeroEl = document.getElementById("numero");
+  const tituloEl = document.getElementById("titulo");
+  const fraseEl = document.getElementById("frase");
+  const iconoEl = document.getElementById("icono");
+  const barEl = document.getElementById("bar");
+
+  function pintarEstado() {
+    const e = estados[indice];
+    numeroEl.textContent = e.numero;
+    tituloEl.textContent = e.titulo;
+    fraseEl.textContent = e.frase;
+    iconoEl.textContent = e.icono;
+
+    const progreso = ((indice + 1) / estados.length) * 100;
+    barEl.style.setProperty("--progress", progreso + "%");
+  }
+
+  document.getElementById("next").addEventListener("click", () => {
+    indice = (indice + 1) % estados.length;
+    pintarEstado();
+  });
+
+  document.getElementById("prev").addEventListener("click", () => {
+    indice = (indice - 1 + estados.length) % estados.length;
+    pintarEstado();
+  });
+
+  document.getElementById("play").addEventListener("click", () => {
+    indice = (indice + 1) % estados.length;
+    pintarEstado();
+  });
+
+  pintarEstado();
+</script>
+
+<script>
+  const canvas = document.querySelector('#aurora');
+  const context = canvas.getContext('2d');
+  const colorStops = ['#5227FF', '#B497CF', '#FF9FFC'];
+  const speed = 0.0022;
+
+  function resizeCanvas() {
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = window.innerWidth * pixelRatio;
+    canvas.height = window.innerHeight * pixelRatio;
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+  }
+
+  function drawAurora(time) {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    context.clearRect(0, 0, width, height);
+    context.save();
+    context.globalCompositeOperation = 'screen';
+    context.filter = 'blur(18px)';
+
+    for (let layer = 0; layer < 3; layer += 1) {
+      const gradient = context.createLinearGradient(0, 0, width, 0);
+      gradient.addColorStop(0, `${colorStops[layer]}00`);
+      gradient.addColorStop(0.5, `${colorStops[layer]}b8`);
+      gradient.addColorStop(1, `${colorStops[(layer + 1) % 3]}00`);
+      context.fillStyle = gradient;
+      context.beginPath();
+
+      const verticalMovement = Math.sin(time * 0.00022 + layer * 1.8) * height * 0.34;
+      const auraCenter = height * 0.5 + verticalMovement;
+      context.moveTo(0, auraCenter - height * 0.16 + layer * 24);
+
+      for (let x = 0; x <= width; x += 12) {
+        const wave = Math.sin(x * 0.008 - time * speed + layer) * 34;
+        const secondWave = Math.sin(x * 0.015 - time * speed * 1.4) * 18;
+        context.lineTo(x, auraCenter - height * 0.16 + layer * 24 + wave + secondWave);
+      }
+
+      context.lineTo(width, auraCenter + height * 0.34 + layer * 24);
+      context.lineTo(0, auraCenter + height * 0.34 + layer * 24);
+      context.closePath();
+      context.fill();
+    }
+
+    context.restore();
+    requestAnimationFrame(drawAurora);
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  requestAnimationFrame(drawAurora);
+</script>
+
+</body>
+</html>
