@@ -77,7 +77,13 @@
     bottom: 120px;
     width: 580px;
   }
-
+  .cd-wrap .piquito {
+    position: absolute;
+    z-index: 3;
+    top: 420px;
+    right: -140px;
+    width: 80px;
+  }
   /* ---------- Cables decorativos (imagen cable2.png) ---------- */
   .cable {
     position: absolute;
@@ -122,25 +128,36 @@
     left: 83vw;
     width: 255px;
   }
+  .onda-musical-copy {
+    top: 0px;
+    left: 80vw;
+    width: 105px;
+    transform: rotate(90deg);
+    transform-origin: center;
+  }
 
   /* ---------- Ícono superior derecho ---------- */
   .icono-wrap {
     position: absolute;
     z-index: 2;
     right: 5vw;
-    top: 37vh;
+    top: 20vh;
   }
   .icono {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.28);
+    width: 350px;
+    height: 350px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 38px;
-    backdrop-filter: blur(2px);
+  }
+  .icono img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+  }
+  .icono img.icono-micro {
+    width: 190px;
+    height: 190px;
   }
 
   /* ---------- Contenido central (cambia por estado) ---------- */
@@ -149,7 +166,7 @@
     z-index: 2;
     right: auto;
     left: 44vw;
-    top: 31vh;
+    top: 25vh;
     width: 380px;
   }
   .row {
@@ -159,16 +176,20 @@
     margin-bottom: 14px;
   }
   .numero {
-    font-family: 'Sora', sans-serif;
-    font-size: 58px;
-    font-weight: 700;
-    color: #ff8a3d;
-    text-shadow: 0 0 14px rgba(255,138,61,0.85);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 64px;
+    font-weight: 400;
+    color: #fff;
+    -webkit-text-stroke: 3px #f28b32;
+    text-shadow:
+      0 0 3px #fff,
+      0 0 9px #ff9a45,
+      0 0 18px rgba(255, 138, 61, 0.9);
     line-height: 1;
-    min-width: 50px;
+    min-width: 72px;
   }
   .titulo {
-    font-family: 'jersey10';
+    font-family:  'Press Start 2P', monospace;
     font-weight: 600;
     font-size: 40px;
     line-height: 1.15;
@@ -188,10 +209,11 @@
   .controls {
     position: absolute;
     z-index: 2;
-    left: 40px;
+    left: 60px;
     right: 40px;
     bottom: auto;
     top: 81vh;
+    transform: translateX(12vw);
   }
   .bar {
     width: 330px;
@@ -385,19 +407,16 @@
     position: absolute;
     z-index: 2;
     right: 5vw;
-    top: 37vh;
+    top: 20vh;
+    left: 20;
   }
   .icono {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.28);
+    width: 300px;
+    height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 38px;
-    backdrop-filter: blur(2px);
+    left: 20;
   }
 
   /* ---------- Contenido central (cambia por estado) ---------- */
@@ -406,7 +425,7 @@
     z-index: 2;
     right: auto;
     left: 44vw;
-    top: 31vh;
+    top: 25vh;
     width: 380px;
   }
   .row {
@@ -449,6 +468,7 @@
     right: 40px;
     bottom: auto;
     top: 81vh;
+    transform: translateX(12vw);
   }
   .bar {
     width: 330px;
