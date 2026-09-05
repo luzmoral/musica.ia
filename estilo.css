@@ -45,6 +45,8 @@ body {
 }
 
 .texto-portada {
+  position: relative;
+  z-index: 3;
   display: grid;
   justify-items: center;
   gap: clamp(1rem, 2vw, 2rem);
@@ -63,15 +65,27 @@ body {
 .imagen-chica {
   align-self: end;
   max-height: 88vh;
+  pointer-events: auto;
+  transition: filter 0.3s ease;
 }
 
 .imagen-oreja {
   align-self: end;
   justify-self: end;
-  width: 125%;
+  width: 90%;
   max-height: 68vh;
   transform: translate(23%, 18%);
   z-index: 2;
+  pointer-events: auto;
+  transition: filter 0.3s ease;
+}
+
+.imagen-chica:hover,
+.imagen-oreja:hover {
+  filter:
+    drop-shadow(0 0 4px #ff7a3d)
+    drop-shadow(0 0 10px #ff3d81)
+    drop-shadow(0 0 20px #8b5cff);
 }
 
 .sonido-portada {
@@ -112,6 +126,32 @@ body {
   width: 25%;
 }
 
+.onda-secundaria-inferior {
+  top: 149%;
+}
+
+.onda-secundaria-vertical {
+  top: 136%;
+  transform: rotate(90deg);
+  width: 16%;
+  height: 20%;
+  left: 2.3%;
+}
+
+.onda-secundaria-vertical-inferior {
+  top: 160%;
+  transform: rotate(90deg);
+  width: 16%;
+  height: 50%;
+  left: 49.5%;
+  
+}
+ .cable-1 {
+  left: -85%;
+  top: 80%;
+  width: 100%;
+  height: 140%;
+ }
 /* Texto central */
 .titulo {
   max-width: 780px;
@@ -156,6 +196,54 @@ body {
   text-shadow: none;
   transform: translateX(clamp(-6rem, -6vw, -2rem));
 }
+.nucleo1 {
+  position: absolute;
+  left: -90%;
+  bottom: -25vh;
+  z-index: 3;
+  margin: 0;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+  text-shadow:
+    0 0 4px #ffd08a,
+    0 0 10px #ff8c00,
+    0 0 22px #ff6200,
+    0 0 38px rgba(255, 98, 0, 0.8);
+  animation: destello-nucleo 1.8s ease-in-out infinite alternate;
+}
+.nucleo2{
+ position: absolute;
+  left: 184%;
+  bottom: -30vh;
+  z-index: 3;
+  margin: 0;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+  text-shadow:
+    0 0 4px #ffd08a,
+    0 0 10px #ff8c00,
+    0 0 22px #ff6200,
+    0 0 38px rgba(255, 98, 0, 0.8);
+  animation: destello-nucleo 1.8s ease-in-out infinite alternate; 
+}
+@keyframes destello-nucleo {
+  from {
+    text-shadow:
+      0 0 4px #ffd08a,
+      0 0 10px #ff8c00,
+      0 0 22px #ff6200,
+      0 0 38px rgba(255, 98, 0, 0.8);
+  }
+  to {
+    text-shadow:
+      0 0 6px #fff0c2,
+      0 0 14px #ffad33,
+      0 0 30px #ff6200,
+      0 0 50px rgba(255, 98, 0, 0.95);
+  }
+}
 
 .frase-ia {
   color: #e86f3d;
@@ -192,6 +280,12 @@ body {
     transform: none;
   }
 
+  .nucleo1 {
+    left: 3%;
+    bottom: 0.5vh;
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+  }
+
   .sonido-portada {
     top: 37%;
     right: 7%;
@@ -203,6 +297,14 @@ body {
     left: 60;
     top: 110%;
     width: 32%;
+  }
+
+  .onda-secundaria-vertical {
+    top: 130%;
+  }
+
+  .onda-secundaria-vertical-inferior {
+    top: 155%;
   }
 
   .linea-angular {
