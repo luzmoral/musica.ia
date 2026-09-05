@@ -56,8 +56,8 @@
   .cd-wrap {
     position: absolute;
     z-index: 0;
-    left: -180px;
-    bottom: calc(57vh - 630px);
+    left: -50px;
+    bottom: calc(80vh - 600px);
     width: 600px;
     height: 600px;
     pointer-events: none;
@@ -65,17 +65,17 @@
   .cd-wrap .caja {
     position: absolute;
     z-index: 2;
-    top: 20px;
-    left: 100px;
-    width: 450px;
+    top: 55px;
+    left: 30px;
+    width: 550px;
     opacity: 0.95;
   }
   .cd-wrap .disco {
     position: absolute;
     z-index: 1;
-    left: 0;
-    bottom: 115px;
-    width: 560px;
+    left: 50px;
+    bottom: 120px;
+    width: 580px;
   }
 
   /* ---------- Cables decorativos (imagen cable2.png) ---------- */
@@ -92,7 +92,7 @@
   .cable-bottom {
     width: 70px;
     left: 42vw;
-    bottom: -10px;
+    bottom: 20px;
     transform: rotate(8deg);
   }
   .nota-musical,
@@ -102,23 +102,24 @@
     pointer-events: none;
   }
   .nota-musical-top {
-    top: 34px;
+    top: 50px;
     left: 68vw;
-    width: 46px;
+    width: 100px;
   }
   .nota-musical-left-one {
-    top: 37vh;
+    top: 45vh;
     left: 30vw;
-    width: 31px;
+    width: 60px;
+    transform: scaleX(-1);
   }
   .nota-musical-left-two {
-    top: 50vh;
-    left: 35vw;
-    width: 27px;
+    top: 28vh;
+    left: 28vw;
+    width: 100px;
   }
   .onda-musical {
     top: 0;
-    left: 74vw;
+    left: 83vw;
     width: 255px;
   }
 
@@ -167,17 +168,17 @@
     min-width: 50px;
   }
   .titulo {
-    font-family: 'Sora', sans-serif;
+    font-family: 'jersey10';
     font-weight: 600;
-    font-size: 26px;
+    font-size: 40px;
     line-height: 1.15;
     text-shadow: 0 0 10px rgba(255,150,50,0.5);
     padding-top: 8px;
   }
   .frase {
-    font-family: Arial, sans-serif;
+    font-family: 'jersey10';
     font-weight: normal;
-    font-size: 15px;
+    font-size: 30px;
     line-height: 1.5;
     color: #e8e0f5;
     max-width: 320px;
