@@ -5,7 +5,7 @@
 <title>¿Cómo se crea una canción con IA?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Press+Start+2P&family=Silkscreen:wght@400&family=Sora:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="imagenes/estilonu.css">
 
 </head>
@@ -19,6 +19,7 @@
   <div class="cd-wrap">
     <img class="caja" src="imagenes/cajacd.png" alt="">
     <img class="disco" src="imagenes/cd.png" alt="">
+    <img class="piquito" src="imagenes/piquito.png" alt="">
   </div>
 
 
@@ -31,9 +32,12 @@
   <img class="nota-musical nota-musical-left nota-musical-left-one" src="imagenes/notamusical2.png" alt="">
   <img class="nota-musical nota-musical-left nota-musical-left-two" src="imagenes/notamsucial.png" alt="">
   <img class="onda-musical" src="imagenes/lineasonidoinicio.png" alt="">
+  <img class="onda-musical onda-musical-copy" src="imagenes/lineasonidoinicio.png" alt="">
 
   <div class="icono-wrap">
-    <div class="icono" id="icono">🎙️</div>
+    <div class="icono" id="icono">
+      <img src="imagenes/bocamicro.png" alt="Icono del estado actual">
+    </div>
   </div>
 
   <h1>¿Cómo se crea<br>una canción<br>con IA?</h1>
@@ -61,16 +65,16 @@
 </main>
 
 <script>
-  // Para agregar/editar pasos: solo tocá numero, titulo, frase (e icono si querés
+  // Para agregar/editar pasos: solo tocá numero, titulo, frase e icono si querés
   // que el círculo de arriba cambie de ícono en ese paso). El resto del diseño
   // (CD, título, cables, controles) es fijo y no se toca.
   const estados = [
-    { numero: 1, titulo: "Captura de voz",        frase: "Se registra la entrada de una muestra de voz en el software", icono: "🎙️" },
-    { numero: 2, titulo: "Análisis de audio",      frase: "La IA analiza tono, ritmo, timbre y afinación de la muestra", icono: "📊" },
-    { numero: 3, titulo: "Generación de melodía",  frase: "El modelo propone una línea melódica a partir del análisis", icono: "🎵" },
-    { numero: 4, titulo: "Composición de letra",   frase: "Se genera texto acorde al estilo y tema elegidos", icono: "📝" },
-    { numero: 5, titulo: "Mezcla y producción",    frase: "Se combinan voz, instrumentos y efectos en una pista final", icono: "🎚️" },
-    { numero: 6, titulo: "Exportación",            frase: "La canción se renderiza y queda lista para escuchar", icono: "💾" }
+    { numero: 1, titulo: "Captura de voz",        frase: "Se registra la entrada de una muestra de voz en el software", icono: "imagenes/bocamicro.png" },
+    { numero: 2, titulo: "Prompt",      frase: "Se indican características musicales concretas para orientar el resultado", icono: "imagenes/ia.png" },
+    { numero: 3, titulo: "Modelo de voz",  frase: "Crea un modelo de voz original utilizando tecnicas de procesamiento de aprendizaje automatico", icono: "imagenes/voz.png" },
+    { numero: 4, titulo: "Capacitación de la IA",   frase: "Los sistemas de IA analizan grandes cantidades de música para identificar patrones, estructuras y características sonoras. ", icono: "imagenes/iacabeza.png" },
+    { numero: 5, titulo: "Generación de Voz ",    frase: "Se produce una señal de voz alterada. Se le puede ajustar generalmente el tono, velocidad y entonación.", icono: "imagenes/micro.png" },
+    { numero: 6, titulo: "Resultado final",            frase: "Los elementos elegidos se organizan y producen hasta obtener una versión final. A veces la IA se utiliza en la letra, melodía e instrumentos.", icono: "imagenes/musicaglobo.png" }
   ];
 
   let indice = 0;
@@ -86,7 +90,9 @@
     numeroEl.textContent = e.numero;
     tituloEl.textContent = e.titulo;
     fraseEl.textContent = e.frase;
-    iconoEl.textContent = e.icono;
+    const imagenIconoEl = iconoEl.querySelector("img");
+    imagenIconoEl.src = e.icono;
+    imagenIconoEl.classList.toggle("icono-micro", e.icono === "imagenes/micro.png");
 
     const progreso = ((indice + 1) / estados.length) * 100;
     barEl.style.setProperty("--progress", progreso + "%");
