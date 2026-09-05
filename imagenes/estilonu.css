@@ -1,0 +1,257 @@
+ * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #08070c url("fondo.png") center / cover no-repeat fixed;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  #aurora {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.82;
+  }
+
+  .escena {
+    width: 100vw;
+    max-width: none;
+    height: 100vh;
+    aspect-ratio: auto;
+    background: transparent;
+    border-radius: 0;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    color: #fff;
+    padding: 30px;
+    box-shadow: none;
+  }
+
+  /* ---------- Título ---------- */
+  h1 {
+    position: relative;
+    z-index: 2;
+    font-size: 46px;
+    font-weight: 900;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -0.03em;
+    text-shadow: 0.07em 0.07em 0 #8a563d;
+    max-width: 430px;
+    text-transform: uppercase;
+    transform: translate(0, 25px);
+  }
+
+  /* ---------- CD + caja (fondo, no cambia entre estados) ---------- */
+  .cd-wrap {
+    position: absolute;
+    z-index: 0;
+    left: -180px;
+    bottom: calc(57vh - 630px);
+    width: 600px;
+    height: 600px;
+    pointer-events: none;
+  }
+  .cd-wrap .caja {
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    left: 100px;
+    width: 450px;
+    opacity: 0.95;
+  }
+  .cd-wrap .disco {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    bottom: 115px;
+    width: 560px;
+  }
+
+  /* ---------- Cables decorativos (imagen cable2.png) ---------- */
+  .cable {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .cable-top {
+    width: 120px;
+    top: -8px;
+    left: 50vw;
+  }
+  .cable-bottom {
+    width: 70px;
+    left: 42vw;
+    bottom: -10px;
+    transform: rotate(8deg);
+  }
+  .nota-musical,
+  .onda-musical {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .nota-musical-top {
+    top: 34px;
+    left: 68vw;
+    width: 46px;
+  }
+  .nota-musical-left-one {
+    top: 37vh;
+    left: 30vw;
+    width: 31px;
+  }
+  .nota-musical-left-two {
+    top: 50vh;
+    left: 35vw;
+    width: 27px;
+  }
+  .onda-musical {
+    top: 0;
+    left: 74vw;
+    width: 255px;
+  }
+
+  /* ---------- Ícono superior derecho ---------- */
+  .icono-wrap {
+    position: absolute;
+    z-index: 2;
+    right: 5vw;
+    top: 37vh;
+  }
+  .icono {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    backdrop-filter: blur(2px);
+  }
+
+  /* ---------- Contenido central (cambia por estado) ---------- */
+  .content {
+    position: absolute;
+    z-index: 2;
+    right: auto;
+    left: 44vw;
+    top: 31vh;
+    width: 380px;
+  }
+  .row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .numero {
+    font-family: 'Sora', sans-serif;
+    font-size: 58px;
+    font-weight: 700;
+    color: #ff8a3d;
+    text-shadow: 0 0 14px rgba(255,138,61,0.85);
+    line-height: 1;
+    min-width: 50px;
+  }
+  .titulo {
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 1.15;
+    text-shadow: 0 0 10px rgba(255,150,50,0.5);
+    padding-top: 8px;
+  }
+  .frase {
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #e8e0f5;
+    max-width: 320px;
+  }
+
+  /* ---------- Controles inferiores (imágenes) ---------- */
+  .controls {
+    position: absolute;
+    z-index: 2;
+    left: 40px;
+    right: 40px;
+    bottom: auto;
+    top: 81vh;
+  }
+  .bar {
+    width: 330px;
+    height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
+    position: relative;
+    transform: translateX(2vw);
+  }
+  .bar::before,
+  .bar::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 4px;
+    border-radius: 999px;
+    transform: translateY(-50%);
+  }
+  .bar::before {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 0 3px rgba(255, 190, 100, 0.45);
+  }
+  .bar::after {
+    width: var(--progress, 16.6%);
+    background: #ff9a45;
+    box-shadow: 0 0 7px rgba(255, 138, 61, 0.9);
+    transition: width 0.3s;
+  }
+  .bar-dot {
+    position: absolute;
+    top: 50%;
+    left: clamp(7px, var(--progress, 16.6%), calc(100% - 7px));
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ff8a3d;
+    box-shadow: 0 0 8px rgba(255,138,61,0.9);
+    transition: left 0.3s;
+  }
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    transform: translateX(2vw);
+  }
+  .buttons button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  .buttons img {
+    height: 48px;
+    width: auto;
+  }
+  .buttons .play img {
+    height: 56px;
+  }
