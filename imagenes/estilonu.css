@@ -111,18 +111,22 @@
     top: 50px;
     left: 68vw;
     width: 100px;
+
   }
   .nota-musical-left-one {
     top: 45vh;
     left: 30vw;
     width: 60px;
     transform: scaleX(-1);
+    
   }
   .nota-musical-left-two {
     top: 28vh;
     left: 28vw;
     width: 100px;
+
   }
+
   .onda-musical {
     top: 0;
     left: 83vw;
