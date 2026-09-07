@@ -6,7 +6,7 @@
     <title>Núcleo 2</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Press+Start+2P&family=Silkscreen:wght@400&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Montserrat:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="estilonucleo2.css">
 </head>
 <body class="nucleo2-page">
@@ -14,9 +14,6 @@
 
     <main class="escena nucleo2-layout">
         <img class="nucleo2-aura" src="imagenes/aura.png" alt="">
-        <img class="nucleo2-linea-aura" src="imagenes/lineasonido.png" alt="" aria-hidden="true">
-        <img class="nucleo2-linea-aura nucleo2-linea-aura-doble" src="imagenes/lineasonido.png" alt="" aria-hidden="true">
-        <img class="nucleo2-linea-aura nucleo2-linea-aura-triple" src="imagenes/lineasonido.png" alt="" aria-hidden="true">
         <img class="nucleo2-onda nucleo2-onda-superior" src="imagenes/lineanucelo2.png" alt="">
 
         <h1 class="nucleo2-title">¿El oído humano<br>puede distinguirlas?</h1>
@@ -24,6 +21,8 @@
         <section class="nucleo2-player" aria-label="Estados del oído humano">
             <div class="nucleo2-bar" id="nucleo2Bar" role="slider" tabindex="0">
                 <img src="imagenes/barrasonido.png" alt="">
+                <span class="nucleo2-marker nucleo2-marker-medio" aria-hidden="true"></span>
+                <span class="nucleo2-marker nucleo2-marker-final" aria-hidden="true"></span>
                 <img class="nucleo2-knob" id="nucleo2Knob" src="imagenes/perillasonido.png" alt="">
             </div>
         </section>
@@ -51,8 +50,23 @@
         </section>
 
         <section class="nucleo2-mayoria" aria-labelledby="mayoriaTitulo">
-            <div class="nucleo2-encuesta" aria-label="Espacio reservado para las barras de la encuesta">
-                <span>9000 respuestas</span>
+            <div class="nucleo2-encuesta" aria-label="Encuesta: reconocimiento de música generada por IA">
+                <span class="nucleo2-wave-badge">9000 respuestas</span>
+                <div class="nucleo2-wave-chart" id="nucleo2WaveChart">
+                    <img class="nucleo2-wave-image nucleo2-wave-image-mayoria" src="imagenes/graficomayoria.png" alt="Gráfica de la mayoría de las respuestas">
+                    <img class="nucleo2-wave-image nucleo2-wave-image-minoria" src="imagenes/graficominoria.png" alt="Gráfica de la minoría de las respuestas">
+
+                    <div class="nucleo2-wave-zone" data-zone="1" tabindex="0" aria-label="Ver dato de la parte fucsia"></div>
+                    <div class="nucleo2-wave-zone" data-zone="2" tabindex="0" aria-label="Ver dato de la parte violeta"></div>
+                    <div class="nucleo2-wave-zone" data-zone="3" tabindex="0" aria-label="Ver dato de la parte celeste"></div>
+
+                    <div class="nucleo2-wave-caption" data-caption="1">
+                        <p>8730 personas <strong>NO</strong> reconocieron la IA</p>
+                    </div>
+                    <div class="nucleo2-wave-caption" data-caption="3">
+                        <p>170 personas <strong>SÍ</strong> reconocieron la IA</p>
+                    </div>
+                </div>
             </div>
 
             <div class="nucleo2-mayoria-info">
@@ -103,18 +117,22 @@
 
             const porcentaje =
                 (nucleo2Indice / (nucleo2Estados.length - 1)) * 100;
+            const margenInterior = 8;
+            const recorrido = nucleo2Bar.clientWidth - nucleo2Knob.offsetWidth - margenInterior;
 
-            nucleo2Knob.style.left = `${porcentaje}%`;
+            nucleo2Knob.style.left = `${margenInterior + recorrido * (porcentaje / 100)}px`;
         }
 
         function moverNucleo2Perilla(event) {
             const rect = nucleo2Bar.getBoundingClientRect();
+            const margenInterior = 8;
+            const recorrido = rect.width - nucleo2Knob.offsetWidth - margenInterior;
             const posicion = Math.max(
                 0,
-                Math.min(event.clientX - rect.left, rect.width)
+                Math.min(event.clientX - rect.left - nucleo2Knob.offsetWidth / 2 - margenInterior, recorrido)
             );
 
-            const porcentaje = posicion / rect.width;
+            const porcentaje = posicion / recorrido;
             nucleo2Indice = Math.round(
                 porcentaje * (nucleo2Estados.length - 1)
             );
@@ -199,6 +217,29 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
         requestAnimationFrame(drawAurora);
+    </script>
+
+    <script>
+        // Conecta cada zona (fucsia/violeta/celeste) con su capa de color y su texto
+        const nucleo2WaveChart = document.querySelector('#nucleo2WaveChart');
+
+        if (nucleo2WaveChart) {
+            const nucleo2WaveZonas = nucleo2WaveChart.querySelectorAll('.nucleo2-wave-zone');
+
+            nucleo2WaveZonas.forEach((zona) => {
+                const activar = () => {
+                    nucleo2WaveChart.dataset.activo = zona.dataset.zone;
+                };
+                const desactivar = () => {
+                    delete nucleo2WaveChart.dataset.activo;
+                };
+
+                zona.addEventListener('mouseenter', activar);
+                zona.addEventListener('mouseleave', desactivar);
+                zona.addEventListener('focus', activar);
+                zona.addEventListener('blur', desactivar);
+            });
+        }
     </script>
 </body>
 </html>
