@@ -14,6 +14,9 @@
 
     <main class="escena nucleo2-layout">
         <img class="nucleo2-aura" src="imagenes/aura.png" alt="">
+        <img class="nucleo2-linea-aura" src="imagenes/lineasonido.png" alt="" aria-hidden="true">
+        <img class="nucleo2-linea-aura nucleo2-linea-aura-doble" src="imagenes/lineasonido.png" alt="" aria-hidden="true">
+        <img class="nucleo2-linea-aura nucleo2-linea-aura-triple" src="imagenes/lineasonido.png" alt="" aria-hidden="true">
         <img class="nucleo2-onda nucleo2-onda-superior" src="imagenes/lineanucelo2.png" alt="">
 
         <h1 class="nucleo2-title">¿El oído humano<br>puede distinguirlas?</h1>
@@ -31,16 +34,20 @@
         </section>
 
         <section class="nucleo2-instruccion">
+            <a href="nucleo1.html" aria-label="Volver al núcleo 1" class="nucleo2-cable-link">
+                <img class="nucleo2-decoracion nucleo2-cable" src="imagenes/cable3.png" alt="">
+            </a>
+            <a href="nucleo1.html" aria-label="Volver al núcleo 1" class="nucleo2-piquito-link">
+                <img class="nucleo2-decoracion nucleo2-piquito" src="imagenes/piquito.png" alt="">
+            </a>
             <img class="nucleo2-decoracion nucleo2-robot" src="imagenes/robotmano.png" alt="">
-            <img class="nucleo2-decoracion nucleo2-cable" src="imagenes/cable3.png" alt="">
-            <img class="nucleo2-decoracion nucleo2-piquito" src="imagenes/piquito.png" alt="">
             <img class="nucleo2-decoracion nucleo2-nota-uno" src="imagenes/notamusical2.png" alt="">
             <img class="nucleo2-decoracion nucleo2-nota-dos" src="imagenes/notamsucial.png" alt="">
             <img class="nucleo2-decoracion nucleo2-nota-tres" src="imagenes/notamusical2.png" alt="">
             <img class="nucleo2-decoracion nucleo2-mp3" src="imagenes/mp3.png" alt="">
             <img class="nucleo2-decoracion nucleo2-cancion" src="imagenes/cancion1.png" alt="">
-            <h2>¡PROBÁ TU OÍDO!</h2>
-            <p>¡Reproducí la canción para comprobar<br>a qué porcentaje de los resultados perteneces!</p>
+            <button class="nucleo2-titulo-instruccion" id="nucleo2TituloInstruccion" type="button">¡PROBÁ TU OÍDO!</button>
+            <p id="nucleo2MensajeInstruccion">¿Crees que sos capaz de distinguir <br>si una canción es IA?</p>
         </section>
 
         <section class="nucleo2-mayoria" aria-labelledby="mayoriaTitulo">
@@ -58,7 +65,7 @@
                         </div>
                         <div class="nucleo2-parrafo-row">
                             <img class="nucleo2-respuestas" src="imagenes/9000.png" alt="9000 respuestas">
-                            <p>Resulta prácticamente imposible para el oído humano distinguir música generada por la inteligencia artificial de una compuesta por una persona real.</p>
+                            <p> Resulta prácticamente imposible para el oído humano distinguir música generada por la inteligencia artificial de una compuesta por una persona real.</p>
                         </div>
                     </div>
                 </div>
@@ -84,6 +91,12 @@
         const nucleo2Text = document.querySelector('#nucleo2Text');
         const nucleo2Bar = document.querySelector('#nucleo2Bar');
         const nucleo2Knob = document.querySelector('#nucleo2Knob');
+        const nucleo2TituloInstruccion = document.querySelector('#nucleo2TituloInstruccion');
+        const nucleo2MensajeInstruccion = document.querySelector('#nucleo2MensajeInstruccion');
+
+        nucleo2TituloInstruccion.addEventListener('click', () => {
+            nucleo2MensajeInstruccion.textContent = '¡Reproducí la canción para comprobar a qué porcentaje de los resultados perteneces!';
+        });
 
         function pintarNucleo2Estado() {
             nucleo2Text.textContent = nucleo2Estados[nucleo2Indice];
