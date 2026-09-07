@@ -21,6 +21,7 @@
         <section class="nucleo2-player" aria-label="Estados del oído humano">
             <div class="nucleo2-bar" id="nucleo2Bar" role="slider" tabindex="0">
                 <img src="imagenes/barrasonido.png" alt="">
+                <span class="nucleo2-marker nucleo2-marker-inicial" aria-hidden="true"></span>
                 <span class="nucleo2-marker nucleo2-marker-medio" aria-hidden="true"></span>
                 <span class="nucleo2-marker nucleo2-marker-final" aria-hidden="true"></span>
                 <img class="nucleo2-knob" id="nucleo2Knob" src="imagenes/perillasonido.png" alt="">
@@ -115,27 +116,30 @@
         function pintarNucleo2Estado() {
             nucleo2Text.textContent = nucleo2Estados[nucleo2Indice];
 
-            const porcentaje =
-                (nucleo2Indice / (nucleo2Estados.length - 1)) * 100;
-            const margenInterior = 8;
-            const recorrido = nucleo2Bar.clientWidth - nucleo2Knob.offsetWidth - margenInterior;
+            const nucleo2Marcadores = nucleo2Bar.querySelectorAll('.nucleo2-marker');
+            const rectBarra = nucleo2Bar.getBoundingClientRect();
+            const rectMarcador = nucleo2Marcadores[nucleo2Indice].getBoundingClientRect();
+            const centroMarcador = rectMarcador.left - rectBarra.left + rectMarcador.width / 2;
 
-            nucleo2Knob.style.left = `${margenInterior + recorrido * (porcentaje / 100)}px`;
+            nucleo2Knob.style.left = `${centroMarcador - nucleo2Knob.offsetWidth / 2}px`;
         }
 
         function moverNucleo2Perilla(event) {
             const rect = nucleo2Bar.getBoundingClientRect();
-            const margenInterior = 8;
-            const recorrido = rect.width - nucleo2Knob.offsetWidth - margenInterior;
-            const posicion = Math.max(
-                0,
-                Math.min(event.clientX - rect.left - nucleo2Knob.offsetWidth / 2 - margenInterior, recorrido)
-            );
+            const posicion = event.clientX - rect.left;
+            const nucleo2Marcadores = [...nucleo2Bar.querySelectorAll('.nucleo2-marker')];
 
-            const porcentaje = posicion / recorrido;
-            nucleo2Indice = Math.round(
-                porcentaje * (nucleo2Estados.length - 1)
-            );
+            nucleo2Indice = nucleo2Marcadores.reduce((indiceCercano, marcador, indice) => {
+                const rectMarcador = marcador.getBoundingClientRect();
+                const centroMarcador = rectMarcador.left - rect.left + rectMarcador.width / 2;
+                const distanciaActual = Math.abs(posicion - centroMarcador);
+                const rectMarcadorCercano = nucleo2Marcadores[indiceCercano].getBoundingClientRect();
+                const distanciaCercana = Math.abs(
+                    posicion - (rectMarcadorCercano.left - rect.left + rectMarcadorCercano.width / 2)
+                );
+
+                return distanciaActual < distanciaCercana ? indice : indiceCercano;
+            }, 0);
 
             pintarNucleo2Estado();
         }
