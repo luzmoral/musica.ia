@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Núcleo 2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Press+Start+2P&family=Silkscreen:wght@400&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="imagenes/estilonu.css">
+</head>
+<body>
+    <canvas id="aurora" aria-hidden="true"></canvas>
+
+    <main class="escena nucleo2-layout">
+        <img class="nucleo2-aura" src="imagenes/aura.png" alt="">
+        <img class="nucleo2-onda nucleo2-onda-superior" src="imagenes/lineanucelo2.png" alt="">
+
+        <h1 class="nucleo2-title">¿El oído humano<br>puede distinguirlas?</h1>
+
+        <section class="nucleo2-player" aria-label="Estados del oído humano">
+            <div class="nucleo2-bar" id="nucleo2Bar" role="slider" tabindex="0">
+                <img src="imagenes/barrasonido.png" alt="">
+                <img class="nucleo2-knob" id="nucleo2Knob" src="imagenes/perillasonido.png" alt="">
+            </div>
+        </section>
+
+        <section class="nucleo2-card">
+            <img src="imagenes/oidodistingue.png" alt="">
+            <p id="nucleo2Text">Primero podríamos reconocer un audio generado por IA prestando atención. Mientras que la voz humana varía en tono, ritmo y pausas, las voces sintéticas solían delatarse por patrones demasiado constantes.</p>
+        </section>
+    </main>
+
+    <script>
+        const nucleo2Estados = [
+            'Primero podríamos reconocer un audio generado por IA prestando atención. Mientras que la voz humana varía en tono, ritmo y pausas, las voces sintéticas solían delatarse por patrones demasiado constantes.',
+            'Las voces humanas cambian levemente de tono, ritmo y volumen. Esas pequeñas variaciones hacen que cada interpretación tenga una expresión diferente.',
+            'Hoy las voces sintéticas son más realistas, por eso conviene escuchar pausas raras, cambios anómalos en la melodía o una pronunciación demasiado perfecta.'
+        ];
+        let nucleo2Indice = 0;
+        let nucleo2Arrastrando = false;
+
+        const nucleo2Text = document.querySelector('#nucleo2Text');
+        const nucleo2Bar = document.querySelector('#nucleo2Bar');
+        const nucleo2Knob = document.querySelector('#nucleo2Knob');
+
+        function pintarNucleo2Estado() {
+            nucleo2Text.textContent = nucleo2Estados[nucleo2Indice];
+
+            const porcentaje =
+                (nucleo2Indice / (nucleo2Estados.length - 1)) * 100;
+
+            nucleo2Knob.style.left = `${porcentaje}%`;
+        }
+
+        function moverNucleo2Perilla(event) {
+            const rect = nucleo2Bar.getBoundingClientRect();
+            const posicion = Math.max(
+                0,
+                Math.min(event.clientX - rect.left, rect.width)
+            );
+
+            const porcentaje = posicion / rect.width;
+            nucleo2Indice = Math.round(
+                porcentaje * (nucleo2Estados.length - 1)
+            );
+
+            pintarNucleo2Estado();
+        }
+
+        nucleo2Bar.addEventListener('pointerdown', (event) => {
+            nucleo2Arrastrando = true;
+            nucleo2Bar.setPointerCapture(event.pointerId);
+            moverNucleo2Perilla(event);
+        });
+
+        nucleo2Bar.addEventListener('pointermove', (event) => {
+            if (nucleo2Arrastrando) {
+                moverNucleo2Perilla(event);
+            }
+        });
+
+        nucleo2Bar.addEventListener('pointerup', () => {
+            nucleo2Arrastrando = false;
+        });
+
+        nucleo2Bar.addEventListener('pointercancel', () => {
+            nucleo2Arrastrando = false;
+        });
+
+        pintarNucleo2Estado();
+    </script>
+</body>
+</html>
