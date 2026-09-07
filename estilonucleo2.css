@@ -112,7 +112,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
-
 .nucleo2-marker-inicial { left: 10%; }
 .nucleo2-marker-medio { left: 45%; }
 .nucleo2-marker-final { left: 80%; }
@@ -244,9 +243,9 @@ body {
 
 .nucleo2-cancion {
   top: 50px;
-  right: -23vw;
+  right: -22vw;
   z-index: 1;
-  width: min(38vw, 340px);
+  width: min(30vw, 380px);
 }
 
 .nucleo2-titulo-instruccion {
