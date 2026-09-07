@@ -81,6 +81,10 @@ body {
   transition: filter 0.3s ease;
 }
 
+.enlace-oreja {
+  display: contents;
+}
+
 .imagen-chica:hover,
 .imagen-oreja:hover {
   filter:
@@ -222,13 +226,13 @@ body {
   padding:15px;
   color: white;
   font-family: "Montserrat", sans-serif;
-  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
   text-shadow:
     0 0 4px #ffd08a,
     0 0 10px #ff8c00,
     0 0 22px #ff6200,
     0 0 38px rgba(255, 98, 0, 0.8);
   animation: destello-nucleo 1.8s ease-in-out infinite alternate;
+  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
   white-space: nowrap;  
 }
 
