@@ -32,8 +32,12 @@
   <img class="nota-musical nota-musical-top" src="imagenes/notamsucial.png" alt="">
   <img class="nota-musical nota-musical-left nota-musical-left-one" src="imagenes/notamusical2.png" alt="">
   <img class="nota-musical nota-musical-left nota-musical-left-two" src="imagenes/notamsucial.png" alt="">
-  <img class="onda-musical" src="imagenes/lineasonidoinicio.png" alt="">
-  <img class="onda-musical onda-musical-copy" src="imagenes/lineasonidoinicio.png" alt="">
+  <a href="nucleo2.html" aria-label="Ir al núcleo 2" class="onda-enlace">
+    <img class="onda-musical" src="imagenes/lineasonidoinicio.png" alt="">
+  </a>
+  <a href="nucleo2.html" aria-label="Ir al núcleo 2" class="onda-enlace onda-enlace-copy">
+    <img class="onda-musical onda-musical-copy" src="imagenes/lineasonidoinicio.png" alt="">
+  </a>
   </div>
 
   <div class="icono-wrap">
@@ -100,19 +104,31 @@
     barEl.style.setProperty("--progress", progreso + "%");
   }
 
+  const disco = document.querySelector('.disco');
+
+  function girarDisco() {
+    disco.classList.remove('girar-cd');
+    void disco.offsetWidth;
+    disco.classList.add('girar-cd');
+    setTimeout(() => disco.classList.remove('girar-cd'), 500);
+  }
+
   document.getElementById("next").addEventListener("click", () => {
     indice = (indice + 1) % estados.length;
     pintarEstado();
+    girarDisco();
   });
 
   document.getElementById("prev").addEventListener("click", () => {
     indice = (indice - 1 + estados.length) % estados.length;
     pintarEstado();
+    girarDisco();
   });
 
   document.getElementById("play").addEventListener("click", () => {
     indice = (indice + 1) % estados.length;
     pintarEstado();
+    girarDisco();
   });
 
   pintarEstado();
