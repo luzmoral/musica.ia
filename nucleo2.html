@@ -29,7 +29,7 @@
         </section>
 
         <section class="nucleo2-card">
-            <img src="imagenes/oidodistingue.png" alt="">
+            <img id="nucleo2Imagen" src="imagenes/oidodistingue.png" alt="">
             <p id="nucleo2Text">Primero podríamos reconocer un audio generado por IA prestando atención. Mientras que la voz humana varía en tono, ritmo y pausas, las voces sintéticas solían delatarse por patrones demasiado constantes.</p>
         </section>
 
@@ -100,10 +100,16 @@
             'Las voces humanas cambian levemente de tono, ritmo y volumen. Esas pequeñas variaciones hacen que cada interpretación tenga una expresión diferente.',
             'Hoy las voces sintéticas son más realistas, por eso conviene escuchar pausas raras, cambios anómalos en la melodía o una pronunciación demasiado perfecta.'
         ];
+        const nucleo2Imagenes = [
+            'imagenes/oidodistingue.png',
+            'imagenes/lupa.png',
+            'imagenes/auriculares.png'
+        ];
         let nucleo2Indice = 0;
         let nucleo2Arrastrando = false;
 
         const nucleo2Text = document.querySelector('#nucleo2Text');
+        const nucleo2Imagen = document.querySelector('#nucleo2Imagen');
         const nucleo2Bar = document.querySelector('#nucleo2Bar');
         const nucleo2Knob = document.querySelector('#nucleo2Knob');
         const nucleo2TituloInstruccion = document.querySelector('#nucleo2TituloInstruccion');
@@ -115,6 +121,7 @@
 
         function pintarNucleo2Estado() {
             nucleo2Text.textContent = nucleo2Estados[nucleo2Indice];
+            nucleo2Imagen.src = nucleo2Imagenes[nucleo2Indice];
 
             const nucleo2Marcadores = nucleo2Bar.querySelectorAll('.nucleo2-marker');
             const rectBarra = nucleo2Bar.getBoundingClientRect();
