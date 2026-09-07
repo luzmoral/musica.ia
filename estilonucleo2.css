@@ -1,0 +1,553 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  background: #08070c url("imagenes/fondo.png") center / cover no-repeat fixed;
+}
+
+#aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.82;
+}
+
+.escena {
+  position: relative;
+  z-index: 1;
+  width: 100vw;
+  min-height: 345vh;
+  height: auto;
+  padding: 30px 30px 8rem;
+  overflow: visible;
+  color: #fff;
+  background: transparent;
+}
+
+.nucleo2-title {
+  position: absolute;
+  top: 45px;
+  left: 27vw;
+  z-index: 3;
+  max-width: none;
+  margin: 0;
+  font-size: clamp(32px, 4vw, 60px);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0.07em 0.07em 0 #8a563d;
+}
+
+.nucleo2-aura {
+  position: absolute;
+  top: 12vh;
+  left: 2vw;
+  z-index: 1;
+  width: min(31vw, 390px);
+  transform-origin: center;
+}
+
+.nucleo2-onda {
+  position: absolute;
+  z-index: 1;
+  width: min(34vw, 430px);
+  pointer-events: none;
+}
+
+.nucleo2-onda-superior {
+  top: 7vh;
+  left: 0;
+}
+
+.nucleo2-player {
+  position: absolute;
+  top: 27vh;
+  left: 34vw;
+  z-index: 3;
+  width: 560px;
+  margin-left: 0;
+}
+
+.nucleo2-bar {
+  position: relative;
+  width: 560px;
+  height: 46px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.nucleo2-bar:active {
+  cursor: grabbing;
+}
+
+.nucleo2-bar > img:first-child {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.nucleo2-knob {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 54px;
+  height: auto;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.nucleo2-card {
+  position: absolute;
+  top: 41vh;
+  left: 34vw;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  width: min(57vw, 620px);
+  min-height: 165px;
+  padding: 22px 42px 22px 38px;
+  border: 2px solid rgba(79, 222, 226, 0.65);
+  border-radius: 28px;
+  background: rgba(12, 17, 35, 0.78);
+  box-shadow: 0 0 16px rgba(93, 243, 237, 0.9), inset 0 0 24px rgba(75, 197, 213, 0.35);
+}
+
+.nucleo2-card img {
+  flex: 0 0 auto;
+  width: 72px;
+}
+
+.nucleo2-card p {
+  margin: 0;
+  color: #fff;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(10px, 1.05vw, 15px);
+  line-height: 1.7;
+}
+
+.nucleo2-instruccion {
+  position: absolute;
+  top: 100vh;
+  left: 8vw;
+  z-index: 3;
+  width: min(57vw, 620px);
+  min-height: 520px;
+  color: #fff;
+}
+
+.nucleo2-decoracion {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  object-fit: contain;
+}
+
+.nucleo2-robot {
+  top: -10px;
+  right: -43vw;
+  width: min(30vw, 420px);
+}
+
+.nucleo2-cable {
+  top: 320px;
+  left: -250px;
+  width: 470px;
+  max-width: none;
+}
+
+.nucleo2-piquito {
+  top: 365px;
+  left: 125px;
+  width: 30px;
+}
+
+.nucleo2-nota-uno {
+  top: 450px;
+  left: 18vw;
+  right: auto;
+  width: 70px;
+  transform-origin: center bottom;
+  animation: nucleo2-nota-baila 2.4s ease-in-out infinite;
+}
+
+.nucleo2-nota-dos {
+  top: 270px;
+  right: -30vw;
+  width: 155px;
+  transform-origin: center bottom;
+  animation: nucleo2-nota-baila 2.8s ease-in-out infinite reverse;
+  animation-delay: -0.8s;
+}
+
+.nucleo2-nota-tres {
+  top: 520px;
+  left: 30vw;
+  right: auto;
+  width: 48px;
+  transform-origin: center bottom;
+  animation: nucleo2-nota-baila 2.1s ease-in-out infinite;
+  animation-delay: -1.1s;
+}
+
+@keyframes nucleo2-nota-baila {
+  0%, 100% { transform: rotate(-8deg) translateY(0); }
+  50% { transform: rotate(8deg) translateY(-8px); }
+}
+
+.nucleo2-mp3 {
+  top: -20px;
+  right: -27vw;
+  width: min(50vw, 590px);
+}
+
+.nucleo2-cancion {
+  top: 50px;
+  right: -23vw;
+  z-index: 1;
+  width: min(38vw, 340px);
+}
+
+.nucleo2-instruccion h2 {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(28px, 3.4vw, 52px);
+  font-weight: 900;
+  line-height: 1;
+  text-shadow: 0.07em 0.07em 0 #8a563d;
+}
+
+.nucleo2-instruccion p {
+  position: relative;
+  z-index: 2;
+  margin: 18px 0 0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(10px, 1.05vw, 15px);
+  line-height: 1.7;
+}
+
+.nucleo2-mayoria {
+  position: absolute;
+  top: 225vh;
+  left: 5vw;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(360px, 48%) minmax(360px, 1fr);
+  gap: 4vw;
+  align-items: start;
+  width: 90vw;
+  min-height: 65vh;
+}
+
+.nucleo2-encuesta {
+  position: relative;
+  min-height: 390px;
+  padding: 16px 0 0 10px;
+  border-left: 3px solid #fff;
+  border-top: 3px solid rgba(255, 255, 255, 0.6);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.nucleo2-encuesta::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: #fff;
+  content: '';
+}
+
+.nucleo2-mayoria-info {
+  position: relative;
+  padding-top: 0;
+}
+
+.nucleo2-mayoria-info h2 {
+  margin: 0;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(32px, 4vw, 60px);
+  font-weight: 900;
+  line-height: 0.95;
+  text-shadow: 0.07em 0.07em 0 #8a563d;
+}
+
+.nucleo2-mayoria-info p {
+  max-width: 520px;
+  margin: 20px 0 0;
+  color: #fff;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(10px, 1.1vw, 15px);
+  line-height: 1.45;
+}
+
+.nucleo2-info-row {
+  display: block;
+}
+
+.nucleo2-parrafo-row {
+  display: grid;
+  grid-template-columns: 105px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+}
+
+.nucleo2-parrafo-row + .nucleo2-parrafo-row {
+  margin-top: 12px;
+}
+
+.nucleo2-corazon {
+  width: 82px;
+}
+
+.nucleo2-respuestas {
+  width: 105px;
+}
+
+.nucleo2-parrafos p {
+  max-width: 520px;
+}
+
+.nucleo2-parrafo-row p {
+  margin: 20px 0 0;
+}
+
+.nucleo2-acento-azul {
+  color: #2bbcff;
+}
+
+.nucleo2-acento-cian {
+  color: #31e5e5;
+}
+
+.nucleo2-final {
+  position: absolute;
+  top: 305vh;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(760px, 90vw);
+  transform: translateX(-50%);
+}
+
+.nucleo2-final img {
+  width: min(190px, 23vw);
+  height: auto;
+}
+
+.nucleo2-final a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 300px;
+  min-height: 64px;
+  padding: 12px 34px;
+  border: 2px solid rgba(255, 179, 47, 0.9);
+  border-radius: 999px;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(20px, 2.2vw, 30px);
+  font-weight: 400;
+  text-decoration: none;
+  background: rgba(88, 38, 86, 0.92);
+  box-shadow: 0 0 12px rgba(255, 156, 36, 0.95), inset 0 0 18px rgba(207, 72, 189, 0.6);
+}
+
+.nucleo2-final a:hover {
+  background: rgba(126, 45, 112, 0.95);
+}
+
+@media (max-width: 760px) {
+  .escena {
+    min-height: 345vh;
+  }
+
+  .nucleo2-title {
+    top: 35px;
+    left: 8vw;
+    font-size: clamp(25px, 7vw, 42px);
+    white-space: normal;
+  }
+
+  .nucleo2-aura {
+    top: 18vh;
+    left: 4vw;
+    width: 42vw;
+  }
+
+  .nucleo2-player,
+  .nucleo2-card {
+    left: 8vw;
+    width: 84vw;
+  }
+
+  .nucleo2-player {
+    top: 45vh;
+    margin: 0;
+  }
+
+  .nucleo2-bar {
+    width: 84vw;
+  }
+
+  .nucleo2-knob {
+    width: 44px;
+  }
+
+  .nucleo2-card {
+    top: 61vh;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .nucleo2-card img {
+    width: 50px;
+  }
+
+  .nucleo2-card p {
+    font-size: 9px;
+    line-height: 1.5;
+  }
+
+  .nucleo2-instruccion {
+    top: 108vh;
+    left: 8vw;
+    width: 84vw;
+    min-height: 430px;
+  }
+
+  .nucleo2-robot {
+    top: 90px;
+    right: -18vw;
+    width: 48vw;
+  }
+
+  .nucleo2-cable {
+    top: 285px;
+    left: -145px;
+    width: 310px;
+  }
+
+  .nucleo2-piquito {
+    top: 315px;
+    left: 78px;
+    width: 24px;
+  }
+
+  .nucleo2-nota-uno {
+    top: 390px;
+    left: -3vw;
+    right: auto;
+    width: 52px;
+  }
+
+  .nucleo2-nota-dos {
+    top: 230px;
+    right: -8vw;
+    width: 92px;
+  }
+
+  .nucleo2-nota-tres {
+    top: 455px;
+    left: 16vw;
+    right: auto;
+    width: 38px;
+  }
+
+  .nucleo2-mp3 {
+    top: 20px;
+    right: -8vw;
+    width: 78vw;
+  }
+
+  .nucleo2-cancion {
+    top: 92px;
+    right: -3vw;
+    width: 44vw;
+  }
+
+  .nucleo2-instruccion h2 {
+    font-size: clamp(24px, 7vw, 38px);
+  }
+
+  .nucleo2-instruccion p {
+    margin-top: 12px;
+    font-size: 9px;
+    line-height: 1.5;
+  }
+
+  .nucleo2-final {
+    top: 315vh;
+    width: 96vw;
+  }
+
+  .nucleo2-final img {
+    width: 18vw;
+  }
+
+  .nucleo2-final a {
+    min-width: 190px;
+    min-height: 52px;
+    padding: 10px 18px;
+    font-size: 18px;
+  }
+
+  .nucleo2-mayoria {
+    top: 235vh;
+    left: 8vw;
+    display: block;
+    width: 84vw;
+  }
+
+  .nucleo2-encuesta {
+    min-height: 280px;
+    margin-bottom: 48px;
+  }
+
+  .nucleo2-mayoria-info h2 {
+    font-size: clamp(26px, 8vw, 42px);
+  }
+
+  .nucleo2-mayoria-info p {
+    font-size: 9px;
+    line-height: 1.5;
+  }
+
+  .nucleo2-parrafo-row {
+    grid-template-columns: 75px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .nucleo2-corazon {
+    width: 58px;
+  }
+
+  .nucleo2-respuestas {
+    width: 75px;
+  }
+
+  .nucleo2-parrafo-row p {
+    margin-top: 12px;
+  }
+}
