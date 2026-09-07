@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Press+Start+2P&family=Silkscreen:wght@400&family=Sora:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="imagenes/estilonu.css">
+    <link rel="stylesheet" href="estilonucleo2.css">
 </head>
-<body>
+<body class="nucleo2-page">
     <canvas id="aurora" aria-hidden="true"></canvas>
 
     <main class="escena nucleo2-layout">
@@ -29,6 +29,47 @@
             <img src="imagenes/oidodistingue.png" alt="">
             <p id="nucleo2Text">Primero podríamos reconocer un audio generado por IA prestando atención. Mientras que la voz humana varía en tono, ritmo y pausas, las voces sintéticas solían delatarse por patrones demasiado constantes.</p>
         </section>
+
+        <section class="nucleo2-instruccion">
+            <img class="nucleo2-decoracion nucleo2-robot" src="imagenes/robotmano.png" alt="">
+            <img class="nucleo2-decoracion nucleo2-cable" src="imagenes/cable3.png" alt="">
+            <img class="nucleo2-decoracion nucleo2-piquito" src="imagenes/piquito.png" alt="">
+            <img class="nucleo2-decoracion nucleo2-nota-uno" src="imagenes/notamusical2.png" alt="">
+            <img class="nucleo2-decoracion nucleo2-nota-dos" src="imagenes/notamsucial.png" alt="">
+            <img class="nucleo2-decoracion nucleo2-nota-tres" src="imagenes/notamusical2.png" alt="">
+            <img class="nucleo2-decoracion nucleo2-mp3" src="imagenes/mp3.png" alt="">
+            <img class="nucleo2-decoracion nucleo2-cancion" src="imagenes/cancion1.png" alt="">
+            <h2>¡PROBÁ TU OÍDO!</h2>
+            <p>¡Reproducí la canción para comprobar<br>a qué porcentaje de los resultados perteneces!</p>
+        </section>
+
+        <section class="nucleo2-mayoria" aria-labelledby="mayoriaTitulo">
+            <div class="nucleo2-encuesta" aria-label="Espacio reservado para las barras de la encuesta">
+                <span>9000 respuestas</span>
+            </div>
+
+            <div class="nucleo2-mayoria-info">
+                <h2 id="mayoriaTitulo">¡SOS PARTE DE<br>UNA MAYORÍA!</h2>
+                <div class="nucleo2-info-row">
+                    <div class="nucleo2-parrafos">
+                        <div class="nucleo2-parrafo-row">
+                            <img class="nucleo2-corazon" src="imagenes/corazon.png" alt="">
+                            <p>La plataforma de streaming musical <span class="nucleo2-acento-azul">Deezer</span> realizó en 2025 un estudio con el propósito de indagar el impacto de esta nueva herramienta digital y su <span class="nucleo2-acento-cian">capacidad de reconocimiento</span> en la sociedad.</p>
+                        </div>
+                        <div class="nucleo2-parrafo-row">
+                            <img class="nucleo2-respuestas" src="imagenes/9000.png" alt="9000 respuestas">
+                            <p>Resulta prácticamente imposible para el oído humano distinguir música generada por la inteligencia artificial de una compuesta por una persona real.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="nucleo2-final">
+            <img src="imagenes/lineasonidoinicio.png" alt="" aria-hidden="true">
+            <a href="index.html">Volver al inicio</a>
+            <img class="nucleo2-onda-final-invertida" src="imagenes/lineasonidoinicio.png" alt="" aria-hidden="true">
+        </div>
     </main>
 
     <script>
@@ -89,6 +130,62 @@
         });
 
         pintarNucleo2Estado();
+    </script>
+
+    <script>
+        const canvas = document.querySelector('#aurora');
+        const context = canvas.getContext('2d');
+        const colorStops = ['#5227FF', '#B497CF', '#FF9FFC'];
+        const speed = 0.0022;
+
+        function resizeCanvas() {
+            const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = window.innerWidth * pixelRatio;
+            canvas.height = window.innerHeight * pixelRatio;
+            canvas.style.width = `${window.innerWidth}px`;
+            canvas.style.height = `${window.innerHeight}px`;
+            context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        }
+
+        function drawAurora(time) {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            context.clearRect(0, 0, width, height);
+            context.save();
+            context.globalCompositeOperation = 'screen';
+            context.filter = 'blur(18px)';
+
+            for (let layer = 0; layer < 3; layer += 1) {
+                const gradient = context.createLinearGradient(0, 0, width, 0);
+                gradient.addColorStop(0, `${colorStops[layer]}00`);
+                gradient.addColorStop(0.5, `${colorStops[layer]}b8`);
+                gradient.addColorStop(1, `${colorStops[(layer + 1) % 3]}00`);
+                context.fillStyle = gradient;
+                context.beginPath();
+
+                const verticalMovement = Math.sin(time * 0.00022 + layer * 1.8) * height * 0.34;
+                const auraCenter = height * 0.5 + verticalMovement;
+                context.moveTo(0, auraCenter - height * 0.16 + layer * 24);
+
+                for (let x = 0; x <= width; x += 12) {
+                    const wave = Math.sin(x * 0.008 - time * speed + layer) * 34;
+                    const secondWave = Math.sin(x * 0.015 - time * speed * 1.4) * 18;
+                    context.lineTo(x, auraCenter - height * 0.16 + layer * 24 + wave + secondWave);
+                }
+
+                context.lineTo(width, auraCenter + height * 0.34 + layer * 24);
+                context.lineTo(0, auraCenter + height * 0.34 + layer * 24);
+                context.closePath();
+                context.fill();
+            }
+
+            context.restore();
+            requestAnimationFrame(drawAurora);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        requestAnimationFrame(drawAurora);
     </script>
 </body>
 </html>
