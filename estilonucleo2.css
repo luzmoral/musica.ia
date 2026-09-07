@@ -11,7 +11,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   background: #08070c url("imagenes/fondo.png") center / cover no-repeat fixed;
 }
-
+/* fondo */
 #aurora {
   position: fixed;
   inset: 0;
@@ -33,7 +33,7 @@ body {
   color: #fff;
   background: transparent;
 }
-
+/* titulo */
 .nucleo2-title {
   position: absolute;
   top: 45px;
@@ -48,14 +48,36 @@ body {
   white-space: nowrap;
   text-shadow: 0.07em 0.07em 0 #8a563d;
 }
-
+/* bola aura */
 .nucleo2-aura {
   position: absolute;
-  top: 12vh;
-  left: 2vw;
+  top: 5vh;
+  left: 4vw;
   z-index: 1;
   width: min(31vw, 390px);
   transform-origin: center;
+}
+/* linea de pasar sonido */
+.nucleo2-linea-aura {
+  position: absolute;
+  top: 28vh;
+  left: 52vw;
+  z-index: 1;
+  width: min(1vw, 5px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+/* linea de pasar sonido 2 */
+.nucleo2-linea-aura-doble {
+  top: 28vh;
+  left: 69vw;
+  z-index: 4;
+}
+/* linea de pasar sonido 3 */
+.nucleo2-linea-aura-triple {
+  top: 28vh;
+  left: 37vw;
+  z-index: 4;
 }
 
 .nucleo2-onda {
@@ -65,11 +87,12 @@ body {
   pointer-events: none;
 }
 
+/* onda nucleo 2 */
 .nucleo2-onda-superior {
   top: 7vh;
-  left: 0;
+  left: -250px;
 }
-
+/* barra del dj completa */
 .nucleo2-player {
   position: absolute;
   top: 27vh;
@@ -78,9 +101,10 @@ body {
   width: 560px;
   margin-left: 0;
 }
-
+/* barra de dj */
 .nucleo2-bar {
   position: relative;
+  z-index: 3;
   width: 560px;
   height: 46px;
   cursor: grab;
@@ -91,18 +115,18 @@ body {
 .nucleo2-bar:active {
   cursor: grabbing;
 }
-
+/* ancho y altode dj */
 .nucleo2-bar > img:first-child {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: fill;
 }
-
+/* barra de mover del dj */
 .nucleo2-knob {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 50%;
   width: 54px;
   height: auto;
   pointer-events: none;
@@ -138,10 +162,10 @@ body {
   font-size: clamp(10px, 1.05vw, 15px);
   line-height: 1.7;
 }
-
+/*titulo*/
 .nucleo2-instruccion {
   position: absolute;
-  top: 100vh;
+  top: 95vh;
   left: 8vw;
   z-index: 3;
   width: min(57vw, 620px);
@@ -155,11 +179,11 @@ body {
   pointer-events: none;
   object-fit: contain;
 }
-
+/*imagen robot*/
 .nucleo2-robot {
-  top: -10px;
-  right: -43vw;
-  width: min(30vw, 420px);
+  top: 50px;
+  right: -51vw;
+  width: min(50vw, 500px);
 }
 
 .nucleo2-cable {
@@ -168,11 +192,13 @@ body {
   width: 470px;
   max-width: none;
 }
-
+/*piquito*/
 .nucleo2-piquito {
-  top: 365px;
-  left: 125px;
-  width: 30px;
+  top: 330px;
+  left: 215px;
+  width: 80px;
+  transform: rotate(70deg);
+  transform-origin: left center;
 }
 
 .nucleo2-nota-uno {
@@ -221,15 +247,20 @@ body {
   width: min(38vw, 340px);
 }
 
-.nucleo2-instruccion h2 {
+.nucleo2-titulo-instruccion {
   position: relative;
   z-index: 2;
   margin: 0;
+  border: 0;
+  padding: 0;
+  color: #fff;
   font-family: 'Montserrat', sans-serif;
   font-size: clamp(28px, 3.4vw, 52px);
   font-weight: 900;
   line-height: 1;
   text-shadow: 0.07em 0.07em 0 #8a563d;
+  background: transparent;
+  cursor: pointer;
 }
 
 .nucleo2-instruccion p {
@@ -316,7 +347,7 @@ body {
 }
 
 .nucleo2-corazon {
-  width: 82px;
+  width: 120px;
 }
 
 .nucleo2-respuestas {
