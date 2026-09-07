@@ -112,10 +112,15 @@ body {
   transform: translate(-50%, -50%);
 }
 
+<<<<<<< HEAD
 .nucleo2-marker-inicial { left: 10%; }
 .nucleo2-marker-medio { left: 45%; }
 .nucleo2-marker-final { left: 80%; }
 
+=======
+.nucleo2-marker-medio { left: 50%; }
+.nucleo2-marker-final { left: 95%; }
+>>>>>>> 9a10eadec5e38959479a4168a7b5f55ef3aa0952
 
 /* barra de mover del dj */
 .nucleo2-knob {
