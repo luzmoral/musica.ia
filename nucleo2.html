@@ -71,7 +71,7 @@
             </div>
 
             <div class="nucleo2-mayoria-info">
-                <h2 id="mayoriaTitulo">¡SOS PARTE DE<br>UNA MAYORÍA!</h2>
+                <h2 id="mayoriaTitulo">¡SOS PARTE DE<br>UNA <span id="nucleo2TituloResultado">MAYORÍA</span>!</h2>
                 <div class="nucleo2-info-row">
                     <div class="nucleo2-parrafos">
                         <div class="nucleo2-parrafo-row">
@@ -81,6 +81,7 @@
                         <div class="nucleo2-parrafo-row">
                             <img class="nucleo2-respuestas" src="imagenes/9000.png" alt="9000 respuestas">
                             <p> Resulta prácticamente imposible para el oído humano distinguir música generada por la inteligencia artificial de una compuesta por una persona real.</p>
+                        <h4> encuestados </h4>
                         </div>
                     </div>
                 </div>
@@ -91,6 +92,7 @@
             <img src="imagenes/lineasonidoinicio.png" alt="" aria-hidden="true">
             <a href="index.html">Volver al inicio</a>
             <img class="nucleo2-onda-final-invertida" src="imagenes/lineasonidoinicio.png" alt="" aria-hidden="true">
+            <p class="nucleo2-encuestados">encuestados</p>
         </div>
     </main>
 
@@ -233,6 +235,7 @@
     <script>
         // Conecta cada zona (fucsia/violeta/celeste) con su capa de color y su texto
         const nucleo2WaveChart = document.querySelector('#nucleo2WaveChart');
+        const nucleo2TituloResultado = document.querySelector('#nucleo2TituloResultado');
 
         if (nucleo2WaveChart) {
             const nucleo2WaveZonas = nucleo2WaveChart.querySelectorAll('.nucleo2-wave-zone');
@@ -240,9 +243,11 @@
             nucleo2WaveZonas.forEach((zona) => {
                 const activar = () => {
                     nucleo2WaveChart.dataset.activo = zona.dataset.zone;
+                    nucleo2TituloResultado.textContent = zona.dataset.zone === '3' ? 'MINORÍA' : 'MAYORÍA';
                 };
                 const desactivar = () => {
                     delete nucleo2WaveChart.dataset.activo;
+                    nucleo2TituloResultado.textContent = 'MAYORÍA';
                 };
 
                 zona.addEventListener('mouseenter', activar);
