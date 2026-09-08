@@ -42,14 +42,14 @@
   /* ---------- Título ---------- */
   h1 {
     position: relative;
-    z-index: 2;
-    font-size: 46px;
+    z-index: 1;
+    font-size: 58px;
     font-weight: 900;
     line-height: 1;
     margin: 0;
     letter-spacing: -0.03em;
     text-shadow: 0.07em 0.07em 0 #8a563d;
-    max-width: 430px;
+    max-width: 500px;
     text-transform: uppercase;
     transform: translate(0, 25px);
   }
@@ -96,7 +96,7 @@
     position: absolute;
     z-index: 1;
     left: 42vw;
-    top: 520px;
+    top: 560px;
     width: 220px;
     height: 220px;
     pointer-events: none;
@@ -184,7 +184,7 @@
   .icono-wrap {
     position: absolute;
     z-index: 2;
-    right: 5vw;
+    right: 0;
     top: 20vh;
   }
   .icono {
@@ -200,8 +200,8 @@
     object-fit: contain;
   }
   .icono img.icono-micro {
-    width: 190px;
-    height: 190px;
+    width: 55%;
+    height: 55%;
   }
 
   /* ---------- Contenido central (cambia por estado) ---------- */
@@ -211,7 +211,7 @@
     right: auto;
     left: 44vw;
     top: 25vh;
-    width: 380px;
+    width: min(48vw, 600px);
   }
   .row {
     display: flex;
@@ -221,7 +221,7 @@
   }
   .numero {
     font-family: 'Press Start 2P', monospace;
-    font-size: 64px;
+    font-size: 68px;
     font-weight: 400;
     color: #fff;
     -webkit-text-stroke: 3px #f28b32;
@@ -235,18 +235,18 @@
   .titulo {
     font-family:  'Press Start 2P', monospace;
     font-weight: 600;
-    font-size: 40px;
+    font-size: 48px;
     line-height: 1.15;
     text-shadow: 0 0 10px rgba(255,150,50,0.5);
     padding-top: 8px;
   }
   .frase {
-    font-family: 'Jersey 10', sans-serif;
-    font-weight: normal;
-    font-size: 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 32px;
     line-height: 1.5;
     color: #e8e0f5;
-    max-width: 320px;
+    max-width: 100%;
   }
 
   /* ---------- Controles inferiores (imágenes) ---------- */
