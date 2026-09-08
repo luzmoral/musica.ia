@@ -273,6 +273,8 @@
             const nucleo2IaButton = document.querySelector('#nucleo2IaButton');
 
             function irAEncuesta(resultado) {
+                nucleo2Audio.pause();
+                nucleo2Mp3Button.classList.remove('reproduciendo');
                 nucleo2WaveChart.dataset.activo = resultado;
                 nucleo2TituloResultado.textContent = resultado === '3' ? 'MINORÍA' : 'MAYORÍA';
                 nucleo2MayoriaInfo.scrollIntoView({ behavior: 'smooth', block: 'center' });
