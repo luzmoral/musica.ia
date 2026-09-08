@@ -89,33 +89,43 @@
     pointer-events: none;
   }
   .cable-top {
-    width: 120px; /* cambia el tamaño */
-    top: -8px; /* positivo = baja; negativo = sube */
-    left: 50vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
+    width: 500px; /* cambia el tamaño */
+    top: -140px; /* positivo = baja; negativo = sube */
+    left: 35vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
   }
   .cable-bottom {
     position: absolute;
     z-index: 1;
     left: 42vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
     top: 560px; /* aumenta para bajar; disminuye para subir */
-    width: 220px; /* cambia el ancho */
+    width: 300px; /* cambia el ancho */
     height: 220px; /* cambia el alto */
     pointer-events: none;
     transform: rotate(8deg);
   }
   .cable-bottom > img:first-child {
     position: absolute;
-    top: 0;
+    top: 50px;
     left: 0;
-    width: 175px;
+    width: 950px;
     height: auto;
   }
   .cable-line-button {
     position: absolute;
-    top: -25px;
-    left: -15px;
-    width: 32px;
+    top: 45px;
+    left: -1px;
+    /* PROPORCIONES DE LA IMAGEN: cambia solo width para agrandarla o reducirla */
+    width: 50px;
+    height: auto; /* mantiene la proporción original */
+  }
+  .cable-line-button-copy {
+    position: absolute;
+    top: -486px;
+    left: 182px;
+    /* PROPORCIONES DE LA SEGUNDA IMAGEN: puedes cambiarla por separado */
+    width: 50px;
     height: auto;
+    transform: rotate(170deg); /* cambia 90deg por el ángulo que quieras */
   }
   .nota-musical,
   .onda-musical {
@@ -128,8 +138,8 @@
     z-index: 2;
     display: block;
     pointer-events: auto;
-    top: 0;
-    left: 83vw;
+    top: 5px;
+    left: 85vw;
   }
   .onda-enlace-principal {
     top: 0; /* mantiene la oreja en la posición original de la decoración */
