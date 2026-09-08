@@ -221,7 +221,7 @@
   }
   .numero {
     font-family: 'Press Start 2P', monospace;
-    font-size: 68px;
+    font-size: 90px;
     font-weight: 400;
     color: #fff;
     -webkit-text-stroke: 3px #f28b32;
@@ -229,7 +229,7 @@
       0 0 3px #fff,
       0 0 9px #ff9a45,
       0 0 18px rgba(255, 138, 61, 0.9);
-    line-height: 1;
+    line-height: 1.15;
     min-width: 72px;
   }
   .titulo {
@@ -238,7 +238,7 @@
     font-size: 48px;
     line-height: 1.15;
     text-shadow: 0 0 10px rgba(255,150,50,0.5);
-    padding-top: 8px;
+    padding-top: 0;
   }
   .frase {
     font-family: 'Montserrat', sans-serif;
