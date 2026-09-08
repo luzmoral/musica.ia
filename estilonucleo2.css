@@ -183,9 +183,10 @@ body {
 }
 
 .nucleo2-cable {
-  top: 320px;
+  --nucleo2-cable-width: 470px; /* CAMBIA SOLO ESTE VALOR para cambiar el tamaño */
+  top: 260px;
   left: -250px;
-  width: 470px;
+  width: var(--nucleo2-cable-width);
   max-width: none;
   pointer-events: auto;
   cursor: pointer;
@@ -504,9 +505,9 @@ body {
   }
 
   .nucleo2-cable {
-    top: 285px;
+    top: 400px;
     left: -145px;
-    width: 310px;
+    width: min(84vw, var(--nucleo2-cable-width));
   }
 
   .nucleo2-piquito {
