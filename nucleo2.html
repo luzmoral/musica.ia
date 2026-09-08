@@ -45,6 +45,7 @@
             <img class="nucleo2-decoracion nucleo2-nota-dos" src="imagenes/notamsucial.png" alt="">
             <img class="nucleo2-decoracion nucleo2-nota-tres" src="imagenes/notamusical2.png" alt="">
             <img class="nucleo2-decoracion nucleo2-mp3" id="nucleo2Mp3Button" src="imagenes/mp3.png" alt="Reproducir Livin on Borrowed Time" role="button" tabindex="0">
+            <img class="nucleo2-decoracion nucleo2-play-nucleo2" id="nucleo2PlayButton" src="imagenes/playnucleo2.png" alt="Reproducir la música del núcleo 2" role="button" tabindex="0">
             <div class="nucleo2-decoracion nucleo2-cancion-player">
                 <img class="nucleo2-cancion" src="imagenes/cancion1.png" alt="Canción 1: elegir entre humano e IA">
                 <button class="nucleo2-cancion-zone nucleo2-cancion-zone-humano" id="nucleo2HumanoButton" type="button" aria-label="Elegir humano"></button>
@@ -123,28 +124,63 @@
         const nucleo2TituloInstruccion = document.querySelector('#nucleo2TituloInstruccion');
         const nucleo2MensajeInstruccion = document.querySelector('#nucleo2MensajeInstruccion');
         const nucleo2Mp3Button = document.querySelector('#nucleo2Mp3Button');
+        const nucleo2PlayButton = document.querySelector('#nucleo2PlayButton');
+        const nucleo2CancionPlayer = document.querySelector('.nucleo2-cancion-player');
         const nucleo2Audio = new Audio('musica/Livin on Borrowed Time.mp3');
+        const nucleo2MusicFondo = new Audio('musica/Musica de fondo.wav');
 
-        nucleo2Mp3Button.addEventListener('click', () => {
+        nucleo2MusicFondo.loop = true;
+        nucleo2MusicFondo.volume = 0.35;
+
+        function iniciarMusicaFondoNucleo2() {
+            if (nucleo2MusicFondo.paused) {
+                nucleo2MusicFondo.play().catch(() => {});
+            }
+        }
+
+        function pausarMusicaFondoNucleo2() {
+            if (!nucleo2MusicFondo.paused) {
+                nucleo2MusicFondo.pause();
+            }
+        }
+
+        const toggleNucleo2Audio = () => {
             if (nucleo2Audio.paused) {
-                nucleo2Audio.play();
+                pausarMusicaFondoNucleo2();
+                nucleo2Audio.play().catch(() => {});
                 nucleo2Mp3Button.classList.add('reproduciendo');
             } else {
                 nucleo2Audio.pause();
                 nucleo2Mp3Button.classList.remove('reproduciendo');
+                iniciarMusicaFondoNucleo2();
             }
+        };
+
+        nucleo2Mp3Button.addEventListener('click', toggleNucleo2Audio);
+        nucleo2PlayButton.addEventListener('click', toggleNucleo2Audio);
+        nucleo2CancionPlayer.addEventListener('click', (event) => {
+            if (event.target.closest('.nucleo2-cancion-zone')) {
+                return;
+            }
+            toggleNucleo2Audio();
         });
 
-        nucleo2Mp3Button.addEventListener('keydown', (event) => {
+        const handleNucleo2KeyToggle = (event) => {
             if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
-                nucleo2Mp3Button.click();
+                toggleNucleo2Audio();
             }
-        });
+        };
+
+        nucleo2Mp3Button.addEventListener('keydown', handleNucleo2KeyToggle);
+        nucleo2PlayButton.addEventListener('keydown', handleNucleo2KeyToggle);
 
         nucleo2Audio.addEventListener('ended', () => {
             nucleo2Mp3Button.classList.remove('reproduciendo');
+            iniciarMusicaFondoNucleo2();
         });
+
+        iniciarMusicaFondoNucleo2();
 
         nucleo2TituloInstruccion.addEventListener('click', () => {
             nucleo2MensajeInstruccion.innerHTML = '¡Reproducí la canción para comprobar a qué<br>porcentaje de los resultados perteneces!';
@@ -275,6 +311,7 @@
             function irAEncuesta(resultado) {
                 nucleo2Audio.pause();
                 nucleo2Mp3Button.classList.remove('reproduciendo');
+                iniciarMusicaFondoNucleo2();
                 nucleo2WaveChart.dataset.activo = resultado;
                 nucleo2TituloResultado.textContent = resultado === '3' ? 'MINORÍA' : 'MAYORÍA';
                 nucleo2MayoriaInfo.scrollIntoView({ behavior: 'smooth', block: 'center' });
