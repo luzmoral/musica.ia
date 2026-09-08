@@ -17,7 +17,7 @@
 <body>
 
   <canvas id="aurora" aria-hidden="true"></canvas>
-  <audio id="musicaFondo" src="musica/Musica de fondo.wav" loop preload="auto" autoplay></audio>
+  <audio id="musicaFondo" src="musica/Musica de fondo.wav" loop preload="auto"></audio>
   <main class="contenido">
     <img class="imagen-portada imagen-chica" src="imagenes/chicaportada.png" alt="Mujer con audífonos">
 
@@ -46,6 +46,12 @@
       <img class="cable-1" src="imagenes/cableportada.png" alt="">
     </div>
 
+    <div class="texto-audio-portada">
+      <p>¡Tocá y activá el sonido de la experiencia!</p>
+    </div>
+
+    <img class="boton-portada-audio" id="botonPortadaAudio" src="imagenes/botonapagado.png" alt="Audio apagado" role="button" tabindex="0">
+
     <a class="enlace-oreja" href="nucleo2.html" aria-label="Probar si el oído humano distingue música">
       <img class="imagen-portada imagen-oreja" src="imagenes/orejaentera.png" alt="Oreja ilustrada">
     </a>
@@ -53,19 +59,51 @@
 
   <script>
     const musicaFondo = document.querySelector('#musicaFondo');
+    const botonPortadaAudio = document.querySelector('#botonPortadaAudio');
+    let musicaPortadaActiva = false;
+
     musicaFondo.volume = 0.35;
 
-    function iniciarMusicaFondo() {
-      musicaFondo.play().catch(() => {});
+    function actualizarBotonPortadaAudio() {
+      botonPortadaAudio.src = musicaPortadaActiva ? 'imagenes/botonprendido.png' : 'imagenes/botonapagado.png';
+      botonPortadaAudio.alt = musicaPortadaActiva ? 'Audio encendido' : 'Audio apagado';
     }
 
-    const segundosAntesDeIniciar = 1;
+    function iniciarMusicaFondo() {
+      if (musicaPortadaActiva) return;
 
-    window.addEventListener('load', () => {
-      setTimeout(iniciarMusicaFondo, segundosAntesDeIniciar * 1000);
-    }, { once: true });
-    window.addEventListener('pointerdown', iniciarMusicaFondo, { once: true });
-    window.addEventListener('keydown', iniciarMusicaFondo, { once: true });
+      musicaFondo.play()
+        .then(() => {
+          musicaPortadaActiva = true;
+          actualizarBotonPortadaAudio();
+        })
+        .catch(() => {});
+    }
+
+    function pausarMusicaFondo() {
+      if (!musicaPortadaActiva) return;
+
+      musicaFondo.pause();
+      musicaPortadaActiva = false;
+      actualizarBotonPortadaAudio();
+    }
+
+    botonPortadaAudio.addEventListener('click', () => {
+      if (musicaPortadaActiva) {
+        pausarMusicaFondo();
+      } else {
+        iniciarMusicaFondo();
+      }
+    });
+
+    botonPortadaAudio.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        botonPortadaAudio.click();
+      }
+    });
+
+    actualizarBotonPortadaAudio();
 
     const canvas = document.querySelector('#aurora');
     const context = canvas.getContext('2d');
