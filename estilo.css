@@ -103,6 +103,46 @@ body {
   pointer-events: none;
 }
 
+.texto-audio-portada {
+  position: absolute;
+  top: 7%;
+  right: 4%;
+  z-index: 5;
+  max-width: 190px;
+}
+
+.texto-audio-portada p {
+  margin: 0;
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(10px, 0.9vw, 15px);
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.boton-portada-audio {
+  position: absolute;
+  top: 7%;
+  right: 18%;
+  z-index: 4;
+  width: clamp(30px, 1vw, 50px);
+  height: auto;
+  pointer-events: auto;
+  object-fit: contain;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+}
+
+.boton-portada-audio:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 3px;
+}
+
 .sonido-portada img {
   position: absolute;
   display: block;
