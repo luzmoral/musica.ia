@@ -26,7 +26,7 @@ body {
   position: relative;
   z-index: 1;
   width: 100vw;
-  min-height: 345vh;
+  min-height: 310vh;
   height: auto;
   padding: 30px 30px 8rem;
   overflow: visible;
@@ -183,9 +183,10 @@ body {
 }
 
 .nucleo2-cable {
-  --nucleo2-cable-width: 470px; /* CAMBIA SOLO ESTE VALOR para cambiar el tamaño */
-  top: 260px;
-  left: -250px;
+  --nucleo2-cable-width: 475px; /* CAMBIA SOLO ESTE VALOR para cambiar el tamaño */
+  top: -60px;
+  left: -253px; /* antes -300px: se mueve 20px a la derecha */
+  z-index: 2;
   width: var(--nucleo2-cable-width);
   max-width: none;
   pointer-events: auto;
@@ -193,10 +194,10 @@ body {
 }
 /*piquito*/
 .nucleo2-piquito {
-  top: 330px;
-  left: 215px;
+  top: 357px;
+  left: 200px;
   width: 80px;
-  transform: rotate(70deg);
+  transform: rotate(83deg);
   transform-origin: left center;
   pointer-events: auto;
   cursor: pointer;
@@ -402,7 +403,7 @@ body {
 
 .nucleo2-final {
   position: absolute;
-  top: 305vh;
+  top: 290vh;
   left: 50%;
   z-index: 3;
   display: flex;
@@ -506,8 +507,9 @@ body {
 
   .nucleo2-cable {
     top: 400px;
-    left: -145px;
+    left: -125px; /* antes -145px */
     width: min(84vw, var(--nucleo2-cable-width));
+    z-index: 2;
   }
 
   .nucleo2-piquito {
