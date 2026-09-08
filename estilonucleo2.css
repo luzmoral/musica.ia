@@ -249,6 +249,16 @@ body {
   cursor: pointer;
 }
 
+.nucleo2-play-nucleo2 {
+  top: 208px;
+  right: -3.4vw;
+  z-index: 3;
+  width: min(4vw, 55px);
+  pointer-events: auto;
+  cursor: pointer;
+  filter: drop-shadow(0 0 12px rgba(255,255,255,0.28));
+}
+
 .nucleo2-cancion-player {
   top: 50px;
   right: -22vw;
