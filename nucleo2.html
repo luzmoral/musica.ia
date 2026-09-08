@@ -182,9 +182,21 @@
 
         iniciarMusicaFondoNucleo2();
 
-        nucleo2TituloInstruccion.addEventListener('click', () => {
-            nucleo2MensajeInstruccion.innerHTML = '¡Reproducí la canción para comprobar a qué<br>porcentaje de los resultados perteneces!';
-        });
+        const mensajeInicialInstruccion = '¿Crees que sos capaz de distinguir <br>si una canción es IA?';
+        const mensajeActivoInstruccion = '¡Reproducí la canción para comprobar a qué<br>porcentaje de los resultados perteneces!';
+
+        function mostrarMensajeActivoInstruccion() {
+            nucleo2MensajeInstruccion.innerHTML = mensajeActivoInstruccion;
+        }
+
+        function restaurarMensajeInstruccion() {
+            nucleo2MensajeInstruccion.innerHTML = mensajeInicialInstruccion;
+        }
+
+        nucleo2TituloInstruccion.addEventListener('mouseenter', mostrarMensajeActivoInstruccion);
+        nucleo2TituloInstruccion.addEventListener('mouseleave', restaurarMensajeInstruccion);
+        nucleo2TituloInstruccion.addEventListener('focus', mostrarMensajeActivoInstruccion);
+        nucleo2TituloInstruccion.addEventListener('blur', restaurarMensajeInstruccion);
 
         function pintarNucleo2Estado() {
             nucleo2Text.textContent = nucleo2Estados[nucleo2Indice];
