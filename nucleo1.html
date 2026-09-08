@@ -174,17 +174,17 @@ function pintarEstado() {
   audioEstado.play();
 }
 
-/*  const disco = document.querySelector('.disco');
-  const audioRebobinar = new Audio('musica/rebobinar.wav');
-  audioRebobinar.volume = 0.5;
-  let gradosDisco = 0; */
+  const disco = document.querySelector('.disco');
+  // const audioRebobinar = new Audio('musica/rebobinar.wav');
+  // audioRebobinar.volume = 0.5;
+  let gradosDisco = 0;
 
   function girarDisco(direccion = 1) {
     gradosDisco += direccion * 60;
     disco.style.transform = `rotate(${gradosDisco}deg)`;
-    audioRebobinar.pause();
-    audioRebobinar.currentTime = 0;
-    audioRebobinar.play();
+    // audioRebobinar.pause();
+    // audioRebobinar.currentTime = 0;
+    // audioRebobinar.play();
   }
 
   document.getElementById("next").addEventListener("click", () => {
