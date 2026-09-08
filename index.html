@@ -17,6 +17,7 @@
 <body>
 
   <canvas id="aurora" aria-hidden="true"></canvas>
+  <audio id="musicaFondo" src="musica/Musica de fondo.wav" loop preload="auto"></audio>
   <main class="contenido">
     <img class="imagen-portada imagen-chica" src="imagenes/chicaportada.png" alt="Mujer con audífonos">
 
@@ -51,6 +52,17 @@
   </main>
 
   <script>
+    const musicaFondo = document.querySelector('#musicaFondo');
+    musicaFondo.volume = 0.35;
+
+    function iniciarMusicaFondo() {
+      musicaFondo.play().catch(() => {});
+    }
+
+    iniciarMusicaFondo();
+    window.addEventListener('pointerdown', iniciarMusicaFondo, { once: true });
+    window.addEventListener('keydown', iniciarMusicaFondo, { once: true });
+
     const canvas = document.querySelector('#aurora');
     const context = canvas.getContext('2d');
 
