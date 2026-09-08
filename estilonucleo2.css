@@ -26,7 +26,7 @@ body {
   position: relative;
   z-index: 1;
   width: 100vw;
-  min-height: 310vh;
+  min-height: 305vh;
   height: auto;
   padding: 30px 30px 8rem;
   overflow: visible;
@@ -288,7 +288,7 @@ body {
 
 .nucleo2-mayoria {
   position: absolute;
-  top: 225vh;
+  top: 215vh; /* antes 225vh */
   left: 5vw;
   z-index: 3;
   display: grid;
@@ -403,7 +403,7 @@ body {
 
 .nucleo2-final {
   position: absolute;
-  top: 290vh;
+  top: 290vh; /* antes 305vh */
   left: 50%;
   z-index: 3;
   display: flex;
