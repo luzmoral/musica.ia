@@ -44,8 +44,12 @@
             <img class="nucleo2-decoracion nucleo2-nota-uno" src="imagenes/notamusical2.png" alt="">
             <img class="nucleo2-decoracion nucleo2-nota-dos" src="imagenes/notamsucial.png" alt="">
             <img class="nucleo2-decoracion nucleo2-nota-tres" src="imagenes/notamusical2.png" alt="">
-            <img class="nucleo2-decoracion nucleo2-mp3" src="imagenes/mp3.png" alt="">
-            <img class="nucleo2-decoracion nucleo2-cancion" src="imagenes/cancion1.png" alt="">
+            <img class="nucleo2-decoracion nucleo2-mp3" id="nucleo2Mp3Button" src="imagenes/mp3.png" alt="Reproducir Livin on Borrowed Time" role="button" tabindex="0">
+            <div class="nucleo2-decoracion nucleo2-cancion-player">
+                <img class="nucleo2-cancion" src="imagenes/cancion1.png" alt="Canción 1: elegir entre humano e IA">
+                <button class="nucleo2-cancion-zone nucleo2-cancion-zone-humano" id="nucleo2HumanoButton" type="button" aria-label="Elegir humano"></button>
+                <button class="nucleo2-cancion-zone nucleo2-cancion-zone-ia" id="nucleo2IaButton" type="button" aria-label="Elegir IA"></button>
+            </div>
             <button class="nucleo2-titulo-instruccion" id="nucleo2TituloInstruccion" type="button">¡PROBÁ TU OÍDO!</button>
             <p id="nucleo2MensajeInstruccion">¿Crees que sos capaz de distinguir <br>si una canción es IA?</p>
         </section>
@@ -118,6 +122,29 @@
         const nucleo2Knob = document.querySelector('#nucleo2Knob');
         const nucleo2TituloInstruccion = document.querySelector('#nucleo2TituloInstruccion');
         const nucleo2MensajeInstruccion = document.querySelector('#nucleo2MensajeInstruccion');
+        const nucleo2Mp3Button = document.querySelector('#nucleo2Mp3Button');
+        const nucleo2Audio = new Audio('musica/Livin on Borrowed Time.mp3');
+
+        nucleo2Mp3Button.addEventListener('click', () => {
+            if (nucleo2Audio.paused) {
+                nucleo2Audio.play();
+                nucleo2Mp3Button.classList.add('reproduciendo');
+            } else {
+                nucleo2Audio.pause();
+                nucleo2Mp3Button.classList.remove('reproduciendo');
+            }
+        });
+
+        nucleo2Mp3Button.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                nucleo2Mp3Button.click();
+            }
+        });
+
+        nucleo2Audio.addEventListener('ended', () => {
+            nucleo2Mp3Button.classList.remove('reproduciendo');
+        });
 
         nucleo2TituloInstruccion.addEventListener('click', () => {
             nucleo2MensajeInstruccion.innerHTML = '¡Reproducí la canción para comprobar a qué<br>porcentaje de los resultados perteneces!';
@@ -241,6 +268,18 @@
 
         if (nucleo2WaveChart) {
             const nucleo2WaveZonas = nucleo2WaveChart.querySelectorAll('.nucleo2-wave-zone');
+            const nucleo2MayoriaInfo = document.querySelector('.nucleo2-mayoria-info');
+            const nucleo2HumanoButton = document.querySelector('#nucleo2HumanoButton');
+            const nucleo2IaButton = document.querySelector('#nucleo2IaButton');
+
+            function irAEncuesta(resultado) {
+                nucleo2WaveChart.dataset.activo = resultado;
+                nucleo2TituloResultado.textContent = resultado === '3' ? 'MINORÍA' : 'MAYORÍA';
+                nucleo2MayoriaInfo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            nucleo2HumanoButton.addEventListener('click', () => irAEncuesta('1'));
+            nucleo2IaButton.addEventListener('click', () => irAEncuesta('3'));
 
             nucleo2WaveZonas.forEach((zona) => {
                 const activar = () => {
