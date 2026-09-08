@@ -35,7 +35,7 @@
     z-index: 1;
     overflow: hidden;
     color: #fff;
-    padding: 30px;
+    padding: 30px; /* espacio interior: aumenta para separar el contenido de los bordes */
     box-shadow: none;
   }
 
@@ -43,41 +43,42 @@
   h1 {
     position: relative;
     z-index: 1;
-    font-size: 58px;
+    font-size: 60px; /* cambia el tamaño del título: más grande o más pequeño */
     font-weight: 900;
     line-height: 1;
-    margin: 0;
+    margin: 0; /* separa el título de otros elementos: usa margin-top para bajarlo */
     letter-spacing: -0.03em;
     text-shadow: 0.07em 0.07em 0 #8a563d;
-    max-width: 500px;
+    max-width: none; /* evita que el título se parta en varias líneas */
+    white-space: nowrap; /* conserva cada línea tal como está escrita en el HTML */
     text-transform: uppercase;
-    transform: translate(0, 25px);
+    transform: translate(10px, 25px); /* translateX mueve izquierda/derecha; translateY sube/baja */
   }
 
   /* ---------- CD + caja (fondo, no cambia entre estados) ---------- */
   .cd-wrap {
     position: absolute;
     z-index: 0;
-    left: -120px; /* más negativo = más a la izquierda */
-    bottom: 0;    /* más grande = más arriba */
-    width: 600px;
-    height: 600px;
+    left: -120px; /* mueve izquierda/derecha: negativo = izquierda, positivo = derecha */
+    bottom: 0;    /* sube/baja: aumenta bottom para subirlo, disminúyelo para bajarlo */
+    width: 600px; /* agranda/reduce el ancho */
+    height: 600px; /* agranda/reduce el alto */
     pointer-events: none;
   }
   .cd-wrap .caja {
     position: absolute;
     z-index: 2;
-    top: 250px;  /* más grande = más abajo */
-    left: -180px;  /* más grande = más a la derecha */
-    width: 750px;
+    top: 250px;  /* más grande = más abajo; más pequeño = más arriba */
+    left: -180px;  /* más grande = más a la derecha; más negativo = izquierda */
+    width: 750px; /* cambia el tamaño de la caja */
     opacity: 0.95;
   }
   .cd-wrap .disco {
     position: absolute;
     z-index: 1;
-    left: 50px;    /* más grande = más a la derecha */
-    bottom:-150px;  /* más grande = más arriba */
-    width: 560px;
+    left: 50px;    /* más grande = más a la derecha; más pequeño = izquierda */
+    bottom:-150px;  /* más grande = más arriba; más negativo = más abajo */
+    width: 560px; /* cambia el tamaño del disco */
     transform-origin: center;
     transition: transform 1.4s ease-in-out;
   }
@@ -88,17 +89,17 @@
     pointer-events: none;
   }
   .cable-top {
-    width: 120px;
-    top: -8px;
-    left: 50vw;
+    width: 120px; /* cambia el tamaño */
+    top: -8px; /* positivo = baja; negativo = sube */
+    left: 50vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
   }
   .cable-bottom {
     position: absolute;
     z-index: 1;
-    left: 42vw;
-    top: 560px;
-    width: 220px;
-    height: 220px;
+    left: 42vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
+    top: 560px; /* aumenta para bajar; disminuye para subir */
+    width: 220px; /* cambia el ancho */
+    height: 220px; /* cambia el alto */
     pointer-events: none;
     transform: rotate(8deg);
   }
@@ -130,17 +131,39 @@
     top: 0;
     left: 83vw;
   }
+  .onda-enlace-principal {
+    top: 0; /* mantiene la oreja en la posición original de la decoración */
+  }
+    .oreja-enlace {
+      position: absolute;
+      z-index: 3;
+      width: 105px;
+      height: auto;
+      left: 50%;
+      top: 0; /* la oreja tiene su propio enlace y queda visible arriba de la onda */
+      transform: translateX(18%);
+      cursor: pointer;
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+    .oreja-enlace:hover {
+      filter:
+        drop-shadow(0 0 4px #ff7a3d)
+        drop-shadow(0 0 10px #ff3d81)
+        drop-shadow(0 0 20px #8b5cff);
+      transform: translateX(18%) scale(1.05);
+    }
   .onda-enlace-copy {
     left: 80vw;
+    top: 2px; /* baja 2px la onda que queda detrás de la oreja */
   }
   .nota-musical {
     transform-origin: center bottom;
     animation: nota-baila 2.4s ease-in-out infinite;
   }
   .nota-musical-top {
-    top: 50px;
-    left: 68vw;
-    width: 100px;
+    top: 50px; /* aumenta para bajar; disminuye para subir */
+    left: 68vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
+    width: 100px; /* cambia el tamaño */
     animation-delay: -0.8s;
   }
   .nota-musical-left-one {
@@ -168,13 +191,15 @@
   }
 
   .onda-musical {
-    position: static;
+    position: absolute;
     display: block;
     width: 255px;
+    top: 0;
+    left: 83vw;
   }
   .onda-musical-copy {
-    position: static;
-    display: block;
+    top: 2px;
+    left: 80vw;
     width: 105px;
     transform: rotate(90deg);
     transform-origin: center;
@@ -184,19 +209,19 @@
   .icono-wrap {
     position: absolute;
     z-index: 2;
-    right: 0;
-    top: 20vh;
+    right: 0; /* aumenta para mover a la izquierda; disminuye para mover a la derecha */
+    top: 20vh; /* aumenta para bajar; disminuye para subir */
   }
   .icono {
-    width: 350px;
-    height: 350px;
+    width: 350px; /* cambia el ancho del contenedor */
+    height: 350px; /* cambia el alto del contenedor */
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .icono img {
-    width: 70%;
-    height: 70%;
+    width: 70%; /* aumenta para agrandar la imagen */
+    height: 70%; /* aumenta para agrandar la imagen */
     object-fit: contain;
   }
   .icono img.icono-micro {
@@ -209,19 +234,19 @@
     position: absolute;
     z-index: 2;
     right: auto;
-    left: 44vw;
-    top: 25vh;
-    width: min(48vw, 600px);
+    left: 44vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
+    top: 25vh; /* aumenta para bajar; disminuye para subir */
+    width: min(48vw, 600px); /* cambia el ancho del bloque de contenido */
   }
   .row {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
+    gap: 28px; /* separación fija entre el número y el título */
     margin-bottom: 14px;
   }
   .numero {
     font-family: 'Press Start 2P', monospace;
-    font-size: 90px;
+    font-size: 90px; /* mismo tamaño de letra que los títulos */
     font-weight: 400;
     color: #fff;
     -webkit-text-stroke: 3px #f28b32;
@@ -230,20 +255,23 @@
       0 0 9px #ff9a45,
       0 0 18px rgba(255, 138, 61, 0.9);
     line-height: 1.15;
-    min-width: 72px;
+    flex: 0 0 90px; /* reserva el mismo espacio para todos los números */
+    min-width: 90px;
   }
   .titulo {
     font-family:  'Press Start 2P', monospace;
     font-weight: 600;
-    font-size: 48px;
+    font-size: 48px; /* cambia el tamaño del título */
     line-height: 1.15;
     text-shadow: 0 0 10px rgba(255,150,50,0.5);
     padding-top: 0;
+    flex: 1;
+    min-width: 0;
   }
   .frase {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-    font-size: 32px;
+    font-size: 32px; /* cambia el tamaño de la frase */
     line-height: 1.5;
     color: #e8e0f5;
     max-width: 100%;
@@ -253,21 +281,21 @@
   .controls {
     position: absolute;
     z-index: 2;
-    left: 100px;
-    right: 50px;
+    left: 100px; /* mueve el bloque desde la izquierda */
+    right: 50px; /* cambia la distancia desde la derecha */
     bottom: auto;
-    top: 75vh;
-    transform: translateX(12vw);
+    top: 75vh; /* aumenta para bajar los controles; disminuye para subirlos */
+    transform: translateX(12vw); /* positivo = derecha; negativo = izquierda */
   }
   
   .bar {
-    width: 400px;
-    height: 40px;
+    width: 400px; /* cambia el ancho de la barra */
+    height: 40px; /* cambia el alto de la barra */
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 16px;
     position: relative;
-    transform: translateX(2vw);
+    transform: translateX(2vw); /* positivo = derecha; negativo = izquierda */
   }
   .bar::before,
   .bar::after {
@@ -319,7 +347,7 @@
   }
   /*boton costados de play*/
   .buttons img {
-    height: 90px;
+    height: 90px; /* cambia el tamaño de los botones */
     width: auto;
     transition: filter 0.2s ease, transform 0.2s ease;
   }
