@@ -59,9 +59,7 @@
       musicaFondo.play().catch(() => {});
     }
 
-    window.addEventListener('load', () => {
-      setTimeout(iniciarMusicaFondo, 1000);
-    }, { once: true });
+    window.addEventListener('load', iniciarMusicaFondo, { once: true });
     window.addEventListener('pointerdown', iniciarMusicaFondo, { once: true });
     window.addEventListener('keydown', iniciarMusicaFondo, { once: true });
 
