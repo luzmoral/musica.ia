@@ -17,15 +17,17 @@
 
   <!-- CD + caja de fondo: decorativo, no se toca entre estados -->
   <div class="cd-wrap">
-    <img class="caja" src="imagenes/cajacd.png" alt="">
-    <img class="disco" src="imagenes/cd.png" alt="">
-    <img class="piquito" src="imagenes/piquito.png" alt="">
+    <img class="caja" src="imagenes/cajacdcompleta.png" alt="">
+    <img class="disco" src="imagenes/cdcompleto.png" alt="">
   </div>
 
 
   <!-- Cables decorativos -->
   <img class="cable cable-top" src="imagenes/cable2.png" alt="">
-  <img class="cable cable-bottom" src="imagenes/cable2.png" alt="">
+  <div class="cable-line cable-bottom">
+    <img src="imagenes/cable2.png" alt="">
+    <img class="cable-line-button" src="imagenes/piquito.png" alt="">
+  </div>
 
   <!-- Decoración musical fija -->
    <div class="notas-musicales"> 
@@ -105,30 +107,29 @@
   }
 
   const disco = document.querySelector('.disco');
+  let gradosDisco = 0;
 
-  function girarDisco() {
-    disco.classList.remove('girar-cd');
-    void disco.offsetWidth;
-    disco.classList.add('girar-cd');
-    setTimeout(() => disco.classList.remove('girar-cd'), 500);
+  function girarDisco(direccion = 1) {
+    gradosDisco += direccion * 60;
+    disco.style.transform = `rotate(${gradosDisco}deg)`;
   }
 
   document.getElementById("next").addEventListener("click", () => {
     indice = (indice + 1) % estados.length;
     pintarEstado();
-    girarDisco();
+    girarDisco(1);
   });
 
   document.getElementById("prev").addEventListener("click", () => {
     indice = (indice - 1 + estados.length) % estados.length;
     pintarEstado();
-    girarDisco();
+    girarDisco(-1);
   });
 
   document.getElementById("play").addEventListener("click", () => {
     indice = (indice + 1) % estados.length;
     pintarEstado();
-    girarDisco();
+    girarDisco(1);
   });
 
   pintarEstado();
