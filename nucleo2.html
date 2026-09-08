@@ -55,7 +55,7 @@
             <p id="nucleo2MensajeInstruccion">¿Crees que sos capaz de distinguir <br>si una canción es IA?</p>
         </section>
 
-        <section class="nucleo2-mayoria" aria-labelledby="mayoriaTitulo">
+        <section class="nucleo2-mayoria" aria-labelledby="mayoriaTitulo" aria-hidden="true">
             <div class="nucleo2-encuesta" aria-label="Encuesta: reconocimiento de música generada por IA">
                 <span class="nucleo2-wave-badge">9000 respuestas</span>
                 <div class="nucleo2-wave-chart" id="nucleo2WaveChart">
@@ -123,11 +123,24 @@
         const nucleo2Knob = document.querySelector('#nucleo2Knob');
         const nucleo2TituloInstruccion = document.querySelector('#nucleo2TituloInstruccion');
         const nucleo2MensajeInstruccion = document.querySelector('#nucleo2MensajeInstruccion');
+        const nucleo2Instruccion = document.querySelector('.nucleo2-instruccion');
         const nucleo2Mp3Button = document.querySelector('#nucleo2Mp3Button');
         const nucleo2PlayButton = document.querySelector('#nucleo2PlayButton');
         const nucleo2CancionPlayer = document.querySelector('.nucleo2-cancion-player');
         const nucleo2Audio = new Audio('musica/Livin on Borrowed Time.mp3');
         const nucleo2MusicFondo = new Audio('musica/Musica de fondo.wav');
+        let nucleo2RespuestaRealizada = false;
+
+        function detenerScrollEnCancion() {
+            if (nucleo2RespuestaRealizada || window.scrollY < nucleo2Instruccion.offsetTop - 24) {
+                return;
+            }
+
+            document.body.classList.add('nucleo2-scroll-bloqueado');
+            window.scrollTo({ top: nucleo2Instruccion.offsetTop - 24, behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', detenerScrollEnCancion, { passive: true });
 
         nucleo2MusicFondo.loop = true;
         nucleo2MusicFondo.volume = 0.35;
@@ -316,6 +329,7 @@
 
         if (nucleo2WaveChart) {
             const nucleo2WaveZonas = nucleo2WaveChart.querySelectorAll('.nucleo2-wave-zone');
+            const nucleo2Mayoria = document.querySelector('.nucleo2-mayoria');
             const nucleo2MayoriaInfo = document.querySelector('.nucleo2-mayoria-info');
             const nucleo2HumanoButton = document.querySelector('#nucleo2HumanoButton');
             const nucleo2IaButton = document.querySelector('#nucleo2IaButton');
@@ -324,6 +338,10 @@
                 nucleo2Audio.pause();
                 nucleo2Mp3Button.classList.remove('reproduciendo');
                 iniciarMusicaFondoNucleo2();
+                nucleo2RespuestaRealizada = true;
+                document.body.classList.remove('nucleo2-scroll-bloqueado');
+                nucleo2Mayoria.classList.add('visible');
+                nucleo2Mayoria.setAttribute('aria-hidden', 'false');
                 nucleo2WaveChart.dataset.activo = resultado;
                 nucleo2TituloResultado.textContent = resultado === '3' ? 'MINORÍA' : 'MAYORÍA';
                 nucleo2MayoriaInfo.scrollIntoView({ behavior: 'smooth', block: 'center' });
