@@ -58,8 +58,8 @@
   .cd-wrap {
     position: absolute;
     z-index: 0;
-    left: -50px;
-    bottom: calc(80vh - 600px);
+    left: -120px; /* más negativo = más a la izquierda */
+    bottom: 0;    /* más grande = más arriba */
     width: 600px;
     height: 600px;
     pointer-events: none;
@@ -67,24 +67,19 @@
   .cd-wrap .caja {
     position: absolute;
     z-index: 2;
-    top: 150px;
-    left: 30px;
-    width: 550px;
+    top: 250px;  /* más grande = más abajo */
+    left: -180px;  /* más grande = más a la derecha */
+    width: 750px;
     opacity: 0.95;
   }
   .cd-wrap .disco {
     position: absolute;
     z-index: 1;
-    left: 50px;
-    bottom: 25px;
-    width: 580px;
-  }
-  .cd-wrap .piquito {
-    position: absolute;
-    z-index: 3;
-    top: 420px;
-    right: -140px;
-    width: 80px;
+    left: 50px;    /* más grande = más a la derecha */
+    bottom:-150px;  /* más grande = más arriba */
+    width: 560px;
+    transform-origin: center;
+    transition: transform 1.4s ease-in-out;
   }
   /* ---------- Cables decorativos (imagen cable2.png) ---------- */
   .cable {
@@ -98,11 +93,28 @@
     left: 50vw;
   }
   .cable-bottom {
-    width: 90px;
+    position: absolute;
+    z-index: 1;
     left: 42vw;
-    bottom: 60px;
-    top: 623px;
+    top: 520px;
+    width: 220px;
+    height: 220px;
+    pointer-events: none;
     transform: rotate(8deg);
+  }
+  .cable-bottom > img:first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 175px;
+    height: auto;
+  }
+  .cable-line-button {
+    position: absolute;
+    top: -25px;
+    left: -15px;
+    width: 32px;
+    height: auto;
   }
   .nota-musical,
   .onda-musical {
