@@ -11,6 +11,10 @@ body {
   font-family: 'Montserrat', sans-serif;
   background: #08070c url("imagenes/fondo.png") center / cover no-repeat fixed;
 }
+
+body.nucleo2-scroll-bloqueado {
+  overflow-y: hidden;
+}
 /* fondo */
 #aurora {
   position: fixed;
@@ -344,6 +348,16 @@ body {
   align-items: start;
   width: 90vw;
   min-height: 65vh;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.nucleo2-mayoria.visible {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .nucleo2-encuesta {
