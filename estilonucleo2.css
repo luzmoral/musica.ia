@@ -245,13 +245,50 @@ body {
   top: -20px;
   right: -27vw;
   width: min(50vw, 590px);
+  pointer-events: auto;
+  cursor: pointer;
 }
 
-.nucleo2-cancion {
+.nucleo2-cancion-player {
   top: 50px;
   right: -22vw;
   z-index: 1;
   width: min(30vw, 380px);
+  aspect-ratio: 1;
+  pointer-events: auto;
+}
+
+.nucleo2-cancion {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.nucleo2-cancion-zone {
+  position: absolute;
+  top: 70%;
+  z-index: 2;
+  height: 18%;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nucleo2-cancion-zone:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.nucleo2-cancion-zone-humano {
+  left: 7%;
+  width: 39%;
+}
+
+.nucleo2-cancion-zone-ia {
+  left: 47%;
+  width: 41%;
 }
 
 .nucleo2-titulo-instruccion {
@@ -544,7 +581,7 @@ body {
     width: 78vw;
   }
 
-  .nucleo2-cancion {
+  .nucleo2-cancion-player {
     top: 92px;
     right: -3vw;
     width: 44vw;
