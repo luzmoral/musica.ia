@@ -79,9 +79,11 @@
                             <p>La plataforma de streaming musical <span class="nucleo2-acento-azul">Deezer</span> realizó en 2025 un estudio con el propósito de indagar el impacto de esta nueva herramienta digital y su <span class="nucleo2-acento-cian">capacidad de reconocimiento</span> en la sociedad.</p>
                         </div>
                         <div class="nucleo2-parrafo-row">
-                            <img class="nucleo2-respuestas" src="imagenes/9000.png" alt="9000 respuestas">
+                            <div class="nucleo2-respuestas-wrap">
+                                <img class="nucleo2-respuestas" src="imagenes/9000.png" alt="9000 respuestas">
+                                <h4>encuestados</h4>
+                            </div>
                             <p> Resulta prácticamente imposible para el oído humano distinguir música generada por la inteligencia artificial de una compuesta por una persona real.</p>
-                        <h4> encuestados </h4>
                         </div>
                     </div>
                 </div>
@@ -92,7 +94,7 @@
             <img src="imagenes/lineasonidoinicio.png" alt="" aria-hidden="true">
             <a href="index.html">Volver al inicio</a>
             <img class="nucleo2-onda-final-invertida" src="imagenes/lineasonidoinicio.png" alt="" aria-hidden="true">
-            <p class="nucleo2-encuestados">encuestados</p>
+           
         </div>
     </main>
 
@@ -118,7 +120,7 @@
         const nucleo2MensajeInstruccion = document.querySelector('#nucleo2MensajeInstruccion');
 
         nucleo2TituloInstruccion.addEventListener('click', () => {
-            nucleo2MensajeInstruccion.textContent = '¡Reproducí la canción para comprobar a qué porcentaje de los resultados perteneces!';
+            nucleo2MensajeInstruccion.innerHTML = '¡Reproducí la canción para comprobar a qué<br>porcentaje de los resultados perteneces!';
         });
 
         function pintarNucleo2Estado() {
