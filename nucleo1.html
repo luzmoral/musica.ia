@@ -76,15 +76,55 @@
   // Para agregar/editar pasos: solo tocá numero, titulo, frase e icono si querés
   // que el círculo de arriba cambie de ícono en ese paso). El resto del diseño
   // (CD, título, cables, controles) es fijo y no se toca.
-  const estados = [
-    { numero: 1, titulo: "Captura de voz",        frase: "Se registra la entrada de una muestra de voz en el software", icono: "imagenes/bocamicro.png" },
-    { numero: 2, titulo: "Prompt",      frase: "Se indican características musicales concretas para orientar el resultado", icono: "imagenes/ia.png" },
-    { numero: 3, titulo: "Modelo de voz",  frase: "Crea un modelo de voz original utilizando tecnicas de procesamiento de aprendizaje automatico", icono: "imagenes/voz.png" },
-    { numero: 4, titulo: "Capacitación de la IA",   frase: "Los sistemas de IA analizan grandes cantidades de música para identificar patrones, estructuras y características sonoras. ", icono: "imagenes/iacabeza.png" },
-    { numero: 5, titulo: "Generación de Voz ",    frase: "Se produce una señal de voz alterada. Se le puede ajustar generalmente el tono, velocidad y entonación.", icono: "imagenes/micro.png" },
-    { numero: 6, titulo: "Resultado final",            frase: "Los elementos elegidos se organizan y producen hasta obtener una versión final. A veces la IA se utiliza en la letra, melodía e instrumentos.", icono: "imagenes/musicaglobo.png" }
-  ];
+ const estados = [
+  {
+    numero: 1,
+    titulo: "Captura de voz",
+    frase: "Se registra la entrada de una muestra de voz en el software",
+    icono: "imagenes/bocamicro.png",
+    musica: "musica/1- Captura de voz.wav"
+  },
 
+  {
+    numero: 2,
+    titulo: "Prompt",
+    frase: "Se indican características musicales concretas para orientar el resultado",
+    icono: "imagenes/ia.png",
+    musica: "musica/2- Prompt.wav"
+  },
+
+  {
+    numero: 3,
+    titulo: "Modelo de voz",
+    frase: "Crea un modelo de voz original utilizando tecnicas de procesamiento de aprendizaje automatico",
+    icono: "imagenes/voz.png",
+    musica: "musica/3- Modelo de voz.wav"
+  },
+
+  {
+    numero: 4,
+    titulo: "Capacitación de la IA",
+    frase: "Los sistemas de IA analizan grandes cantidades de música para identificar patrones, estructuras y características sonoras.",
+    icono: "imagenes/iacabeza.png",
+    musica: "musica/4- Capacitacion de la IA.wav"
+  },
+
+  {
+    numero: 5,
+    titulo: "Generación de Voz",
+    frase: "Se produce una señal de voz alterada. Se le puede ajustar generalmente el tono, velocidad y entonación.",
+    icono: "imagenes/micro.png",
+    musica: "musica/5-Generación de voz.wav"
+  },
+
+  {
+    numero: 6,
+    titulo: "Resultado final",
+    frase: "Los elementos elegidos se organizan y producen hasta obtener una versión final. A veces la IA se utiliza en la letra, melodía e instrumentos.",
+    icono: "imagenes/musicaglobo.png",
+    musica: "musica/6- Resultado final.mp3"
+  }
+];
   let indice = 0;
 
   const numeroEl = document.getElementById("numero");
@@ -93,25 +133,58 @@
   const iconoEl = document.getElementById("icono");
   const barEl = document.getElementById("bar");
 
-  function pintarEstado() {
-    const e = estados[indice];
-    numeroEl.textContent = e.numero;
-    tituloEl.textContent = e.titulo;
-    fraseEl.textContent = e.frase;
-    const imagenIconoEl = iconoEl.querySelector("img");
-    imagenIconoEl.src = e.icono;
-    imagenIconoEl.classList.toggle("icono-micro", e.icono === "imagenes/micro.png");
+  const audioEstado = new Audio();
 
-    const progreso = ((indice + 1) / estados.length) * 100;
-    barEl.style.setProperty("--progress", progreso + "%");
-  }
+audioEstado.volume = 0.5;
+
+function pintarEstado() {
+
+  const e = estados[indice];
+
+  numeroEl.textContent = e.numero;
+  tituloEl.textContent = e.titulo;
+  fraseEl.textContent = e.frase;
+
+  const imagenIconoEl = iconoEl.querySelector("img");
+  imagenIconoEl.src = e.icono;
+
+  imagenIconoEl.classList.toggle(
+    "icono-micro",
+    e.icono === "imagenes/micro.png"
+  );
+
+  const progreso = ((indice + 1) / estados.length) * 100;
+
+  barEl.style.setProperty(
+    "--progress",
+    progreso + "%"
+  );
+
+
+  // -------------------------
+  // MÚSICA DE CADA ESTADO
+  // -------------------------
+
+  audioEstado.pause();
+
+  audioEstado.src = e.musica;
+
+  audioEstado.currentTime = 0;
+
+  audioEstado.play();
+}
 
   const disco = document.querySelector('.disco');
+  const audioRebobinar = new Audio('musica/rebobinar.wav');
+  audioRebobinar.volume = 0.5;
   let gradosDisco = 0;
 
   function girarDisco(direccion = 1) {
     gradosDisco += direccion * 60;
     disco.style.transform = `rotate(${gradosDisco}deg)`;
+    audioRebobinar.pause();
+    audioRebobinar.currentTime = 0;
+    audioRebobinar.play();
   }
 
   document.getElementById("next").addEventListener("click", () => {
