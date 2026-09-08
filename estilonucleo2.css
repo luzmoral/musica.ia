@@ -357,6 +357,22 @@ body {
   width: 105px;
 }
 
+.nucleo2-respuestas-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.nucleo2-respuestas-wrap h4 {
+  margin: 10px 0 0;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .nucleo2-parrafos p {
   max-width: 520px;
 }
