@@ -251,6 +251,7 @@ body.nucleo2-scroll-bloqueado {
   width: min(50vw, 590px);
   pointer-events: auto;
   cursor: pointer;
+  transform: rotate(0deg);
 }
 
 .nucleo2-play-nucleo2 {
@@ -503,12 +504,15 @@ body.nucleo2-scroll-bloqueado {
 
 @media (max-width: 760px) {
   .escena {
+    width: 100%;
     min-height: 345vh;
+    padding: 20px 5vw 6rem;
   }
 
   .nucleo2-title {
     top: 35px;
-    left: 8vw;
+    left: 5vw;
+    right: 5vw;
     font-size: clamp(25px, 7vw, 42px);
     white-space: normal;
   }
@@ -540,6 +544,7 @@ body.nucleo2-scroll-bloqueado {
 
   .nucleo2-card {
     top: 63vh;
+    align-items: flex-start;
     gap: 14px;
     padding: 16px;
   }
@@ -555,7 +560,7 @@ body.nucleo2-scroll-bloqueado {
 
   .nucleo2-instruccion {
     top: 108vh;
-    left: 8vw;
+    left: 5vw;
     width: 84vw;
     min-height: 430px;
   }
@@ -601,14 +606,14 @@ body.nucleo2-scroll-bloqueado {
 
   .nucleo2-mp3 {
     top: 20px;
-    right: -8vw;
-    width: 78vw;
+    right: -3vw;
+    width: min(78vw, 480px);
   }
 
   .nucleo2-cancion-player {
     top: 92px;
-    right: -3vw;
-    width: 44vw;
+    right: 0;
+    width: min(44vw, 270px);
   }
 
   .nucleo2-instruccion h2 {
@@ -631,7 +636,8 @@ body.nucleo2-scroll-bloqueado {
   }
 
   .nucleo2-final a {
-    min-width: 190px;
+    min-width: 0;
+    width: 58vw;
     min-height: 52px;
     padding: 10px 18px;
     font-size: 18px;
@@ -673,6 +679,62 @@ body.nucleo2-scroll-bloqueado {
 
   .nucleo2-parrafo-row p {
     margin-top: 12px;
+  }
+}
+
+/* Tablets y portatiles: conserva la composicion, pero evita que los bloques
+   se salgan del viewport antes de llegar al modo movil. */
+@media (min-width: 761px) and (max-width: 1180px) {
+  .escena {
+    min-height: 320vh;
+    padding-inline: 4vw;
+  }
+
+  .nucleo2-title {
+    left: 24vw;
+    font-size: clamp(34px, 4.8vw, 52px);
+  }
+
+  .nucleo2-player,
+  .nucleo2-card {
+    left: 27vw;
+    width: min(68vw, 720px);
+  }
+
+  .nucleo2-card {
+    gap: 24px;
+    padding: 22px 28px;
+  }
+
+  .nucleo2-instruccion {
+    left: 6vw;
+    width: min(58vw, 560px);
+  }
+
+  .nucleo2-robot {
+    right: -40vw;
+    width: min(58vw, 460px);
+  }
+
+  .nucleo2-mp3 {
+    right: -20vw;
+    width: min(48vw, 500px);
+  }
+
+  .nucleo2-cancion-player {
+    right: -16vw;
+    width: min(28vw, 320px);
+  }
+
+  .nucleo2-mayoria {
+    left: 5vw;
+    grid-template-columns: minmax(280px, 1fr) minmax(300px, 1fr);
+    gap: 3vw;
+    width: 90vw;
+  }
+
+  .nucleo2-final {
+    top: 300vh;
   }
 }
 
