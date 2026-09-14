@@ -140,6 +140,7 @@
     pointer-events: auto;
     top: 5px;
     left: 85vw;
+    text-decoration: none;
   }
   .onda-enlace-principal {
     top: 0; /* mantiene la oreja en la posición original de la decoración */
@@ -161,6 +162,23 @@
         drop-shadow(0 0 10px #ff3d81)
         drop-shadow(0 0 20px #8b5cff);
       transform: translateX(18%) scale(1.05);
+    }
+    .texto-oreja {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      top: calc(100% + 130px);
+      transform: translateX(-20%);
+      color: #f7f1ff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.2;
+      text-shadow: 0 0 12px rgba(255, 154, 69, 0.8);
+      width: max-content;
+      white-space: nowrap;
     }
   .onda-enlace-copy {
     left: 80vw;
@@ -370,4 +388,158 @@
   .buttons .play img {
     height: 90px;
     width: auto;
+  }
+
+  @media (min-width: 761px) and (max-width: 1180px) {
+    .escena {
+      padding: 24px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 5vw, 56px);
+      white-space: normal;
+      max-width: 42vw;
+    }
+
+    .content {
+      left: 40vw;
+      top: 23vh;
+      width: 54vw;
+    }
+
+    .titulo {
+      font-size: clamp(28px, 4vw, 44px);
+    }
+
+    .frase {
+      font-size: clamp(20px, 2.5vw, 30px);
+    }
+
+    .controls {
+      left: 8vw;
+      right: 8vw;
+      top: 72vh;
+      transform: none;
+    }
+
+    .bar {
+      width: min(400px, 55vw);
+      transform: none;
+    }
+
+    .buttons {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 760px) {
+    body {
+      min-height: 100svh;
+      overflow-y: auto;
+    }
+
+    .escena {
+      width: 100%;
+      min-height: 100svh;
+      height: auto;
+      padding: 18px 5vw 210px;
+      overflow: hidden;
+    }
+
+    h1 {
+      max-width: 90vw;
+      font-size: clamp(30px, 9vw, 48px);
+      white-space: normal;
+      transform: translate(0, 0);
+    }
+
+    .cd-wrap {
+      left: -34vw;
+      bottom: -12vw;
+      width: 92vw;
+      height: 92vw;
+    }
+
+    .cd-wrap .caja {
+      top: 40vw;
+      left: -25vw;
+      width: 115vw;
+    }
+
+    .cd-wrap .disco {
+      left: 12vw;
+      bottom: -24vw;
+      width: 86vw;
+    }
+
+    .cable-top {
+      width: 72vw;
+      top: -18vw;
+      left: 42vw;
+    }
+
+    .icono-wrap {
+      top: 15vh;
+      right: -10vw;
+    }
+
+    .icono {
+      width: 42vw;
+      height: 42vw;
+    }
+
+    .content {
+      left: 8vw;
+      top: 29vh;
+      width: 84vw;
+    }
+
+    .row {
+      gap: 12px;
+    }
+
+    .numero {
+      flex-basis: 54px;
+      min-width: 54px;
+      font-size: clamp(42px, 12vw, 68px);
+      -webkit-text-stroke-width: 2px;
+    }
+
+    .titulo {
+      font-size: clamp(22px, 6vw, 34px);
+    }
+
+    .frase {
+      font-size: clamp(17px, 4.5vw, 25px);
+      line-height: 1.35;
+    }
+
+    .controls {
+      left: 8vw;
+      right: 8vw;
+      top: auto;
+      bottom: 6vh;
+      transform: none;
+    }
+
+    .bar {
+      width: 100%;
+      transform: none;
+    }
+
+    .buttons {
+      gap: 18px;
+      transform: none;
+    }
+
+    .buttons img,
+    .buttons .play img {
+      height: clamp(56px, 16vw, 78px);
+    }
+
+    .cable-bottom,
+    .onda-musical,
+    .nota-musical-left-two {
+      display: none;
+    }
   }
