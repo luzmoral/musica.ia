@@ -128,6 +128,7 @@
         const nucleo2CancionPlayer = document.querySelector('.nucleo2-cancion-player');
         const nucleo2Audio = new Audio('musica/Livin on Borrowed Time.mp3');
         const nucleo2MusicFondo = new Audio('musica/Musica de fondo.wav');
+        const nucleo2PerillaAudio = new Audio('musica/perilla.mp3');
         let nucleo2RespuestaRealizada = false;
 
         function detenerScrollEnCancion() {
@@ -224,6 +225,7 @@
             const rect = nucleo2Bar.getBoundingClientRect();
             const posicion = event.clientX - rect.left;
             const nucleo2Marcadores = [...nucleo2Bar.querySelectorAll('.nucleo2-marker')];
+            const indiceAnterior = nucleo2Indice;
 
             nucleo2Indice = nucleo2Marcadores.reduce((indiceCercano, marcador, indice) => {
                 const rectMarcador = marcador.getBoundingClientRect();
@@ -236,6 +238,11 @@
 
                 return distanciaActual < distanciaCercana ? indice : indiceCercano;
             }, 0);
+
+            if (nucleo2Indice !== indiceAnterior) {
+                nucleo2PerillaAudio.currentTime = 0;
+                nucleo2PerillaAudio.play().catch(() => {});
+            }
 
             pintarNucleo2Estado();
         }
