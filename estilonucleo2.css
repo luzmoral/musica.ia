@@ -69,6 +69,15 @@ body.nucleo2-scroll-bloqueado {
   width: min(8vw, 160px);
   pointer-events: none;
 }
+
+.nucleo2-auricular2-copia {
+  right: 3vw;
+  left: 8%;
+  transform: scaleX(-1);
+  top: 860px;
+  width: min(50vw, 180px);
+}
+
 .nucleo2-auricular-texto {
   position: absolute;
   left: 0vw;
@@ -270,7 +279,7 @@ body.nucleo2-scroll-bloqueado {
 }
 
 .nucleo2-mp3 {
-  top: -20px;
+  top: -80px;
   right: -27vw;
   width: min(50vw, 590px);
   pointer-events: none;
@@ -414,6 +423,8 @@ body.nucleo2-scroll-bloqueado {
   border: 0;
   padding: 0;
   color: #fff;
+  left: -5vw;
+  top: -80px;
   font-family: 'Montserrat', sans-serif;
   font-size: clamp(36px, 5vw, 80px);
   font-weight: 900;
@@ -435,6 +446,8 @@ body.nucleo2-scroll-bloqueado {
   position: relative;
   z-index: 2;
   margin: 18px 0 0;
+  top: -80px;
+  left: -5vw;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: clamp(13px, 1.3vw, 19px);
