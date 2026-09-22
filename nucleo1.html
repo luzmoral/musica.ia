@@ -46,7 +46,7 @@
 
   <div class="icono-wrap">
     <div class="icono" id="icono">
-      <img class="icono-imagen-principal" src="imagenes/bocamicro.png" alt="Icono del estado actual">
+      <img class="icono-imagen-principal" src="imagenes/PASO%201.gif" alt="Icono del estado actual">
       <img class="icono-imagen-boca" src="imagenes/bocamicro.png" alt="">
     </div>
   </div>
@@ -83,7 +83,7 @@
     numero: 1,
     titulo: "Captura de voz",
     frase: "Se registra la entrada de una muestra de voz en el software",
-    icono: "imagenes/paso1.png",
+    icono: "imagenes/PASO_1_transparente.webp",
     musica: "musica/1- Captura de voz.wav"
   },
 
@@ -91,7 +91,7 @@
     numero: 2,
     titulo: "Prompt",
     frase: "Se indican características musicales concretas para orientar el resultado",
-    icono: "imagenes/ia.png",
+    icono: "imagenes/PASO_2_transparente.webp",
     musica: "musica/2- Prompt.wav"
   },
 
@@ -99,7 +99,7 @@
     numero: 3,
     titulo: "Modelo de voz",
     frase: "Crea un modelo de voz original utilizando tecnicas de procesamiento de aprendizaje automatico",
-    icono: "imagenes/voz.png",
+    icono: "imagenes/PASO_2_transparente.webp",
     musica: "musica/3- Modelo de voz.wav"
   },
 
@@ -107,7 +107,7 @@
     numero: 4,
     titulo: "Capacitación de la IA",
     frase: "Los sistemas de IA analizan grandes cantidades de música para identificar patrones, estructuras y características sonoras.",
-    icono: "imagenes/iacabeza.png",
+    icono: "imagenes/PASO_4_transparente.webp",
     musica: "musica/4- Capacitacion de la IA.wav"
   },
 
@@ -115,7 +115,7 @@
     numero: 5,
     titulo: "Generación de Voz",
     frase: "Se produce una señal de voz alterada. Se le puede ajustar generalmente el tono, velocidad y entonación.",
-    icono: "imagenes/micro.png",
+    icono: "imagenes/PASO_5_transparente.webp",
     musica: "musica/5-Generación de voz.wav"
   },
 
@@ -123,7 +123,7 @@
     numero: 6,
     titulo: "Resultado final",
     frase: "Los elementos elegidos se organizan y producen hasta obtener una versión final. A veces la IA se utiliza en la letra, melodía e instrumentos.",
-    icono: "imagenes/musicaglobo.png",
+    icono: "imagenes/PASO_6_transparente.webp",
     musica: "musica/6- Resultado final.mp3"
   }
 ];
@@ -152,6 +152,7 @@ function pintarEstado() {
   imagenIconoEl.src = e.icono;
   imagenBocaEl.src = e.icono;
   iconoEl.classList.toggle("icono-paso1", indice === 0);
+  imagenIconoEl.classList.toggle("mi-gif", indice === 0);
 
   imagenIconoEl.classList.toggle(
     "icono-micro",
