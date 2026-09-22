@@ -109,6 +109,11 @@
     </main>
 
     <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
         const nucleo2Estados = [
             'Primero podríamos reconocer un audio generado por IA prestando atención. Mientras que la voz humana varía en tono, ritmo y pausas, las voces sintéticas solían delatarse por patrones demasiado constantes, pausas raras o cambios anómalos en la melodía.',
             'Después, con los rápidos avances de esta tecnología, esa frontera se volvió cada vez más difusa y las pistas dejaron de alcanzar: hoy no existe una marca única para decir "esto es IA", ya que cada sistema genera audio diferente.',
@@ -154,6 +159,27 @@
             const posicionBoton = nucleo2TituloInstruccion.getBoundingClientRect().top + window.scrollY;
             return Math.max(0, posicionBoton - 24);
         }
+
+        function bloquearVistaNucleo2() {
+            if (nucleo2PruebaIniciada || nucleo2RespuestaRealizada) {
+                return;
+            }
+            const alturaVisible = obtenerLimiteScrollNucleo2() + window.innerHeight;
+            document.documentElement.style.setProperty('--nucleo2-altura-visible', alturaVisible + 'px');
+            document.body.classList.add('nucleo2-scroll-bloqueado');
+        }
+
+        function desbloquearVistaNucleo2() {
+            document.body.classList.remove('nucleo2-scroll-bloqueado');
+            document.documentElement.style.removeProperty('--nucleo2-altura-visible');
+        }
+
+        // Bloqueo inmediato: hasta tocar el título no hay forma de ver ni de
+        // scrollear más abajo, porque la página literalmente no tiene esa
+        // altura disponible todavía.
+        bloquearVistaNucleo2();
+        window.addEventListener('load', bloquearVistaNucleo2);
+        window.addEventListener('resize', bloquearVistaNucleo2);
 
         function fijarLimiteScrollNucleo2() {
             const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
@@ -205,6 +231,23 @@
             }
         }, { passive: false });
 
+        const nucleo2TeclasScrollAbajo = ['ArrowDown', 'PageDown', ' ', 'Spacebar', 'End'];
+
+        window.addEventListener('keydown', (event) => {
+            if (nucleo2PruebaIniciada || nucleo2RespuestaRealizada) {
+                return;
+            }
+            if (!nucleo2TeclasScrollAbajo.includes(event.key)) {
+                return;
+            }
+
+            const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
+            if (window.scrollY >= limiteScrollNucleo2 - 2) {
+                event.preventDefault();
+                fijarLimiteScrollNucleo2();
+            }
+        });
+
         nucleo2MusicFondo.loop = true;
         nucleo2MusicFondo.volume = 0.35;
 
@@ -255,7 +298,7 @@
             }
 
             nucleo2PruebaIniciada = true;
-            document.body.classList.remove('nucleo2-scroll-bloqueado');
+            desbloquearVistaNucleo2();
             nucleo2CancionTitulo.disabled = false;
             nucleo2CancionTitulo.setAttribute('aria-label', 'Reproducir canción 1');
             nucleo2MensajeInstruccion.innerHTML = mensajeActivoInstruccion;
@@ -263,6 +306,12 @@
         }
 
         nucleo2TituloInstruccion.addEventListener('click', iniciarPruebaNucleo2);
+        nucleo2TituloInstruccion.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                iniciarPruebaNucleo2();
+            }
+        });
 
         nucleo2Audio.addEventListener('ended', () => {
             nucleo2Mp3Button.classList.remove('reproduciendo');
