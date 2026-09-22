@@ -97,7 +97,7 @@
     position: absolute;
     z-index: 1;
     left: 80vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
-    top: 560px; /* aumenta para bajar; disminuye para subir */
+    top: 590px; /* aumenta para bajar; disminuye para subir */
     width: 300px; /* cambia el ancho */
     height: 220px; /* cambia el alto */
     pointer-events: none;
@@ -196,7 +196,7 @@
   }
   .nota-musical-left-one {
     top: 45vh;
-    left: 30vw;
+    left: 15vw;
     width: 60px;
     transform: scaleX(-1);
     animation-name: nota-baila-invertida;
@@ -204,7 +204,7 @@
   }
   .nota-musical-left-two {
     top: 28vh;
-    left: 28vw;
+    left: 20vw;
     width: 100px;
     animation-delay: -0.3s;
   }
@@ -261,7 +261,7 @@
     position: absolute;
     z-index: 2;
     right: auto;
-    left: 44vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
+    left: 34vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
     top: 25vh; /* aumenta para bajar; disminuye para subir */
     width: min(48vw, 600px); /* cambia el ancho del bloque de contenido */
   }
@@ -312,7 +312,7 @@
     right: 50px; /* cambia la distancia desde la derecha */
     bottom: auto;
     top: 75vh; /* aumenta para bajar los controles; disminuye para subirlos */
-    transform: translateX(12vw); /* positivo = derecha; negativo = izquierda */
+    transform: translateX(2vw); /* positivo = derecha; negativo = izquierda */
   }
   
   .bar {
@@ -322,7 +322,7 @@
     margin-right: auto;
     margin-bottom: 16px;
     position: relative;
-    transform: translateX(2vw); /* positivo = derecha; negativo = izquierda */
+    transform: none;
   }
   .bar::before,
   .bar::after {
@@ -362,7 +362,7 @@
     align-items: center;
     justify-content: center;
     gap: 30px;
-    transform: translateX(2vw);
+    transform: none;
   }
   .buttons button {
     background: none;
@@ -401,7 +401,7 @@
     }
 
     .content {
-      left: 40vw;
+      left: 30vw;
       top: 23vh;
       width: 54vw;
     }
@@ -415,8 +415,8 @@
     }
 
     .controls {
-      left: 8vw;
-      right: 8vw;
+      left: 3vw;
+      right: 13vw;
       top: 72vh;
       transform: none;
     }
@@ -488,7 +488,7 @@
     }
 
     .content {
-      left: 8vw;
+      left: 3vw;
       top: 29vh;
       width: 84vw;
     }
@@ -514,8 +514,8 @@
     }
 
     .controls {
-      left: 8vw;
-      right: 8vw;
+      left: 3vw;
+      right: 13vw;
       top: auto;
       bottom: 6vh;
       transform: none;
