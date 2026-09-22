@@ -143,6 +143,8 @@ function pintarEstado() {
 
   const e = estados[indice];
 
+  iconoEl.dataset.paso = e.numero; // habilita CSS individual por paso (.icono[data-paso="N"])
+
   numeroEl.textContent = e.numero;
   tituloEl.textContent = e.titulo;
   fraseEl.textContent = e.frase;
@@ -203,12 +205,6 @@ function pintarEstado() {
     indice = (indice - 1 + estados.length) % estados.length;
     pintarEstado();
     girarDisco(-1);
-  });
-
-  document.getElementById("play").addEventListener("click", () => {
-    indice = (indice + 1) % estados.length;
-    pintarEstado();
-    girarDisco(1);
   });
 
   pintarEstado();
