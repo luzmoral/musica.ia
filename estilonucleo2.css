@@ -63,12 +63,28 @@ body.nucleo2-scroll-bloqueado {
 }
 .nucleo2-auricular2 {
   position: absolute;
-  top: 8vh;
-  left: 21vw;
+  top:5vh;
+  left: 0vw;
   z-index: 2;
-  width: min(17vw, 220px);
+  width: min(8vw, 160px);
   pointer-events: none;
 }
+.nucleo2-auricular-texto {
+  position: absolute;
+  left: 0vw;
+  margin: 0;
+  width: min(8vw, 160px);
+  top: calc(0vh + min(9.3vw, 186px) + 12px);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: clamp(13px, 1.3vw, 20px);
+  line-height: 1.7;
+  text-shadow: -1px -1px 0 #ff9c24, 1px -1px 0 #ff9c24,
+    -1px 1px 0 #ff9c24, 1px 1px 0 #ff9c24,
+    0 0 14px rgba(255, 156, 36, 0.9);
+}
+  
 .nucleo2-onda {
   position: absolute;
   z-index: 1;
@@ -176,7 +192,7 @@ body.nucleo2-scroll-bloqueado {
   top: 95vh;
   left: 8vw;
   z-index: 3;
-  width: min(57vw, 620px);
+  width: min(60vw, 620px);
   min-height: 520px;
   color: #fff;
 }
@@ -392,14 +408,18 @@ body.nucleo2-scroll-bloqueado {
 .nucleo2-titulo-instruccion {
   position: relative;
   z-index: 2;
+  display: block;
+  width: 100%;
   margin: 0;
   border: 0;
   padding: 0;
   color: #fff;
   font-family: 'Montserrat', sans-serif;
-  font-size: clamp(28px, 3.4vw, 52px);
+  font-size: clamp(36px, 5vw, 80px);
   font-weight: 900;
   line-height: 1;
+  white-space: nowrap;
+  text-align: center;
   text-shadow: 0.07em 0.07em 0 #8a563d;
   background: transparent;
   cursor: pointer;
@@ -419,6 +439,7 @@ body.nucleo2-scroll-bloqueado {
   font-weight: 700;
   font-size: clamp(13px, 1.3vw, 19px);
   line-height: 1.7;
+  text-align: center;
 }
 
 .nucleo2-mayoria {
@@ -607,9 +628,14 @@ body.nucleo2-scroll-bloqueado {
   }
 /* auricular imagen*/
   .nucleo2-auricular2 {
-    top: 17vh;
-    left: 31vw;
-    width: 10vw;
+    top: 5%;
+    left: 10vh;
+    width: min(10vw, 220px);
+  }
+
+  .nucleo2-auricular-texto {
+    top: calc(5% + min(11.65vw, 256px) + 12px);
+    left: 10vh;
   }
 
   .nucleo2-player,
