@@ -161,7 +161,7 @@
         }
 
         function bloquearVistaNucleo2() {
-            if (nucleo2PruebaIniciada || nucleo2RespuestaRealizada) {
+            if (nucleo2RespuestaRealizada) {
                 return;
             }
             const alturaVisible = obtenerLimiteScrollNucleo2() + window.innerHeight;
@@ -191,7 +191,7 @@
         function detenerScrollEnCancion() {
             const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
 
-            if (nucleo2PruebaIniciada || nucleo2RespuestaRealizada || window.scrollY < limiteScrollNucleo2) {
+            if (nucleo2RespuestaRealizada || window.scrollY < limiteScrollNucleo2) {
                 return;
             }
 
@@ -201,7 +201,7 @@
         window.addEventListener('scroll', detenerScrollEnCancion, { passive: true });
 
         window.addEventListener('wheel', (event) => {
-            if (nucleo2PruebaIniciada || nucleo2RespuestaRealizada || event.deltaY <= 0) {
+            if (nucleo2RespuestaRealizada || event.deltaY <= 0) {
                 return;
             }
 
@@ -217,7 +217,7 @@
         }, { passive: true });
 
         window.addEventListener('touchmove', (event) => {
-            if (nucleo2PruebaIniciada || nucleo2RespuestaRealizada) {
+            if (nucleo2RespuestaRealizada) {
                 return;
             }
 
@@ -234,7 +234,7 @@
         const nucleo2TeclasScrollAbajo = ['ArrowDown', 'PageDown', ' ', 'Spacebar', 'End'];
 
         window.addEventListener('keydown', (event) => {
-            if (nucleo2PruebaIniciada || nucleo2RespuestaRealizada) {
+            if (nucleo2RespuestaRealizada) {
                 return;
             }
             if (!nucleo2TeclasScrollAbajo.includes(event.key)) {
@@ -298,7 +298,6 @@
             }
 
             nucleo2PruebaIniciada = true;
-            desbloquearVistaNucleo2();
             nucleo2CancionTitulo.disabled = false;
             nucleo2CancionTitulo.setAttribute('aria-label', 'Reproducir canción 1');
             nucleo2MensajeInstruccion.innerHTML = mensajeActivoInstruccion;
@@ -485,7 +484,7 @@
                 nucleo2Mp3Button2.classList.remove('reproduciendo');
                 iniciarMusicaFondoNucleo2();
                 nucleo2RespuestaRealizada = true;
-                document.body.classList.remove('nucleo2-scroll-bloqueado');
+                desbloquearVistaNucleo2();
                 nucleo2Mayoria.classList.add('visible');
                 nucleo2Mayoria.setAttribute('aria-hidden', 'false');
                 nucleo2WaveChart.dataset.activo = resultado;
