@@ -15,6 +15,7 @@
     <main class="escena nucleo2-layout">
         <img class="nucleo2-aura" src="imagenes/aura.png" alt="">
         <img class="nucleo2-auricular2" src="imagenes/auriculares2.png" alt="Auriculares">
+        <img class="nucleo2-auricular2 nucleo2-auricular2-copia" src="imagenes/auriculares2.png" alt="Auriculares">
         <h4 class="nucleo2-auricular-texto">¿Cómo se hace?</h4> 
         <img class="nucleo2-onda nucleo2-onda-superior" src="imagenes/lineanucelo2.png" alt="">
 
@@ -146,17 +147,63 @@
         const nucleo2MusicFondo = new Audio('musica/Musica de fondo.wav');
         const nucleo2PerillaAudio = new Audio('musica/perilla.mp3');
         let nucleo2RespuestaRealizada = false;
+        let nucleo2PruebaIniciada = false;
+        let nucleo2UltimaPosicionTouch = 0;
+
+        function obtenerLimiteScrollNucleo2() {
+            const posicionBoton = nucleo2TituloInstruccion.getBoundingClientRect().top + window.scrollY;
+            return Math.max(0, posicionBoton - 24);
+        }
+
+        function fijarLimiteScrollNucleo2() {
+            const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
+
+            document.body.classList.add('nucleo2-scroll-bloqueado');
+            window.scrollTo({ top: limiteScrollNucleo2, behavior: 'auto' });
+        }
 
         function detenerScrollEnCancion() {
-            if (nucleo2RespuestaRealizada || window.scrollY < nucleo2Instruccion.offsetTop - 24) {
+            const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
+
+            if (nucleo2PruebaIniciada || nucleo2RespuestaRealizada || window.scrollY < limiteScrollNucleo2) {
                 return;
             }
 
-            document.body.classList.add('nucleo2-scroll-bloqueado');
-            window.scrollTo({ top: nucleo2Instruccion.offsetTop - 24, behavior: 'smooth' });
+            fijarLimiteScrollNucleo2();
         }
 
         window.addEventListener('scroll', detenerScrollEnCancion, { passive: true });
+
+        window.addEventListener('wheel', (event) => {
+            if (nucleo2PruebaIniciada || nucleo2RespuestaRealizada || event.deltaY <= 0) {
+                return;
+            }
+
+            const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
+            if (window.scrollY + event.deltaY >= limiteScrollNucleo2) {
+                event.preventDefault();
+                fijarLimiteScrollNucleo2();
+            }
+        }, { passive: false });
+
+        window.addEventListener('touchstart', (event) => {
+            nucleo2UltimaPosicionTouch = event.touches[0].clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (event) => {
+            if (nucleo2PruebaIniciada || nucleo2RespuestaRealizada) {
+                return;
+            }
+
+            const posicionTouch = event.touches[0].clientY;
+            const avanceScroll = nucleo2UltimaPosicionTouch - posicionTouch;
+            nucleo2UltimaPosicionTouch = posicionTouch;
+
+            if (avanceScroll > 0 && window.scrollY + avanceScroll >= obtenerLimiteScrollNucleo2()) {
+                event.preventDefault();
+                fijarLimiteScrollNucleo2();
+            }
+        }, { passive: false });
 
         nucleo2MusicFondo.loop = true;
         nucleo2MusicFondo.volume = 0.35;
@@ -174,6 +221,10 @@
         }
 
         const toggleNucleo2Audio = () => {
+            if (!nucleo2PruebaIniciada) {
+                return;
+            }
+
             if (nucleo2Audio.paused) {
                 pausarMusicaFondoNucleo2();
                 nucleo2Audio.play().catch(() => {});
@@ -197,6 +248,21 @@
         };
 
         nucleo2CancionTitulo.addEventListener('keydown', handleNucleo2KeyToggle);
+
+        function iniciarPruebaNucleo2() {
+            if (nucleo2PruebaIniciada) {
+                return;
+            }
+
+            nucleo2PruebaIniciada = true;
+            document.body.classList.remove('nucleo2-scroll-bloqueado');
+            nucleo2CancionTitulo.disabled = false;
+            nucleo2CancionTitulo.setAttribute('aria-label', 'Reproducir canción 1');
+            nucleo2MensajeInstruccion.innerHTML = mensajeActivoInstruccion;
+            nucleo2CancionPlayer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        nucleo2TituloInstruccion.addEventListener('click', iniciarPruebaNucleo2);
 
         nucleo2Audio.addEventListener('ended', () => {
             nucleo2Mp3Button.classList.remove('reproduciendo');
@@ -379,7 +445,7 @@
             }
 
             function registrarVoto(resultado) {
-                if (nucleo2RespuestaRealizada) {
+                if (!nucleo2PruebaIniciada || nucleo2RespuestaRealizada) {
                     return;
                 }
 
