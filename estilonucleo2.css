@@ -73,7 +73,7 @@ body.nucleo2-scroll-bloqueado {
 
 .nucleo2-auricular2-copia {
   right: 3vw;
-  left: 20%;
+  left: 2%;
   transform: scaleX(-1);
   top: 860px;
   width: min(50vw, 180px);
