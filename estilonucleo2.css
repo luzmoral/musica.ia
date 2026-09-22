@@ -189,7 +189,7 @@ body.nucleo2-scroll-bloqueado {
 .nucleo2-cable {
   --nucleo2-cable-width: 475px; /* CAMBIA SOLO ESTE VALOR para cambiar el tamaño */
   top: -60px;
-  left: -253px; /* antes -300px: se mueve 20px a la derecha */
+  left: -303px;
   z-index: 2;
   width: var(--nucleo2-cable-width);
   max-width: none;
@@ -199,7 +199,7 @@ body.nucleo2-scroll-bloqueado {
 /*piquito*/
 .nucleo2-piquito {
   top: 357px;
-  left: 200px;
+  left: 150px;
   width: 80px;
   transform: rotate(83deg);
   transform-origin: left center;
@@ -648,14 +648,14 @@ body.nucleo2-scroll-bloqueado {
 
   .nucleo2-cable {
     top: 400px;
-    left: -125px; /* antes -145px */
+    left: -175px;
     width: min(84vw, var(--nucleo2-cable-width));
     z-index: 2;
   }
 
   .nucleo2-piquito {
     top: 315px;
-    left: 78px;
+    left: 28px;
     width: 24px;
   }
 
