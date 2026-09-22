@@ -407,6 +407,34 @@
     width: auto;
   }
 
+  /* ---------- Tamaño individual del ícono por paso ---------- */
+  /* Cada regla pisa a ".icono img" (que da 70% por defecto).   */
+  /* Cambiá width/height de a una para ajustar ese paso solo.   */
+  .icono[data-paso="1"] img {
+    width: 70%;
+    height: 70%;
+  }
+  .icono[data-paso="2"] img {
+    width: 70%;
+    height: 70%;
+  }
+  .icono[data-paso="3"] img {
+    width: 70%;
+    height: 70%;
+  }
+  .icono[data-paso="4"] img {
+    width: 70%;
+    height: 70%;
+  }
+  .icono[data-paso="5"] img {
+    width: 70%;
+    height: 70%;
+  }
+  .icono[data-paso="6"] img {
+    width: 70%;
+    height: 70%;
+  }
+
   @media (min-width: 761px) and (max-width: 1180px) {
     .escena {
       padding: 24px;
