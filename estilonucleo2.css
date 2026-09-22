@@ -31,7 +31,7 @@ body.nucleo2-scroll-bloqueado {
   position: relative;
   z-index: 1;
   width: 100vw;
-  min-height: 305vh;
+  min-height: 255vh;
   height: auto;
   padding: 30px 30px 8rem;
   overflow: visible;
@@ -458,7 +458,7 @@ body.nucleo2-scroll-bloqueado {
 
 .nucleo2-mayoria {
   position: absolute;
-  top: 215vh; /* antes 225vh */
+  top: 178vh; /* antes 225vh / 215vh */
   left: 5vw;
   z-index: 3;
   display: grid;
@@ -583,7 +583,7 @@ body.nucleo2-scroll-bloqueado {
 
 .nucleo2-final {
   position: absolute;
-  top: 290vh; /* antes 305vh */
+  top: 240vh; /* antes 305vh / 290vh */
   left: 50%;
   z-index: 3;
   display: flex;
@@ -623,7 +623,7 @@ body.nucleo2-scroll-bloqueado {
 @media (max-width: 760px) {
   .escena {
     width: 100%;
-    min-height: 345vh;
+    min-height: 295vh;
     padding: 20px 5vw 6rem;
   }
 
@@ -756,7 +756,7 @@ body.nucleo2-scroll-bloqueado {
   }
 
   .nucleo2-final {
-    top: 315vh;
+    top: 265vh;
     width: 96vw;
   }
 
@@ -773,7 +773,7 @@ body.nucleo2-scroll-bloqueado {
   }
 
   .nucleo2-mayoria {
-    top: 235vh;
+    top: 185vh;
     left: 8vw;
     display: block;
     width: 84vw;
@@ -815,7 +815,7 @@ body.nucleo2-scroll-bloqueado {
    se salgan del viewport antes de llegar al modo movil. */
 @media (min-width: 761px) and (max-width: 1180px) {
   .escena {
-    min-height: 320vh;
+    min-height: 270vh;
     padding-inline: 4vw;
   }
 
@@ -863,7 +863,7 @@ body.nucleo2-scroll-bloqueado {
   }
 
   .nucleo2-final {
-    top: 300vh;
+    top: 250vh;
   }
 }
 
