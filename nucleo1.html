@@ -46,7 +46,8 @@
 
   <div class="icono-wrap">
     <div class="icono" id="icono">
-      <img src="imagenes/bocamicro.png" alt="Icono del estado actual">
+      <img class="icono-imagen-principal" src="imagenes/bocamicro.png" alt="Icono del estado actual">
+      <img class="icono-imagen-boca" src="imagenes/bocamicro.png" alt="">
     </div>
   </div>
 
@@ -82,7 +83,7 @@
     numero: 1,
     titulo: "Captura de voz",
     frase: "Se registra la entrada de una muestra de voz en el software",
-    icono: "imagenes/bocamicro.png",
+    icono: "imagenes/paso1.png",
     musica: "musica/1- Captura de voz.wav"
   },
 
@@ -146,8 +147,11 @@ function pintarEstado() {
   tituloEl.textContent = e.titulo;
   fraseEl.textContent = e.frase;
 
-  const imagenIconoEl = iconoEl.querySelector("img");
+  const imagenIconoEl = iconoEl.querySelector(".icono-imagen-principal");
+  const imagenBocaEl = iconoEl.querySelector(".icono-imagen-boca");
   imagenIconoEl.src = e.icono;
+  imagenBocaEl.src = e.icono;
+  iconoEl.classList.toggle("icono-paso1", indice === 0);
 
   imagenIconoEl.classList.toggle(
     "icono-micro",
