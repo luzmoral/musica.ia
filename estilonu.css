@@ -411,28 +411,35 @@
   /* Cada regla pisa a ".icono img" (que da 70% por defecto).   */
   /* Cambiá width/height de a una para ajustar ese paso solo.   */
   .icono[data-paso="1"] img {
-    width: 70%;
-    height: 70%;
+    width: 120%;
+    height: 80%;
+    left: 5%;
+    top: 30%;
   }
   .icono[data-paso="2"] img {
-    width: 70%;
-    height: 70%;
+    width: 120%;
+    height: 80%;
+    top: 60%;
+    left: 1%;
   }
   .icono[data-paso="3"] img {
-    width: 70%;
+    width: 120%;
     height: 70%;
+    top: 30%;
   }
   .icono[data-paso="4"] img {
-    width: 70%;
+    width: 120%;
     height: 70%;
+    top: 20%;
   }
   .icono[data-paso="5"] img {
     width: 70%;
     height: 70%;
   }
   .icono[data-paso="6"] img {
-    width: 70%;
+    width: 120%;
     height: 70%;
+    top: 50%;
   }
 
   @media (min-width: 761px) and (max-width: 1180px) {
