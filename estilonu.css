@@ -60,7 +60,7 @@
     position: absolute;
     z-index: 0;
     left: -120px; /* mueve izquierda/derecha: negativo = izquierda, positivo = derecha */
-    bottom: 0;    /* sube/baja: aumenta bottom para subirlo, disminúyelo para bajarlo */
+    bottom: -120px;   /* sube/baja: aumenta bottom para subirlo, disminúyelo para bajarlo */
     width: 600px; /* agranda/reduce el ancho */
     height: 600px; /* agranda/reduce el alto */
     pointer-events: none;
@@ -68,7 +68,7 @@
   .cd-wrap .caja {
     position: absolute;
     z-index: 2;
-    top: 250px;  /* más grande = más abajo; más pequeño = más arriba */
+    top: 230px;  /* más grande = más abajo; más pequeño = más arriba */
     left: -180px;  /* más grande = más a la derecha; más negativo = izquierda */
     width: 750px; /* cambia el tamaño de la caja */
     opacity: 0.95;
@@ -96,7 +96,7 @@
   .cable-bottom {
     position: absolute;
     z-index: 1;
-    left: 42vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
+    left: 80vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
     top: 560px; /* aumenta para bajar; disminuye para subir */
     width: 300px; /* cambia el ancho */
     height: 220px; /* cambia el alto */
@@ -112,20 +112,20 @@
   }
   .cable-line-button {
     position: absolute;
-    top: 45px;
-    left: -1px;
+    top: 35px;
+    left: -3px;
     /* PROPORCIONES DE LA IMAGEN: cambia solo width para agrandarla o reducirla */
     width: 50px;
     height: auto; /* mantiene la proporción original */
   }
   .cable-line-button-copy {
     position: absolute;
-    top: -486px;
-    left: 182px;
+    top: 88px;
+    left: calc(48vw + 170px);
     /* PROPORCIONES DE LA SEGUNDA IMAGEN: puedes cambiarla por separado */
     width: 50px;
     height: auto;
-    transform: rotate(170deg); /* cambia 90deg por el ángulo que quieras */
+    transform: rotate(171deg); /* cambia 90deg por el ángulo que quieras */
   }
   .nota-musical,
   .onda-musical {
@@ -538,6 +538,7 @@
     }
 
     .cable-bottom,
+    .cable-line-button-copy,
     .onda-musical,
     .nota-musical-left-two {
       display: none;
