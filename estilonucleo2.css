@@ -14,6 +14,7 @@ body {
 
 body.nucleo2-scroll-bloqueado {
   overflow-y: hidden;
+  max-height: var(--nucleo2-altura-visible, 100vh);
 }
 /* fondo */
 #aurora {
@@ -41,7 +42,7 @@ body.nucleo2-scroll-bloqueado {
 .nucleo2-title {
   position: absolute;
   top: 45px;
-  left: 27vw;
+  left: 34vw;
   z-index: 3;
   max-width: none;
   margin: 0;
@@ -55,16 +56,16 @@ body.nucleo2-scroll-bloqueado {
 /* bola aura */
 .nucleo2-aura {
   position: absolute;
-  top: 5vh;
-  left: 4vw;
+  top: 20vh;
+  left: 6vw;
   z-index: 1;
-  width: min(31vw, 390px);
+  width: min(32vw, 325px);
   transform-origin: center;
 }
 .nucleo2-auricular2 {
   position: absolute;
   top:5vh;
-  left: 0vw;
+  left: 1vw;
   z-index: 2;
   width: min(8vw, 160px);
   pointer-events: none;
@@ -72,7 +73,7 @@ body.nucleo2-scroll-bloqueado {
 
 .nucleo2-auricular2-copia {
   right: 3vw;
-  left: 8%;
+  left: 20%;
   transform: scaleX(-1);
   top: 860px;
   width: min(50vw, 180px);
@@ -80,10 +81,10 @@ body.nucleo2-scroll-bloqueado {
 
 .nucleo2-auricular-texto {
   position: absolute;
-  left: 0vw;
+  left: 2vw;
   margin: 0;
   width: min(8vw, 160px);
-  top: calc(0vh + min(9.3vw, 186px) + 12px);
+  top: calc(0vh + min(9.3vw, 186px) + 20px);
   color: #fff;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
@@ -104,13 +105,13 @@ body.nucleo2-scroll-bloqueado {
 /* onda nucleo 2 */
 .nucleo2-onda-superior {
   top: 7vh;
-  left: -250px;
+  left: -245px;
 }
 /* barra del dj completa */
 .nucleo2-player {
   position: absolute;
   top: 29vh;
-  left: 34vw;
+  left: 31vw;
   z-index: 3;
   width: min(66vw, 900px);
   margin-left: 0;
@@ -198,11 +199,11 @@ body.nucleo2-scroll-bloqueado {
 /*titulo*/
 .nucleo2-instruccion {
   position: absolute;
-  top: 95vh;
+  top: 90vh;
   left: 8vw;
   z-index: 3;
-  width: min(60vw, 620px);
-  min-height: 520px;
+  width: min(50vw, 550px);
+  min-height: 450px;
   color: #fff;
 }
 
