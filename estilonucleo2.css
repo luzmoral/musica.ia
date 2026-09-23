@@ -290,6 +290,33 @@ body.nucleo2-scroll-bloqueado {
   50% { transform: scaleX(-1) rotate(8deg) translateY(-8px); }
 }
 
+.nucleo2-votos {
+  position: absolute;
+  top: 229px;
+  right: -24vw;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: min(45vw, 500px);
+  pointer-events: none;
+}
+
+.nucleo2-voto-boton {
+  width: min(11vw, 120px);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.nucleo2-voto-boton:hover,
+.nucleo2-voto-boton:focus-visible {
+  transform: translateY(-4px) scale(1.06);
+  filter: drop-shadow(0 0 12px rgba(255, 60, 172, 0.75));
+  outline: none;
+}
+
 .nucleo2-mp3 {
   top: -80px;
   right: -27vw;
@@ -298,6 +325,22 @@ body.nucleo2-scroll-bloqueado {
   cursor: pointer;
   transform: rotate(0deg);
   transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.nucleo2-cancion2 {
+  top: 26px;
+  right: -18vw;
+  width: min(22vw, 285px);
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.nucleo2-cancion2.visible {
+  z-index: 2;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .nucleo2-mp3.reproduciendo {
@@ -705,6 +748,23 @@ body.nucleo2-scroll-bloqueado {
     width: min(78vw, 480px);
   }
 
+  .nucleo2-cancion2 {
+    top: 44px;
+    right: 3.5vw;
+    width: min(35vw, 220px);
+  }
+
+  .nucleo2-votos {
+    top: -70px;
+    right: -3vw;
+    width: min(78vw, 480px);
+    gap: 14px;
+  }
+
+  .nucleo2-voto-boton {
+    width: min(26vw, 110px);
+  }
+
   .nucleo2-cancion-player {
     top: 92px;
     right: 0;
@@ -814,6 +874,18 @@ body.nucleo2-scroll-bloqueado {
   .nucleo2-mp3 {
     right: -20vw;
     width: min(48vw, 500px);
+  }
+
+  .nucleo2-cancion2 {
+    top: -10px;
+    right: -13vw;
+    width: min(21vw, 220px);
+  }
+
+  .nucleo2-votos {
+    right: -20vw;
+    width: min(48vw, 500px);
+    top: -160px;
   }
 
   .nucleo2-cancion-player {
