@@ -16,9 +16,11 @@
         <img class="nucleo2-aura" src="imagenes/aura.png" alt="">
            <a href="index.html" class="nucleo2-cable-link">
                    <img class="nucleo2-auricular2" src="imagenes/auriculares2.png" alt="Auriculares">
-                   <img class="nucleo2-auricular2 nucleo2-auricular2-copia" src="imagenes/auriculares2.png" alt="Auriculares">
                    <h4 class="nucleo2-auricular-texto">¿Cómo se hace?</h4> 
             </a>
+           <a href="nucleo1.html" class="nucleo2-copia-link" aria-label="Volver al núcleo 1">
+               <img class="nucleo2-auricular2 nucleo2-auricular2-copia" src="imagenes/auriculares2.png" alt="Auriculares">
+           </a>
         <img class="nucleo2-onda nucleo2-onda-superior" src="imagenes/lineanucelo2.png" alt="">
 
         <h1 class="nucleo2-title">¿El oído humano<br>puede distinguirlas?</h1>
@@ -50,14 +52,10 @@
             <img class="nucleo2-decoracion nucleo2-nota-dos" src="imagenes/notamsucial.png" alt="">
             <img class="nucleo2-decoracion nucleo2-nota-tres" src="imagenes/notamusical2.png" alt="">
             <img class="nucleo2-decoracion nucleo2-mp3" id="nucleo2Mp3Button" src="imagenes/reproductornuevo.png" alt="">
-            <img class="nucleo2-decoracion nucleo2-mp3 nucleo2-mp3-segunda" id="nucleo2Mp3Button2" src="imagenes/cancion2.png" alt="">
-            <div class="nucleo2-decoracion nucleo2-cancion-player">
-                <button class="nucleo2-cancion-titulo" id="nucleo2CancionTitulo" type="button" aria-label="Reproducir canción 1"></button>
-                <img class="nucleo2-cancion-imagen nucleo2-cancion-humano" src="imagenes/boton humano.png" alt="Humano" aria-hidden="true">
-                <img class="nucleo2-cancion-imagen nucleo2-cancion-ia" src="imagenes/boton IA.png" alt="IA" aria-hidden="true">
-                <button class="nucleo2-cancion-zone nucleo2-cancion-zone-humano" id="nucleo2HumanoButton" type="button" aria-label="Elegir humano" data-label="HUMANO"></button>
-                <button class="nucleo2-cancion-zone nucleo2-cancion-zone-ia" id="nucleo2IaButton" type="button" aria-label="Elegir IA" data-label="IA"></button>
-            </div>
+            <a href="nucleo1.html" class="nucleo2-mp3-link" aria-label="Volver al núcleo 1">
+                <h4 class="nucleo2-mp3-texto">¿Cómo se hace?</h4>
+            </a>
+            <img class="nucleo2-decoracion nucleo2-play-nucleo2" id="nucleo2PlayButton" src="imagenes/playderecho.png" alt="Reproducir Livin on Borrowed Time" role="button" tabindex="0">
             <button class="nucleo2-titulo-instruccion" id="nucleo2TituloInstruccion" type="button">¡PROBÁ TU OÍDO!</button>
             <p id="nucleo2MensajeInstruccion">¿Crees que sos capaz de distinguir <br>si una canción es IA?</p>
         </section>
@@ -135,25 +133,12 @@
         const nucleo2Knob = document.querySelector('#nucleo2Knob');
         const nucleo2TituloInstruccion = document.querySelector('#nucleo2TituloInstruccion');
         const nucleo2MensajeInstruccion = document.querySelector('#nucleo2MensajeInstruccion');
-        const nucleo2Instruccion = document.querySelector('.nucleo2-instruccion');
         const nucleo2Mp3Button = document.querySelector('#nucleo2Mp3Button');
-        const nucleo2Mp3Button2 = document.querySelector('#nucleo2Mp3Button2');
-        const nucleo2CancionPlayer = document.querySelector('.nucleo2-cancion-player');
-        const nucleo2CancionTitulo = document.querySelector('#nucleo2CancionTitulo');
-        const nucleo2Canciones = [
-            {
-                audio: 'musica/Livin on Borrowed Time.mp3'
-            },
-            {
-                audio: 'musica/6- Resultado final.mp3'
-            }
-        ];
-        let nucleo2CancionActual = 0;
-        const nucleo2Votos = [];
-        const nucleo2Audio = new Audio(nucleo2Canciones[0].audio);
+        const nucleo2PlayButton = document.querySelector('#nucleo2PlayButton');
+        const nucleo2Audio = new Audio('musica/Livin on Borrowed Time.mp3');
+        nucleo2Audio.preload = 'auto';
         const nucleo2MusicFondo = new Audio('musica/Musica de fondo.wav');
         const nucleo2PerillaAudio = new Audio('musica/perilla.mp3');
-        let nucleo2RespuestaRealizada = false;
         let nucleo2PruebaIniciada = false;
         let nucleo2UltimaPosicionTouch = 0;
 
@@ -163,9 +148,10 @@
         }
 
         function bloquearVistaNucleo2() {
-            if (nucleo2RespuestaRealizada) {
+            if (nucleo2PruebaIniciada) {
                 return;
             }
+
             const alturaVisible = obtenerLimiteScrollNucleo2() + window.innerHeight;
             document.documentElement.style.setProperty('--nucleo2-altura-visible', alturaVisible + 'px');
             document.body.classList.add('nucleo2-scroll-bloqueado');
@@ -176,39 +162,31 @@
             document.documentElement.style.removeProperty('--nucleo2-altura-visible');
         }
 
-        // Bloqueo inmediato: hasta tocar el título no hay forma de ver ni de
-        // scrollear más abajo, porque la página literalmente no tiene esa
-        // altura disponible todavía.
         bloquearVistaNucleo2();
         window.addEventListener('load', bloquearVistaNucleo2);
         window.addEventListener('resize', bloquearVistaNucleo2);
 
         function fijarLimiteScrollNucleo2() {
             const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
-
             document.body.classList.add('nucleo2-scroll-bloqueado');
             window.scrollTo({ top: limiteScrollNucleo2, behavior: 'auto' });
         }
 
         function detenerScrollEnCancion() {
             const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
-
-            if (nucleo2RespuestaRealizada || window.scrollY < limiteScrollNucleo2) {
+            if (nucleo2PruebaIniciada || window.scrollY < limiteScrollNucleo2) {
                 return;
             }
-
             fijarLimiteScrollNucleo2();
         }
 
         window.addEventListener('scroll', detenerScrollEnCancion, { passive: true });
-
         window.addEventListener('wheel', (event) => {
-            if (nucleo2RespuestaRealizada || event.deltaY <= 0) {
+            if (nucleo2PruebaIniciada || event.deltaY <= 0) {
                 return;
             }
 
-            const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
-            if (window.scrollY + event.deltaY >= limiteScrollNucleo2) {
+            if (window.scrollY + event.deltaY >= obtenerLimiteScrollNucleo2()) {
                 event.preventDefault();
                 fijarLimiteScrollNucleo2();
             }
@@ -217,9 +195,8 @@
         window.addEventListener('touchstart', (event) => {
             nucleo2UltimaPosicionTouch = event.touches[0].clientY;
         }, { passive: true });
-
         window.addEventListener('touchmove', (event) => {
-            if (nucleo2RespuestaRealizada) {
+            if (nucleo2PruebaIniciada) {
                 return;
             }
 
@@ -233,18 +210,12 @@
             }
         }, { passive: false });
 
-        const nucleo2TeclasScrollAbajo = ['ArrowDown', 'PageDown', ' ', 'Spacebar', 'End'];
-
         window.addEventListener('keydown', (event) => {
-            if (nucleo2RespuestaRealizada) {
-                return;
-            }
-            if (!nucleo2TeclasScrollAbajo.includes(event.key)) {
+            if (nucleo2PruebaIniciada || !['ArrowDown', 'PageDown', ' ', 'Spacebar', 'End'].includes(event.key)) {
                 return;
             }
 
-            const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
-            if (window.scrollY >= limiteScrollNucleo2 - 2) {
+            if (window.scrollY >= obtenerLimiteScrollNucleo2() - 2) {
                 event.preventDefault();
                 fijarLimiteScrollNucleo2();
             }
@@ -266,74 +237,61 @@
         }
 
         const toggleNucleo2Audio = () => {
-            if (!nucleo2PruebaIniciada) {
-                return;
-            }
-
             if (nucleo2Audio.paused) {
                 pausarMusicaFondoNucleo2();
                 nucleo2Audio.play().catch(() => {});
                 nucleo2Mp3Button.classList.add('reproduciendo');
-                nucleo2Mp3Button2.classList.add('reproduciendo');
             } else {
                 nucleo2Audio.pause();
                 nucleo2Mp3Button.classList.remove('reproduciendo');
-                nucleo2Mp3Button2.classList.remove('reproduciendo');
                 iniciarMusicaFondoNucleo2();
             }
         };
 
-        nucleo2CancionTitulo.addEventListener('click', toggleNucleo2Audio);
-
-        const handleNucleo2KeyToggle = (event) => {
+        nucleo2Mp3Button.addEventListener('click', toggleNucleo2Audio);
+        nucleo2PlayButton.addEventListener('click', toggleNucleo2Audio);
+        nucleo2PlayButton.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
                 toggleNucleo2Audio();
             }
-        };
+        });
 
-        nucleo2CancionTitulo.addEventListener('keydown', handleNucleo2KeyToggle);
-
-        function iniciarPruebaNucleo2() {
-            if (nucleo2PruebaIniciada) {
-                return;
-            }
-
+        function enfocarNucleo2Cancion() {
             nucleo2PruebaIniciada = true;
-            nucleo2CancionTitulo.disabled = false;
-            nucleo2CancionTitulo.setAttribute('aria-label', 'Reproducir canción 1');
-            nucleo2MensajeInstruccion.innerHTML = mensajeActivoInstruccion;
-            nucleo2CancionPlayer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            desbloquearVistaNucleo2();
+            nucleo2PlayButton.focus();
+            nucleo2PlayButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        nucleo2TituloInstruccion.addEventListener('click', iniciarPruebaNucleo2);
+        nucleo2TituloInstruccion.addEventListener('click', enfocarNucleo2Cancion);
         nucleo2TituloInstruccion.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
-                iniciarPruebaNucleo2();
+                enfocarNucleo2Cancion();
             }
+        });
+
+        const mensajeInicialInstruccion = '¿Crees que sos capaz de distinguir <br>si una canción es IA?';
+        const mensajeActivoInstruccion = '¡Reproducí la canción para comprobar a qué<br>porcentaje de los resultados perteneces!';
+
+        nucleo2TituloInstruccion.addEventListener('mouseenter', () => {
+            nucleo2MensajeInstruccion.innerHTML = mensajeActivoInstruccion;
+        });
+        nucleo2TituloInstruccion.addEventListener('mouseleave', () => {
+            nucleo2MensajeInstruccion.innerHTML = mensajeInicialInstruccion;
+        });
+        nucleo2TituloInstruccion.addEventListener('focus', () => {
+            nucleo2MensajeInstruccion.innerHTML = mensajeActivoInstruccion;
+        });
+        nucleo2TituloInstruccion.addEventListener('blur', () => {
+            nucleo2MensajeInstruccion.innerHTML = mensajeInicialInstruccion;
         });
 
         nucleo2Audio.addEventListener('ended', () => {
             nucleo2Mp3Button.classList.remove('reproduciendo');
-            nucleo2Mp3Button2.classList.remove('reproduciendo');
             iniciarMusicaFondoNucleo2();
         });
-        const mensajeInicialInstruccion = '¿Crees que sos capaz de distinguir <br>si una canción es IA?';
-        const mensajeActivoInstruccion = '¡Reproducí la canción para comprobar a qué<br>porcentaje de los resultados perteneces!';
-
-        function mostrarMensajeActivoInstruccion() {
-            nucleo2MensajeInstruccion.innerHTML = mensajeActivoInstruccion;
-        }
-
-        function restaurarMensajeInstruccion() {
-            nucleo2MensajeInstruccion.innerHTML = mensajeInicialInstruccion;
-        }
-
-        nucleo2TituloInstruccion.addEventListener('mouseenter', mostrarMensajeActivoInstruccion);
-        nucleo2TituloInstruccion.addEventListener('mouseleave', restaurarMensajeInstruccion);
-        nucleo2TituloInstruccion.addEventListener('focus', mostrarMensajeActivoInstruccion);
-        nucleo2TituloInstruccion.addEventListener('blur', restaurarMensajeInstruccion);
 
         function pintarNucleo2Estado() {
             nucleo2Text.textContent = nucleo2Estados[nucleo2Indice];
@@ -462,56 +420,6 @@
 
         if (nucleo2WaveChart) {
             const nucleo2WaveZonas = nucleo2WaveChart.querySelectorAll('.nucleo2-wave-zone');
-            const nucleo2Mayoria = document.querySelector('.nucleo2-mayoria');
-            const nucleo2MayoriaInfo = document.querySelector('.nucleo2-mayoria-info');
-            const nucleo2HumanoButton = document.querySelector('#nucleo2HumanoButton');
-            const nucleo2IaButton = document.querySelector('#nucleo2IaButton');
-
-            function prepararSiguienteCancion() {
-                nucleo2CancionActual += 1;
-                const siguienteCancion = nucleo2Canciones[nucleo2CancionActual];
-
-                nucleo2Audio.pause();
-                nucleo2Audio.currentTime = 0;
-                nucleo2Audio.src = siguienteCancion.audio;
-                nucleo2Mp3Button.classList.remove('reproduciendo');
-                nucleo2Mp3Button2.classList.add('visible');
-                nucleo2CancionTitulo.setAttribute('aria-label', 'Reproducir canción 2');
-                nucleo2MensajeInstruccion.innerHTML = 'Escuchá la segunda canción y elegí<br>si es IA o humana.';
-            }
-
-            function irAEncuesta(resultado) {
-                nucleo2Audio.pause();
-                nucleo2Mp3Button.classList.remove('reproduciendo');
-                nucleo2Mp3Button2.classList.remove('reproduciendo');
-                iniciarMusicaFondoNucleo2();
-                nucleo2RespuestaRealizada = true;
-                desbloquearVistaNucleo2();
-                nucleo2Mayoria.classList.add('visible');
-                nucleo2Mayoria.setAttribute('aria-hidden', 'false');
-                nucleo2WaveChart.dataset.activo = resultado;
-                nucleo2TituloResultado.textContent = resultado === '3' ? 'MINORÍA' : 'MAYORÍA';
-                nucleo2MayoriaInfo.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
-            function registrarVoto(resultado) {
-                if (!nucleo2PruebaIniciada || nucleo2RespuestaRealizada) {
-                    return;
-                }
-
-                nucleo2Votos.push(resultado);
-
-                if (nucleo2Votos.length < nucleo2Canciones.length) {
-                    prepararSiguienteCancion();
-                    return;
-                }
-
-                irAEncuesta(resultado);
-            }
-
-            nucleo2HumanoButton.addEventListener('click', () => registrarVoto('1'));
-            nucleo2IaButton.addEventListener('click', () => registrarVoto('3'));
-
             nucleo2WaveZonas.forEach((zona) => {
                 const activar = () => {
                     nucleo2WaveChart.dataset.activo = zona.dataset.zone;
