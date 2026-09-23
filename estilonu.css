@@ -418,14 +418,14 @@
   }
   .icono[data-paso="2"] img {
     width: 120%;
-    height: 80%;
+    height: 90%;
     top: 60%;
     left: 1%;
   }
   .icono[data-paso="3"] img {
     width: 120%;
     height: 70%;
-    top: 30%;
+    top: 20%;
   }
   .icono[data-paso="4"] img {
     width: 120%;
