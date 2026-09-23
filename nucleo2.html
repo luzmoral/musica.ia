@@ -51,7 +51,12 @@
             <img class="nucleo2-decoracion nucleo2-nota-uno" src="imagenes/notamusical2.png" alt="">
             <img class="nucleo2-decoracion nucleo2-nota-dos" src="imagenes/notamsucial.png" alt="">
             <img class="nucleo2-decoracion nucleo2-nota-tres" src="imagenes/notamusical2.png" alt="">
+            <div class="nucleo2-votos" id="nucleo2Votos">
+                <img class="nucleo2-voto-boton" id="nucleo2BotonHumano" src="imagenes/boton humano.png" alt="Voto: es humano" role="button" tabindex="0">
+                <img class="nucleo2-voto-boton" id="nucleo2BotonIA" src="imagenes/boton IA.png" alt="Voto: es IA" role="button" tabindex="0">
+            </div>
             <img class="nucleo2-decoracion nucleo2-mp3" id="nucleo2Mp3Button" src="imagenes/reproductornuevo.png" alt="">
+            <img class="nucleo2-decoracion nucleo2-mp3 nucleo2-cancion2" id="nucleo2Cancion2" src="imagenes/cancion2.png" alt="">
             <a href="nucleo1.html" class="nucleo2-mp3-link" aria-label="Volver al núcleo 1">
                 <h4 class="nucleo2-mp3-texto">¿Cómo se hace?</h4>
             </a>
@@ -135,20 +140,50 @@
         const nucleo2MensajeInstruccion = document.querySelector('#nucleo2MensajeInstruccion');
         const nucleo2Mp3Button = document.querySelector('#nucleo2Mp3Button');
         const nucleo2PlayButton = document.querySelector('#nucleo2PlayButton');
+        const nucleo2Votos = document.querySelector('#nucleo2Votos');
         const nucleo2Audio = new Audio('musica/Livin on Borrowed Time.mp3');
         nucleo2Audio.preload = 'auto';
+        const nucleo2AudioCancion2 = new Audio('musica/LUMI-7 ¿ QUÉ PRETENDÉS.mp3');
+        nucleo2AudioCancion2.preload = 'auto';
         const nucleo2MusicFondo = new Audio('musica/Musica de fondo.wav');
         const nucleo2PerillaAudio = new Audio('musica/perilla.mp3');
-        let nucleo2PruebaIniciada = false;
+        let nucleo2Etapa = 0; // 0 = no iniciado, 1 = escuchando/votando, 2 = ya votó las dos canciones
+        let nucleo2Ronda = 1; // 1 = canción 1, 2 = canción 2
         let nucleo2UltimaPosicionTouch = 0;
 
+        function obtenerLimiteNucleo2Titulo() {
+            const posicionTitulo = nucleo2TituloInstruccion.getBoundingClientRect().bottom + window.scrollY;
+            return Math.max(0, posicionTitulo + 24 - window.innerHeight);
+        }
+
+        const nucleo2InstruccionSeccion = document.querySelector('.nucleo2-instruccion');
+
+        function obtenerLimiteNucleo2Votos() {
+            // El punto más bajo real de la sección: no solo los votos, también
+            // el reproductor, el robot, las notas y los textos que la acompañan.
+            let puntoMasBajo = nucleo2InstruccionSeccion.getBoundingClientRect().bottom;
+            nucleo2InstruccionSeccion.querySelectorAll('*').forEach((elemento) => {
+                const abajo = elemento.getBoundingClientRect().bottom;
+                if (abajo > puntoMasBajo) {
+                    puntoMasBajo = abajo;
+                }
+            });
+
+            const posicionVotos = puntoMasBajo + window.scrollY;
+            return Math.max(0, posicionVotos + 24 - window.innerHeight);
+        }
+
         function obtenerLimiteScrollNucleo2() {
-            const posicionBoton = nucleo2TituloInstruccion.getBoundingClientRect().top + window.scrollY;
-            return Math.max(0, posicionBoton - 24);
+            // Etapa 0: no dejar bajar hasta apretar "¡PROBÁ TU OÍDO!"
+            // Etapa 1: ya se apretó el título, no dejar bajar hasta votar las dos canciones
+            if (nucleo2Etapa === 0) {
+                return obtenerLimiteNucleo2Titulo();
+            }
+            return obtenerLimiteNucleo2Votos();
         }
 
         function bloquearVistaNucleo2() {
-            if (nucleo2PruebaIniciada) {
+            if (nucleo2Etapa >= 2) {
                 return;
             }
 
@@ -167,14 +202,17 @@
         window.addEventListener('resize', bloquearVistaNucleo2);
 
         function fijarLimiteScrollNucleo2() {
+            bloquearVistaNucleo2();
             const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
-            document.body.classList.add('nucleo2-scroll-bloqueado');
             window.scrollTo({ top: limiteScrollNucleo2, behavior: 'auto' });
         }
 
         function detenerScrollEnCancion() {
+            if (nucleo2Etapa >= 2) {
+                return;
+            }
             const limiteScrollNucleo2 = obtenerLimiteScrollNucleo2();
-            if (nucleo2PruebaIniciada || window.scrollY < limiteScrollNucleo2) {
+            if (window.scrollY < limiteScrollNucleo2) {
                 return;
             }
             fijarLimiteScrollNucleo2();
@@ -182,7 +220,7 @@
 
         window.addEventListener('scroll', detenerScrollEnCancion, { passive: true });
         window.addEventListener('wheel', (event) => {
-            if (nucleo2PruebaIniciada || event.deltaY <= 0) {
+            if (nucleo2Etapa >= 2 || event.deltaY <= 0) {
                 return;
             }
 
@@ -196,7 +234,7 @@
             nucleo2UltimaPosicionTouch = event.touches[0].clientY;
         }, { passive: true });
         window.addEventListener('touchmove', (event) => {
-            if (nucleo2PruebaIniciada) {
+            if (nucleo2Etapa >= 2) {
                 return;
             }
 
@@ -211,7 +249,7 @@
         }, { passive: false });
 
         window.addEventListener('keydown', (event) => {
-            if (nucleo2PruebaIniciada || !['ArrowDown', 'PageDown', ' ', 'Spacebar', 'End'].includes(event.key)) {
+            if (nucleo2Etapa >= 2 || !['ArrowDown', 'PageDown', ' ', 'Spacebar', 'End'].includes(event.key)) {
                 return;
             }
 
@@ -236,13 +274,18 @@
             }
         }
 
+        function obtenerNucleo2AudioActual() {
+            return nucleo2Ronda === 2 ? nucleo2AudioCancion2 : nucleo2Audio;
+        }
+
         const toggleNucleo2Audio = () => {
-            if (nucleo2Audio.paused) {
+            const audioActual = obtenerNucleo2AudioActual();
+            if (audioActual.paused) {
                 pausarMusicaFondoNucleo2();
-                nucleo2Audio.play().catch(() => {});
+                audioActual.play().catch(() => {});
                 nucleo2Mp3Button.classList.add('reproduciendo');
             } else {
-                nucleo2Audio.pause();
+                audioActual.pause();
                 nucleo2Mp3Button.classList.remove('reproduciendo');
                 iniciarMusicaFondoNucleo2();
             }
@@ -258,8 +301,8 @@
         });
 
         function enfocarNucleo2Cancion() {
-            nucleo2PruebaIniciada = true;
-            desbloquearVistaNucleo2();
+            nucleo2Etapa = 1;
+            bloquearVistaNucleo2();
             nucleo2PlayButton.focus();
             nucleo2PlayButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
@@ -291,6 +334,80 @@
         nucleo2Audio.addEventListener('ended', () => {
             nucleo2Mp3Button.classList.remove('reproduciendo');
             iniciarMusicaFondoNucleo2();
+        });
+        nucleo2AudioCancion2.addEventListener('ended', () => {
+            nucleo2Mp3Button.classList.remove('reproduciendo');
+            iniciarMusicaFondoNucleo2();
+        });
+
+        const nucleo2BotonHumano = document.querySelector('#nucleo2BotonHumano');
+        const nucleo2BotonIA = document.querySelector('#nucleo2BotonIA');
+        const nucleo2Mayoria = document.querySelector('.nucleo2-mayoria');
+        const nucleo2Cancion2 = document.querySelector('#nucleo2Cancion2');
+
+        nucleo2Cancion2.setAttribute('role', 'button');
+        nucleo2Cancion2.setAttribute('tabindex', '0');
+        nucleo2Cancion2.setAttribute('aria-label', 'Reproducir canción 2');
+        nucleo2Cancion2.addEventListener('click', toggleNucleo2Audio);
+        nucleo2Cancion2.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleNucleo2Audio();
+            }
+        });
+
+        function actualizarNucleo2Resultado(eleccion) {
+            // Se considera que la canción es generada por IA: quien vota "es IA"
+            // la reconoció (forma parte de la minoría), quien vota "es humano"
+            // no la reconoció (forma parte de la mayoría).
+            const esMinoria = eleccion === 'ia';
+            window.nucleo2ResultadoFinal = esMinoria ? 'MINORÍA' : 'MAYORÍA';
+
+            const tituloResultado = document.querySelector('#nucleo2TituloResultado');
+            if (tituloResultado) {
+                tituloResultado.textContent = window.nucleo2ResultadoFinal;
+            }
+
+            const waveChart = document.querySelector('#nucleo2WaveChart');
+            if (waveChart) {
+                waveChart.dataset.activo = esMinoria ? '3' : '1';
+            }
+        }
+
+        function irANucleo2Encuesta(eleccion) {
+            nucleo2Audio.pause();
+            nucleo2AudioCancion2.pause();
+            nucleo2Mp3Button.classList.remove('reproduciendo');
+            iniciarMusicaFondoNucleo2();
+
+            if (nucleo2Ronda === 1) {
+                // Votó la canción 1: pasa a la canción 2 pero se queda bloqueado.
+                nucleo2Ronda = 2;
+                nucleo2Cancion2.classList.add('visible');
+                bloquearVistaNucleo2();
+                nucleo2Votos.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            // Votó la canción 2: recién ahí se libera y va a la encuesta.
+            nucleo2Etapa = 2;
+            desbloquearVistaNucleo2();
+            actualizarNucleo2Resultado(eleccion);
+            nucleo2Mayoria.classList.add('visible');
+            nucleo2Mayoria.setAttribute('aria-hidden', 'false');
+            nucleo2Mayoria.dataset.eleccion = eleccion;
+            nucleo2Mayoria.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        nucleo2BotonHumano.addEventListener('click', () => irANucleo2Encuesta('humano'));
+        nucleo2BotonIA.addEventListener('click', () => irANucleo2Encuesta('ia'));
+        [nucleo2BotonHumano, nucleo2BotonIA].forEach((boton) => {
+            boton.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    boton.click();
+                }
+            });
         });
 
         function pintarNucleo2Estado() {
@@ -426,8 +543,13 @@
                     nucleo2TituloResultado.textContent = zona.dataset.zone === '3' ? 'MINORÍA' : 'MAYORÍA';
                 };
                 const desactivar = () => {
-                    delete nucleo2WaveChart.dataset.activo;
-                    nucleo2TituloResultado.textContent = 'MAYORÍA';
+                    const activoPorDefecto = window.nucleo2ResultadoFinal === 'MINORÍA' ? '3' : null;
+                    if (activoPorDefecto) {
+                        nucleo2WaveChart.dataset.activo = activoPorDefecto;
+                    } else {
+                        delete nucleo2WaveChart.dataset.activo;
+                    }
+                    nucleo2TituloResultado.textContent = window.nucleo2ResultadoFinal || 'MAYORÍA';
                 };
 
                 zona.addEventListener('mouseenter', activar);
