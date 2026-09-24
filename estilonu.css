@@ -191,7 +191,7 @@
   }
   .nota-musical-left-one {
     top: 45vh;
-    left: -15vw;
+    left: -10vw;
     width: 60px;
     transform: scaleX(-1);
     animation-name: nota-baila-invertida;
