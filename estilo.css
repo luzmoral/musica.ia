@@ -30,6 +30,7 @@ body {
 .contenido {
   position: relative;
   z-index: 1;
+  container-type: inline-size;
   min-height: 100vh;
   display: grid;
   grid-template-columns: minmax(190px, 30vw) minmax(320px, 1fr) minmax(190px, 29vw);
@@ -486,5 +487,24 @@ span{
 
   .onda-secundaria {
     left: 60%;
+  }
+}
+
+/* ============================================================
+   Todo el escritorio (desde donde termina la tablet en adelante:
+   notebooks de 1366/1440/1536/1600px, monitores de 1920px,
+   ultrawide, 2K, 4K...). Por debajo de 1920px de ancho el
+   contenedor mide lo mismo que antes (100% de la pantalla), así
+   que no cambia nada de lo que ya tenías. Recién al pasar los
+   1920px el contenedor se frena ahí y queda centrado, con las
+   columnas del grid midiendo cqw (relativo al contenedor, ya
+   frenado) en vez de vw (relativo a la pantalla real), para que
+   no se sigan agrandando ni desplazando en un monitor grande.
+   ============================================================ */
+@media (min-width: 1181px) {
+  .contenido {
+    max-width: 1920px;
+    margin-inline: auto;
+    grid-template-columns: minmax(190px, 30cqw) minmax(320px, 1fr) minmax(190px, 29cqw);
   }
 }
