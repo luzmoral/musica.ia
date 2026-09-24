@@ -191,7 +191,7 @@
   }
   .nota-musical-left-one {
     top: 45vh;
-    left: -10vw;
+    left: -50vw;
     width: 60px;
     transform: scaleX(-1);
     animation-name: nota-baila-invertida;
@@ -200,7 +200,7 @@
   .nota-musical-left-two {
     position: absolute;
     top: 28vh;
-    left: 60vw;
+    left: 90vw;
     width: 100px;
     animation-delay: -0.3s;
   }
@@ -640,8 +640,8 @@
     .onda-enlace { left: 85cqw; }
     .onda-enlace-copy { left: 80cqw; }
     .nota-musical-top { left: 68cqw; }
-    .nota-musical-left-one { left: 15cqw; }
-    .nota-musical-left-two { left: 20cqw; }
+    .nota-musical-left-one { left: 10vw; }
+    .nota-musical-left-two { left: 15vw; }
     .onda-musical { left: 83cqw; }
     .onda-musical-copy { left: 80cqw; }
     .content {
