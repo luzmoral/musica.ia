@@ -91,7 +91,7 @@
   }
   .cable-top {
     width: 500px; /* cambia el tamaño */
-    top: -140px; /* positivo = baja; negativo = sube */
+    top: -195px; /* positivo = baja; negativo = sube */
     left: 35vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
   }
   .cable-bottom {
@@ -121,10 +121,10 @@
   }
   .cable-line-button-copy {
     position: absolute;
-    top: 88px;
-    left: calc(48vw + 170px);
+    top: 26px;
+    left: calc(55vw + 180px);
     /* PROPORCIONES DE LA SEGUNDA IMAGEN: puedes cambiarla por separado */
-    width: 50px;
+    width: 60px;
     height: auto;
     transform: rotate(171deg); /* cambia 90deg por el ángulo que quieras */
   }
@@ -188,12 +188,6 @@
   .nota-musical {
     transform-origin: center bottom;
     animation: nota-baila 2.4s ease-in-out infinite;
-  }
-  .nota-musical-top {
-    top: 50px; /* aumenta para bajar; disminuye para subir */
-    left: 68vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
-    width: 100px; /* cambia el tamaño */
-    animation-delay: -0.8s;
   }
   .nota-musical-left-one {
     top: 45vh;
@@ -281,7 +275,7 @@
     z-index: 2;
     right: auto;
     left: 34vw; /* aumenta para mover a la derecha; disminuye para mover a la izquierda */
-    top: 25vh; /* aumenta para bajar; disminuye para subir */
+    top: 35vh; /* aumenta para bajar; disminuye para subir */
     width: min(48vw, 600px); /* cambia el ancho del bloque de contenido */
   }
   .row {
