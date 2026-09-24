@@ -31,6 +31,7 @@
     aspect-ratio: auto;
     background: transparent;
     border-radius: 0;
+    container-type: inline-size;
     position: relative;
     z-index: 1;
     overflow: hidden;
@@ -595,4 +596,38 @@
     .nota-musical-left-two {
       display: none;
     }
+  }
+
+  /* ============================================================
+     Todo el escritorio (desde donde termina la tablet en adelante:
+     notebooks de 1366/1440/1536/1600px, monitores de 1920px,
+     ultrawide, 2K, 4K...). Por debajo de 1920px .escena mide lo
+     mismo que antes (100% de la pantalla), no cambia nada de lo
+     que ya tenías probado. Recién al pasar los 1920px se frena
+     ahí y se centra: a partir de ese punto las posiciones
+     horizontales (antes en vw, relativas a la pantalla real)
+     pasan a cqw, relativas al ancho ya frenado del contenedor,
+     así quedan clavadas y no se siguen corriendo a los costados.
+     ============================================================ */
+  @media (min-width: 1181px) {
+    .escena {
+      max-width: 1920px;
+      margin-inline: auto;
+    }
+
+    .cable-top { left: 35cqw; }
+    .cable-bottom { left: 80cqw; }
+    .cable-line-button-copy { left: calc(48cqw + 170px); }
+    .onda-enlace { left: 85cqw; }
+    .onda-enlace-copy { left: 80cqw; }
+    .nota-musical-top { left: 68cqw; }
+    .nota-musical-left-one { left: 15cqw; }
+    .nota-musical-left-two { left: 20cqw; }
+    .onda-musical { left: 83cqw; }
+    .onda-musical-copy { left: 80cqw; }
+    .content {
+      left: 34cqw;
+      width: min(48cqw, 600px);
+    }
+    .controls { transform: translateX(2cqw); }
   }
