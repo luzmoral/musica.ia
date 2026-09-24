@@ -293,12 +293,12 @@ body.nucleo2-scroll-bloqueado {
 .nucleo2-votos {
   position: absolute;
   top: 229px;
-  right: -24vw;
+  right: -24.2vw;
   z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 2px;
   width: min(45vw, 500px);
   pointer-events: none;
 }
@@ -312,7 +312,7 @@ body.nucleo2-scroll-bloqueado {
 
 .nucleo2-voto-boton:hover,
 .nucleo2-voto-boton:focus-visible {
-  transform: translateY(-4px) scale(1.06);
+  transform: translateY(-3px) scale(1.06);
   filter: drop-shadow(0 0 12px rgba(255, 60, 172, 0.75));
   outline: none;
 }
@@ -328,7 +328,7 @@ body.nucleo2-scroll-bloqueado {
 }
 
 .nucleo2-cancion2 {
-  top: 26px;
+  top: 21px;
   right: -18vw;
   width: min(22vw, 285px);
   z-index: 1;
