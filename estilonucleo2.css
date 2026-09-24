@@ -1012,3 +1012,51 @@ body.nucleo2-scroll-bloqueado {
 .nucleo2-wave-chart[data-activo="3"] .nucleo2-wave-caption[data-caption="3"] {
   opacity: 1;
 }
+
+/* ============================================================
+   Todo el escritorio (desde donde termina la tablet en adelante:
+   notebooks de 1366/1440/1536/1600px, monitores de 1920px,
+   ultrawide, 2K, 4K...). Por debajo de 1920px .escena mide lo
+   mismo que antes (100% de la pantalla), no cambia nada de lo
+   que ya tenías probado. Recién al pasar los 1920px se frena ahí
+   y se centra: las posiciones horizontales que estaban en vw
+   (relativas a la pantalla real) pasan a cqw (relativas al ancho
+   ya frenado del contenedor), así quedan clavadas y no se siguen
+   corriendo hacia los costados en un monitor grande.
+   Los "top"/alturas en vh se dejan igual a propósito: como esta
+   página es una historia que se scrollea (.escena mide 255vh),
+   esos valores ya escalan de forma consistente entre sí sin
+   importar el ancho de pantalla.
+   ============================================================ */
+@media (min-width: 1181px) {
+  .escena {
+    max-width: 1920px;
+    margin-inline: auto;
+  }
+
+  .nucleo2-title { left: 34cqw; }
+  .nucleo2-aura { left: 6cqw; }
+  .nucleo2-auricular2 { left: 1cqw; }
+  .nucleo2-auricular2-copia { right: 3cqw; }
+  .nucleo2-auricular-texto { left: 2cqw; }
+  .nucleo2-player { left: 31cqw; }
+  .nucleo2-card { left: 34cqw; }
+  .nucleo2-instruccion { left: 8cqw; }
+  .nucleo2-robot { right: -56cqw; }
+  .nucleo2-nota-uno { left: 25cqw; }
+  .nucleo2-nota-dos { right: -29cqw; }
+  .nucleo2-nota-tres { left: 20cqw; }
+  .nucleo2-votos { right: -24.2cqw; }
+  .nucleo2-mp3 { right: -27cqw; }
+  .nucleo2-cancion2 { right: -18vw; }
+  .nucleo2-mp3-texto { right: 30cqw; }
+  .nucleo2-play-nucleo2 { right: -4cqw; left: 36.4cqw; }
+  .nucleo2-cancion-player { right: -22cqw; }
+  .nucleo2-titulo-instruccion { left: -5cqw; }
+  .nucleo2-instruccion p { left: -5cqw; }
+  .nucleo2-mayoria {
+    left: 5cqw;
+    gap: 4cqw;
+    width: 90cqw;
+  }
+}
