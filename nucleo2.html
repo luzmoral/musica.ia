@@ -261,6 +261,7 @@
 
         nucleo2MusicFondo.loop = true;
         nucleo2MusicFondo.volume = 0.35;
+        nucleo2MusicFondo.autoplay = true;
 
         function iniciarMusicaFondoNucleo2() {
             if (nucleo2MusicFondo.paused) {
@@ -273,6 +274,11 @@
                 nucleo2MusicFondo.pause();
             }
         }
+
+        window.addEventListener('DOMContentLoaded', iniciarMusicaFondoNucleo2, { once: true });
+        window.addEventListener('pointerdown', iniciarMusicaFondoNucleo2, { once: true });
+        window.addEventListener('keydown', iniciarMusicaFondoNucleo2, { once: true });
+        iniciarMusicaFondoNucleo2();
 
         function obtenerNucleo2AudioActual() {
             return nucleo2Ronda === 2 ? nucleo2AudioCancion2 : nucleo2Audio;
