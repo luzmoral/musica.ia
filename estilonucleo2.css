@@ -210,8 +210,8 @@ body.nucleo2-scroll-bloqueado {
 /*titulo*/
 .nucleo2-instruccion {
   position: absolute;
-  top: 90vh;
-  left: 8vw;
+  top: 89vh;
+  left: 10vw;
   z-index: 3;
   width: min(50vw, 550px);
   min-height: 450px;
@@ -226,9 +226,9 @@ body.nucleo2-scroll-bloqueado {
 }
 /*imagen robot*/
 .nucleo2-robot {
-  top: 40px;
-  right: -56vw;
-  width: min(70vw, 550px);
+  top: 10px;
+  right: -30vw;
+  width: min(100vw, 600px);
 }
 
 .nucleo2-cable {
