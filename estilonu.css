@@ -147,11 +147,11 @@
     top: 0; /* mantiene la oreja en la posición original de la decoración */
   }
     .oreja-enlace {
-      position: absolute;
+      position: relative;
       z-index: 3;
       width: 105px;
       height: auto;
-      left: 50%;
+      left: 60%;
       top: 0; /* la oreja tiene su propio enlace y queda visible arriba de la onda */
       transform: translateX(18%);
       cursor: pointer;
@@ -167,8 +167,8 @@
     .texto-oreja {
       position: absolute;
       z-index: 3;
-      left: 50%;
-      top: calc(100% + 130px);
+      left: 95%;
+      top: calc(-10% + 130px);
       transform: translateX(-20%);
       color: #f7f1ff;
       font-size: 12px;
@@ -191,15 +191,16 @@
   }
   .nota-musical-left-one {
     top: 45vh;
-    left: 15vw;
+    left: -15vw;
     width: 60px;
     transform: scaleX(-1);
     animation-name: nota-baila-invertida;
     animation-delay: -1.5s;
   }
   .nota-musical-left-two {
+    position: absolute;
     top: 28vh;
-    left: 20vw;
+    left: 60vw;
     width: 100px;
     animation-delay: -0.3s;
   }
@@ -216,13 +217,13 @@
   .onda-musical {
     position: absolute;
     display: block;
-    width: 255px;
+    width: 310px;
     top: 0;
     left: 83vw;
   }
   .onda-musical-copy {
     top: 2px;
-    left: 80vw;
+    left: 100vw;
     width: 105px;
     transform: rotate(90deg);
     transform-origin: center;
@@ -391,15 +392,29 @@
     width: auto;
     transition: filter 0.2s ease, transform 0.2s ease;
   }
-  .buttons img:hover,
-  .buttons .play img:hover {
+  .buttons button:not(.play) img:hover {
     filter: brightness(1.2) saturate(1.5) sepia(0.5) hue-rotate(-18deg);
     transform: scale(1.05);
   }
   /*boton play*/
+  .buttons .play {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    width: 100px;
+    min-width: 100px;
+    height: 100px;
+    min-height: 100px;
+    visibility: visible;
+    opacity: 1;
+  }
   .buttons .play img {
-    height: 90px;
-    width: auto;
+    display: block;
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+    visibility: visible;
+    opacity: 1;
   }
 
   /* ---------- Tamaño individual del ícono por paso ---------- */
@@ -408,33 +423,43 @@
   .icono[data-paso="1"] img {
     width: 120%;
     height: 80%;
-    left: 5%;
-    top: 30%;
+    left: -5%;
+    top: 40%;
   }
   .icono[data-paso="2"] img {
+    position: relative;
     width: 120%;
     height: 90%;
-    top: 60%;
-    left: 25%;
+    top: 30%;
+    left: -10%;
   }
   .icono[data-paso="3"] img {
-    width: 120%;
+    position: relative;
+    width: 100%;
     height: 70%;
-    top: 20%;
+    top: 30%;
+    left: -10%;
   }
   .icono[data-paso="4"] img {
-    width: 120%;
-    height: 70%;
-    top: 50%;
+     position: relative;
+    width: 150%;
+    height: 90%;
+    top: 30%;
+    left: -15%;
   }
   .icono[data-paso="5"] img {
+    position: relative;
     width: 70%;
     height: 70%;
+    top: 30%;
+    left: -35%;
   }
   .icono[data-paso="6"] img {
+     position: relative;
     width: 120%;
     height: 70%;
-    top: 50%;
+    top: 30%;
+    left: -15%;
   }
 
   @media (min-width: 761px) and (max-width: 1180px) {
