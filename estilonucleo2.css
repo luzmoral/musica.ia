@@ -290,21 +290,151 @@ body.nucleo2-scroll-bloqueado {
   50% { transform: scaleX(-1) rotate(8deg) translateY(-8px); }
 }
 
-.nucleo2-votos {
+/* ---- Reproductor MP3 (canción 1 / canción 2) ----
+   Todo lo que va dentro (onda, play, barra y botones) se posiciona en % del
+   reproductor, así se escala junto con la imagen. */
+.nucleo2-mp3-zona {
+  --nucleo2-mp3-ancho: min(43vw, 64vh, 825px);
   position: absolute;
-  top: 229px;
-  right: -24.2vw;
+  top: 70px;
+  left: calc(40.4vw - var(--nucleo2-mp3-ancho) / 2);
   z-index: 5;
+  width: var(--nucleo2-mp3-ancho);
+  pointer-events: none;
+}
+
+.nucleo2-mp3-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 737 / 1032;
+  pointer-events: auto;
+}
+
+.nucleo2-mp3-img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+  transition: opacity 0.4s ease, filter 0.2s ease;
+}
+
+/* canción 2: aparece encima cuando se vota la canción 1 */
+.nucleo2-cancion2 {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nucleo2-cancion2.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nucleo2-mp3-player.ronda2 .nucleo2-mp3-img:not(.nucleo2-cancion2) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nucleo2-mp3-player.reproduciendo .nucleo2-mp3-img {
+  filter: drop-shadow(0 0 18px rgba(99, 240, 255, 0.95));
+}
+
+/* onda de barritas, debajo del título de la canción */
+.nucleo2-ondas {
+  position: absolute;
+  top: 20.3%;
+  left: 31.5%;
+  z-index: 3;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 2px;
-  width: min(45vw, 500px);
+  justify-content: space-between;
+  width: 37%;
+  height: 7.2%;
+  pointer-events: none;
+}
+
+.nucleo2-ondas span {
+  flex: 0 0 1.6%;
+  height: var(--altura, 50%);
+  border-radius: 999px;
+  background: #ea3ec4;
+  transform: scaleY(1);
+  animation: nucleo2-onda 1.1s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+.nucleo2-mp3-player.reproduciendo .nucleo2-ondas span {
+  animation-play-state: running;
+}
+
+@keyframes nucleo2-onda {
+  0% { transform: scaleY(0.35); }
+  100% { transform: scaleY(1); }
+}
+
+/* play + barra de progreso, en la parte baja de la pantalla negra */
+.nucleo2-play-nucleo2 {
+  position: absolute;
+  top: 31.5%;
+  left: 29.8%;
+  z-index: 4;
+  width: 10.8%;
+  height: auto;
+  pointer-events: auto;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.nucleo2-play-nucleo2:hover,
+.nucleo2-play-nucleo2:focus-visible {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
+  transform: translate(-50%, -50%) scale(1.1);
+  outline: none;
+}
+
+.nucleo2-progreso {
+  position: absolute;
+  top: 31.5%;
+  left: 37.6%;
+  z-index: 3;
+  width: 37%;
+  height: 0.9%;
+  border-radius: 999px;
+  background: #fff;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.nucleo2-progreso-relleno {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff3cac, #64e9df);
+  box-shadow: 0 0 6px rgba(255, 60, 172, 0.8);
+  transition: width 0.25s linear;
+}
+
+/* botones HUMANO / IA: dentro de la franja violeta del mp3 */
+.nucleo2-votos {
+  position: absolute;
+  top: 41.4%;
+  left: 22.5%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 55%;
+  transform: translateY(-50%);
   pointer-events: none;
 }
 
 .nucleo2-voto-boton {
-  width: min(11vw, 120px);
+  width: 49%;
+  height: auto;
   pointer-events: auto;
   cursor: pointer;
   transition: transform 0.2s ease, filter 0.2s ease;
@@ -312,40 +442,9 @@ body.nucleo2-scroll-bloqueado {
 
 .nucleo2-voto-boton:hover,
 .nucleo2-voto-boton:focus-visible {
-  transform: translateY(-3px) scale(1.06);
-  filter: drop-shadow(0 0 12px rgba(255, 60, 172, 0.75));
+  transform: translateY(-2px) scale(1.05);
+  filter: drop-shadow(0 0 10px rgba(255, 60, 172, 0.75));
   outline: none;
-}
-
-.nucleo2-mp3 {
-  top: -80px;
-  right: -27vw;
-  width: min(50vw, 590px);
-  pointer-events: auto;
-  cursor: pointer;
-  transform: rotate(0deg);
-  transition: transform 0.2s ease, filter 0.2s ease;
-}
-
-.nucleo2-cancion2 {
-  top: 21px;
-  right: -18vw;
-  width: min(22vw, 285px);
-  z-index: 1;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-
-.nucleo2-cancion2.visible {
-  z-index: 2;
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.nucleo2-mp3.reproduciendo {
-  filter: drop-shadow(0 0 18px rgba(99, 240, 255, 0.95));
-  transform: rotate(0deg);
 }
 
 .nucleo2-mp3-texto {
@@ -367,17 +466,6 @@ body.nucleo2-scroll-bloqueado {
     0 0 14px rgba(255, 156, 36, 0.9);
   pointer-events: auto;
   cursor: pointer;
-}
-
-.nucleo2-play-nucleo2 {
-  top: 155px;
-  right: -4vw;
-  z-index: 3;
-  left: 36.4vw;
-  width: min(3vw, 50px);
-  pointer-events: auto;
-  cursor: pointer;
-  filter: drop-shadow(0 0 12px rgba(255,255,255,0.28));
 }
 
 .nucleo2-cancion-player {
@@ -455,12 +543,13 @@ body.nucleo2-scroll-bloqueado {
 .nucleo2-instruccion p {
   position: relative;
   z-index: 2;
-  margin: 18px 0 0;
+  width: calc(100% + 100px); /* más ancho que la sección para que entre en 2 líneas */
+  margin: 18px 0 0 -50px;
   top: -80px;
   left: -5vw;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  font-size: clamp(13px, 1.3vw, 19px);
+  font-size: clamp(16px, 1.7vw, 24px);
   line-height: 1.7;
   text-align: center;
 }
@@ -742,27 +831,11 @@ body.nucleo2-scroll-bloqueado {
     width: 38px;
   }
 
-  .nucleo2-mp3 {
-    top: 20px;
-    right: -3vw;
-    width: min(78vw, 480px);
-  }
-
-  .nucleo2-cancion2 {
-    top: 44px;
-    right: 3.5vw;
-    width: min(35vw, 220px);
-  }
-
-  .nucleo2-votos {
-    top: -70px;
-    right: -3vw;
-    width: min(78vw, 480px);
-    gap: 14px;
-  }
-
-  .nucleo2-voto-boton {
-    width: min(26vw, 110px);
+  .nucleo2-mp3-zona {
+    --nucleo2-mp3-ancho: min(66vw, 300px);
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .nucleo2-cancion-player {
@@ -776,8 +849,9 @@ body.nucleo2-scroll-bloqueado {
   }
 
   .nucleo2-instruccion p {
-    margin-top: 12px;
-    font-size: 12px;
+    width: calc(100% + 10vw);
+    margin: 12px 0 0 -5vw;
+    font-size: 14px;
     line-height: 1.5;
   }
 
@@ -871,21 +945,9 @@ body.nucleo2-scroll-bloqueado {
     width: min(58vw, 460px);
   }
 
-  .nucleo2-mp3 {
-    right: -20vw;
-    width: min(48vw, 500px);
-  }
-
-  .nucleo2-cancion2 {
-    top: -10px;
-    right: -13vw;
-    width: min(21vw, 220px);
-  }
-
-  .nucleo2-votos {
-    right: -20vw;
-    width: min(48vw, 500px);
-    top: -160px;
+  .nucleo2-mp3-zona {
+    --nucleo2-mp3-ancho: min(46vw, 60vh, 460px);
+    left: calc(42.4vw - var(--nucleo2-mp3-ancho) / 2);
   }
 
   .nucleo2-cancion-player {
@@ -1046,11 +1108,8 @@ body.nucleo2-scroll-bloqueado {
   .nucleo2-nota-uno { left: 25cqw; }
   .nucleo2-nota-dos { right: -29cqw; }
   .nucleo2-nota-tres { left: 20cqw; }
-  .nucleo2-votos { right: -24.2cqw; }
-  .nucleo2-mp3 { right: -27cqw; }
-  .nucleo2-cancion2 { right: -18vw; }
+  .nucleo2-mp3-zona { left: calc(40.4cqw - var(--nucleo2-mp3-ancho) / 2); }
   .nucleo2-mp3-texto { right: 30cqw; }
-  .nucleo2-play-nucleo2 { right: -4cqw; left: 36.4cqw; }
   .nucleo2-cancion-player { right: -22cqw; }
   .nucleo2-titulo-instruccion { left: -5cqw; }
   .nucleo2-instruccion p { left: -5cqw; }
