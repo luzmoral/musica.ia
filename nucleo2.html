@@ -51,16 +51,24 @@
             <img class="nucleo2-decoracion nucleo2-nota-uno" src="imagenes/notamusical2.png" alt="">
             <img class="nucleo2-decoracion nucleo2-nota-dos" src="imagenes/notamsucial.png" alt="">
             <img class="nucleo2-decoracion nucleo2-nota-tres" src="imagenes/notamusical2.png" alt="">
-            <div class="nucleo2-votos" id="nucleo2Votos">
-                <img class="nucleo2-voto-boton" id="nucleo2BotonHumano" src="imagenes/boton humano.png" alt="Voto: es humano" role="button" tabindex="0">
-                <img class="nucleo2-voto-boton" id="nucleo2BotonIA" src="imagenes/boton IA.png" alt="Voto: es IA" role="button" tabindex="0">
+            <div class="nucleo2-mp3-zona">
+                <div class="nucleo2-mp3-player" id="nucleo2Mp3Player">
+                    <img class="nucleo2-mp3-img" id="nucleo2Mp3Button" src="imagenes/reproductornuevo1.png" alt="Reproductor: canción 1">
+                    <img class="nucleo2-mp3-img nucleo2-cancion2" id="nucleo2Cancion2" src="imagenes/reproductornuevo2.png" alt="">
+                    <div class="nucleo2-ondas" id="nucleo2Ondas" aria-hidden="true"></div>
+                    <img class="nucleo2-play-nucleo2" id="nucleo2PlayButton" src="imagenes/playnucleo2.png" alt="Reproducir canción" role="button" tabindex="0">
+                    <div class="nucleo2-progreso" id="nucleo2Progreso" aria-hidden="true">
+                        <span class="nucleo2-progreso-relleno" id="nucleo2ProgresoRelleno"></span>
+                    </div>
+                    <div class="nucleo2-votos" id="nucleo2Votos">
+                        <img class="nucleo2-voto-boton" id="nucleo2BotonHumano" src="imagenes/boton humano.png" alt="Voto: es humano" role="button" tabindex="0">
+                        <img class="nucleo2-voto-boton" id="nucleo2BotonIA" src="imagenes/boton IA.png" alt="Voto: es IA" role="button" tabindex="0">
+                    </div>
+                </div>
             </div>
-            <img class="nucleo2-decoracion nucleo2-mp3" id="nucleo2Mp3Button" src="imagenes/reproductornuevo.png" alt="">
-            <img class="nucleo2-decoracion nucleo2-mp3 nucleo2-cancion2" id="nucleo2Cancion2" src="imagenes/cancion2.png" alt="">
             <a href="nucleo1.html" class="nucleo2-mp3-link" aria-label="Volver al núcleo 1">
                 <h4 class="nucleo2-mp3-texto">¿Cómo se hace?</h4>
             </a>
-            <img class="nucleo2-decoracion nucleo2-play-nucleo2" id="nucleo2PlayButton" src="imagenes/playderecho.png" alt="Reproducir Livin on Borrowed Time" role="button" tabindex="0">
             <button class="nucleo2-titulo-instruccion" id="nucleo2TituloInstruccion" type="button">¡PROBÁ TU OÍDO!</button>
             <p id="nucleo2MensajeInstruccion">¿Crees que sos capaz de distinguir <br>si una canción es IA?</p>
         </section>
@@ -139,6 +147,8 @@
         const nucleo2TituloInstruccion = document.querySelector('#nucleo2TituloInstruccion');
         const nucleo2MensajeInstruccion = document.querySelector('#nucleo2MensajeInstruccion');
         const nucleo2Mp3Button = document.querySelector('#nucleo2Mp3Button');
+        const nucleo2Mp3Player = document.querySelector('#nucleo2Mp3Player');
+        const nucleo2ProgresoRelleno = document.querySelector('#nucleo2ProgresoRelleno');
         const nucleo2PlayButton = document.querySelector('#nucleo2PlayButton');
         const nucleo2Votos = document.querySelector('#nucleo2Votos');
         const nucleo2Audio = new Audio('musica/Livin on Borrowed Time.mp3');
@@ -284,15 +294,53 @@
             return nucleo2Ronda === 2 ? nucleo2AudioCancion2 : nucleo2Audio;
         }
 
+        // Barritas de la onda (decorativas): se mueven mientras suena la canción
+        const nucleo2Ondas = document.querySelector('#nucleo2Ondas');
+        for (let i = 0; i < 32; i += 1) {
+            const barra = document.createElement('span');
+            const envolvente = 0.45 + 0.55 * Math.sin((i / 31) * Math.PI);
+            const alturaBase = Math.round(100 * envolvente * (0.45 + 0.55 * Math.abs(Math.sin(i * 1.9 + 0.7))));
+            barra.style.setProperty('--altura', Math.max(18, alturaBase) + '%');
+            barra.style.animationDelay = (-(i * 0.137) % 1.1).toFixed(2) + 's';
+            nucleo2Ondas.appendChild(barra);
+        }
+
+        function actualizarProgresoNucleo2() {
+            const audioActual = obtenerNucleo2AudioActual();
+            const duracion = audioActual.duration;
+            const porcentaje = duracion > 0 && isFinite(duracion)
+                ? Math.min(100, (audioActual.currentTime / duracion) * 100)
+                : 0;
+            nucleo2ProgresoRelleno.style.width = porcentaje + '%';
+        }
+
+        [nucleo2Audio, nucleo2AudioCancion2].forEach((audio) => {
+            audio.addEventListener('timeupdate', actualizarProgresoNucleo2);
+            audio.addEventListener('loadedmetadata', actualizarProgresoNucleo2);
+        });
+
+        // El botón cambia a "pausa" mientras suena y vuelve a "play" al pausar o terminar
+        function pintarBotonPlayNucleo2() {
+            const sonando = !nucleo2Audio.paused || !nucleo2AudioCancion2.paused;
+            nucleo2PlayButton.src = sonando ? 'imagenes/pausanucleo2.png' : 'imagenes/playnucleo2.png';
+            nucleo2PlayButton.alt = sonando ? 'Pausar canción' : 'Reproducir canción';
+        }
+
+        [nucleo2Audio, nucleo2AudioCancion2].forEach((audio) => {
+            audio.addEventListener('play', pintarBotonPlayNucleo2);
+            audio.addEventListener('pause', pintarBotonPlayNucleo2);
+            audio.addEventListener('ended', pintarBotonPlayNucleo2);
+        });
+
         const toggleNucleo2Audio = () => {
             const audioActual = obtenerNucleo2AudioActual();
             if (audioActual.paused) {
                 pausarMusicaFondoNucleo2();
                 audioActual.play().catch(() => {});
-                nucleo2Mp3Button.classList.add('reproduciendo');
+                nucleo2Mp3Player.classList.add('reproduciendo');
             } else {
                 audioActual.pause();
-                nucleo2Mp3Button.classList.remove('reproduciendo');
+                nucleo2Mp3Player.classList.remove('reproduciendo');
                 iniciarMusicaFondoNucleo2();
             }
         };
@@ -321,8 +369,8 @@
             }
         });
 
-        const mensajeInicialInstruccion = '¿Crees que sos capaz de distinguir <br>si una canción es IA?';
-        const mensajeActivoInstruccion = '¡Reproducí la canción para comprobar a qué<br>porcentaje de los resultados perteneces!';
+        let mensajeInicialInstruccion = '¿Crees que sos capaz de distinguir <br>si una canción es IA?';
+        let mensajeActivoInstruccion = '¡Reproducí la canción para comprobar a qué<br>porcentaje de los resultados perteneces!';
 
         nucleo2TituloInstruccion.addEventListener('mouseenter', () => {
             nucleo2MensajeInstruccion.innerHTML = mensajeActivoInstruccion;
@@ -338,11 +386,11 @@
         });
 
         nucleo2Audio.addEventListener('ended', () => {
-            nucleo2Mp3Button.classList.remove('reproduciendo');
+            nucleo2Mp3Player.classList.remove('reproduciendo');
             iniciarMusicaFondoNucleo2();
         });
         nucleo2AudioCancion2.addEventListener('ended', () => {
-            nucleo2Mp3Button.classList.remove('reproduciendo');
+            nucleo2Mp3Player.classList.remove('reproduciendo');
             iniciarMusicaFondoNucleo2();
         });
 
@@ -383,13 +431,19 @@
         function irANucleo2Encuesta(eleccion) {
             nucleo2Audio.pause();
             nucleo2AudioCancion2.pause();
-            nucleo2Mp3Button.classList.remove('reproduciendo');
+            nucleo2Mp3Player.classList.remove('reproduciendo');
             iniciarMusicaFondoNucleo2();
 
             if (nucleo2Ronda === 1) {
                 // Votó la canción 1: pasa a la canción 2 pero se queda bloqueado.
                 nucleo2Ronda = 2;
                 nucleo2Cancion2.classList.add('visible');
+                nucleo2Mp3Player.classList.add('ronda2');
+                actualizarProgresoNucleo2();
+                // El texto de la instrucción cambia para la segunda canción
+                mensajeInicialInstruccion = 'Ahora escuchá e identificá<br>esta nueva canción';
+                mensajeActivoInstruccion = mensajeInicialInstruccion;
+                nucleo2MensajeInstruccion.innerHTML = mensajeInicialInstruccion;
                 bloquearVistaNucleo2();
                 nucleo2Votos.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
